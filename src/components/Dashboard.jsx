@@ -4,10 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import { supabase } from '../Essentials/Supabase';
-import Navlinks from './Navlinks';
-import ToRead from './modes/ToRead';
-import Currently from './modes/Currently';
-import Done from './modes/Done';
 
 export default function Dashboard() {
     const [showSidebar, setShowSidebar] = useState(false);
@@ -52,26 +48,8 @@ export default function Dashboard() {
 
   return (
   <>
-    <div className='w-full h-full absolute mt-[5rem]'>
-        <div className='flex flex-col p-2'>
-            <h1 className='text-white text-2xl mb-1 font-sans'>Welcome back, {username ? username : ''}!</h1>
-            <Navlinks setToReadMode={setToReadMode} setCurrentMode={setCurrentMode} setDoneMode={setDoneMode}/>
-        </div>
-        <div className='p-2'>
-            {books && (
-                <>
-                    {toReadMode && (
-                        <ToRead books={books}/>
-                    )}
-                    {currentMode && (
-                        <Currently books={books}/>
-                    )}
-                    {doneMode && (
-                        <Done books={books}/>
-                    )}
-                </>
-            )}
-        </div>
+    <div className='w-full h-[5rem] absolute top-[5rem]'>
+        <h1>Put your Dashboard Component here</h1>
     </div>
     <Navbar toggleSideBar={toggleSideBar} dpLink={dpLink}/>
     <Sidebar shown={showSidebar} toggleSideBar={toggleSideBar}/>
