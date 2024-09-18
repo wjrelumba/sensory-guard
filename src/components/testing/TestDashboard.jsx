@@ -10,19 +10,22 @@ export default function TestDashboard() {
   const [tempFirst, setTempFirst] = useState(null);
   const [tempSecond, setTempSecond] = useState(null);
 
+  const [humidFirst, setHumidFirst] = useState(null);
+  const [humidSecond, setHumidSecond] = useState(null);
+
   const sendData = async(e) => {
     e.preventDefault();
     await supabase.from('readings').insert({
       proto_id: '4718a148-0f82-401a-af9e-79bb66b9fe4f',
       temperature: tempFirst,
-      humidity: 20,
+      humidity: humidFirst,
       vibration: 1,
       smoke_gas: 2,
     });
     await supabase.from('readings').insert({
       proto_id: '84af9f58-26c9-453a-8c16-d8358579c221',
       temperature: tempSecond,
-      humidity: 20,
+      humidity: humidSecond,
       vibration: 1,
       smoke_gas: 2,
     });
@@ -32,10 +35,16 @@ export default function TestDashboard() {
   const inputHandler = (e) => {
     const {name,value} = e.target;
     switch(name){
-      case 'sensor1':
+      case 'sensor1temp':
         setTempFirst(value);
         break;
-      case 'sensor2':
+      case 'sensor1humid':
+        setHumidFirst(value);
+        break;
+      case 'sensor2humid':
+        setHumidSecond(value);
+        break;
+      case 'sensor2temp':
         setTempSecond(value);
         break;
     }
@@ -53,10 +62,14 @@ export default function TestDashboard() {
       </h1>
       <form className='w-full flex flex-col' onSubmit={sendData}>
         <h1>Thermal Sensor 1</h1>
-        <input onChange={inputHandler} className='py-2 px-1 rounded-md' type="text" name='sensor1'/>
+        <input onChange={inputHandler} className='py-2 px-1 rounded-md' type="text" name='sensor1temp'/>
+        <h1>Humidity Sensor 1</h1>
+        <input onChange={inputHandler} className='py-2 px-1 rounded-md' type="text" name='sensor1humid'/>
         <h1>Thermal Sensor 2</h1>
-        <input onChange={inputHandler} className='py-2 px-1 rounded-md' type="text" name='sensor2'/>
-        <button>Send data</button>
+        <input onChange={inputHandler} className='py-2 px-1 rounded-md' type="text" name='sensor2temp'/>
+        <h1>Humidity Sensor 2</h1>
+        <input onChange={inputHandler} className='py-2 px-1 rounded-md' type="text" name='sensor2humid'/>
+        <button className='bg-green-600 mt-10 py-2 rounded-md'>Send data</button>
       </form>
     </div>
   </>
