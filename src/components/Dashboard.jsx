@@ -20,13 +20,14 @@ export default function Dashboard() {
     };
 
     const getImportantData = async() => {
+      console.log('run');
       const {data:readings} = await supabase.from('readings').select();
       const {data:importantValues} = await supabase.from('prototypes').select();
       if(readings){
         setDataValues(readings);
       }
       if(importantValues){
-        setImpDataValues(importantValues[0]);
+        setImpDataValues(importantValues);
       }
     }
 
@@ -50,7 +51,10 @@ export default function Dashboard() {
           event: 'INSERT',
           schema: 'public',
           table: 'readings'
-        }, (payload) => getImportantData()).subscribe();
+        }, (payload) => {
+          getImportantData()
+          console.log(payload);
+        }).subscribe();
 
         return () => {
           supabase.removeChannel(subscription);
@@ -64,7 +68,7 @@ export default function Dashboard() {
   return (
   <>
     <div className='w-full absolute top-[5rem]'>
-        <div className='w-full h-full flex gap-1 p-2'>
+        <div className='w-full h-full flex flex-col gap-1 p-2'>
           {dataValues && impDataValues && (
             <>
               <GeneralSensorCard 
