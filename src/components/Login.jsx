@@ -74,6 +74,7 @@ export default function Login() {
             <button className='flex justify-center px-3 py-2 bg-gray-600 w-1/2 ml-1 rounded-md border-green-300 border text-green-300'>Login</button>
           </div>
         </form>
+        <Link className='mt-10' to={'/test/dashboard'}>Testing Dashboard</Link>
       </div>
     </div>
   )
