@@ -1,9 +1,9 @@
-import Dashboard from "./components/Dashboard";
-import Homepage from "./components/Homepage";
-import Login from "./components/Login";
-import NotFound from "./components/NotFound";
-import Signup from "./components/Signup";
 import TestDashboard from "./components/testing/TestDashboard";
+import Dashboard from "./Pages/Dashboard";
+import Homepage from "./Pages/Homepage";
+import Login from "./Pages/Login";
+import NotFound from "./Pages/NotFound";
+import Signup from "./Pages/Signup";
 
 export const Pages = {
     Homepage,

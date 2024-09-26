@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import LogOutBtn from './buttons/LogOutBtn';
+import LogOutBtn from '../../buttons/LogOutBtn';
 import { Link } from 'react-router-dom';
 
 export default function Sidebar({shown,toggleSideBar}) {

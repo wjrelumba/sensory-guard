@@ -13,7 +13,9 @@ function App() {
         <Route path='/dashboard' element={<Pages.Dashboard/>}/>
 
         {/* Testing pages here */}
-        <Route path='/test/dashboard' element={<TestPages.TestDashboard/>}/>
+        <Route path='/test'>
+          <Route path='dashboard' element={<TestPages.TestDashboard/>}/>
+        </Route>
       </Routes>
     </>
   )

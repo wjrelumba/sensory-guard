@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { showErrorToast } from '../Essentials/ShowToast';
 import { useNavigate } from 'react-router-dom';
-import Sidebar from './Sidebar';
-import Navbar from './Navbar';
+import Sidebar from '../components/shared-components/Sidebar/Sidebar';
+import Navbar from '../components/shared-components/Navbar/Navbar';
 import { supabase } from '../Essentials/Supabase';
-import GeneralSensorCard from './shared-components/Gauges/GeneralSensorCard/GeneralSensorCard';
+import GeneralSensorCard from '../components/shared-components/Gauges/GeneralSensorCard/GeneralSensorCard';
 
 export default function Dashboard() {
     const [showSidebar, setShowSidebar] = useState(false);
