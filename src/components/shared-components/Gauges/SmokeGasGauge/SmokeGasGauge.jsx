@@ -1,15 +1,16 @@
 import React from 'react'
 import GaugeComponent from 'react-gauge-component'
 
-export default function TemperatureGauge( {
-    allowed_temperature, // Allowed temperature
-    temperature, // Temperature reading
+export default function SmokeGasGauge( {
+    allowed_smoke_gas, // Allowed Smoke and Gas
+    smokeGas, // Smoke gas reading
+    parentClassname, // Classname for parent div
 } ) {
   return (
-    <div className='w-full'>
+    <div className={parentClassname}>
         <div className='grid grid-cols-2 items-center'>
-            <h1 className='text-xs'>Temperature</h1>
-            <h1 className={`text-xs ${(temperature > allowed_temperature && temperature < allowed_temperature + 5) ? 'text-yellow-400' : temperature > allowed_temperature ? 'text-red-400' : 'text-blue-400'}`}>{(temperature > allowed_temperature && temperature < allowed_temperature + 5) ? 'High' : temperature > allowed_temperature ? 'Danger' : 'Normal'}</h1>
+            <h1 className='text-xs'>Smoke/Gas</h1>
+            <h1 className={`text-xs text-white rounded-md p-1 text-center ${smokeGas > allowed_smoke_gas ? 'bg-red-600' : 'bg-yellow-600'}`}>{smokeGas > allowed_smoke_gas ? 'Detected' : 'Undetected'}</h1>
         </div>
         <GaugeComponent
             type='radial'
@@ -19,24 +20,17 @@ export default function TemperatureGauge( {
             cornerRadius: 1,
             subArcs: [
                 {
-                limit: allowed_temperature,
-                color: '#00a2ff',
+                limit: allowed_smoke_gas,
+                color: '#F5CD19',
                 // showTick: true,
                 tooltip: {
-                    text: 'Allowed Temperature'
+                    text: 'No Smoke and Gas'
                 },
-                },
-                {
-                limit: allowed_temperature + 5,
-                color: '#F5CD19',
-                tooltip: {
-                    text: 'Too high temperature!'
-                }
                 },
                 {
                 color: '#ff0000',
                 tooltip: {
-                    text: 'Danger Zone!'
+                    text: 'Smoke/Gas Detected'
                 }
                 }
             ]
@@ -50,7 +44,7 @@ export default function TemperatureGauge( {
             }}
             labels={{
             valueLabel: { 
-                formatTextValue: value => value + 'ºC',
+                formatTextValue: value => value,
                 style: {
                 fontSize: "50px",
                 color: "#808080",
@@ -61,14 +55,14 @@ export default function TemperatureGauge( {
             //     type: 'outer',
             //     valueConfig: { formatTextValue: value => value + 'ºC', fontSize: 3 },
             //     ticks: [
-            //     { value: allowed_temperature },
-            //     { value: (allowed_temperature + 5) },
+            //     { value: allowed_smoke_gas },
+            //     { value: (allowed_smoke_gas + 5) },
             //     ],
             // }
             }}
-            value={temperature ? temperature : 0}
-            minValue={10}
-            maxValue={37}
+            value={smokeGas ? smokeGas : 0}
+            minValue={0}
+            maxValue={2}
         />
     </div>
   )

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import { supabase } from '../Essentials/Supabase';
-import GeneralSensorCard from './shared-components/GeneralSensorCard/GeneralSensorCard';
+import GeneralSensorCard from './shared-components/Gauges/GeneralSensorCard/GeneralSensorCard';
 
 export default function Dashboard() {
     const [showSidebar, setShowSidebar] = useState(false);
@@ -54,6 +54,13 @@ export default function Dashboard() {
         }, (payload) => {
           getImportantData()
           console.log(payload);
+        }).on('postgres_changes', {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'readings',
+        }, (payload) => {
+          getImportantData()
+          console.log(payload);
         }).subscribe();
 
         return () => {
@@ -67,7 +74,7 @@ export default function Dashboard() {
     },[dataValues, impDataValues])
   return (
   <>
-    <div className='w-full absolute top-[5rem]'>
+    <div className='w-full max-w-full absolute top-[5rem]'>
         <div className='w-full h-full flex flex-col gap-1 p-2'>
           {dataValues && impDataValues && (
             <>

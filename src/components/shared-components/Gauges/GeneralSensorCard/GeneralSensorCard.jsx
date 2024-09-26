@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import TemperatureGauge from '../TemperatureGauge/TemperatureGauge';
-import HumidityGauge from '../HumidityGauge/HumidityGauge';
+import { Gauges } from '../Gauge';
 
 export default function GeneralSensorCard( {
   prototypeId, // Current prototype ID
@@ -9,6 +8,8 @@ export default function GeneralSensorCard( {
 } ) {
   const [dataValues, setDataValues] = useState(null);
   const [importantDataValues, setImportantDataValues] = useState(null);
+
+  const parentClassname = 'w-full bg-gray-700 rounded-xl p-2';
 
   const getDataValues = () => {
     const dataValueChild = readingValues?.filter(value => value.proto_id === prototypeId); // Get only data for specific prototype
@@ -32,9 +33,27 @@ export default function GeneralSensorCard( {
           {dataValues && importantDataValues && (
             <>
               <h1 className='border-b py-1 border-black w-full mb-4'>{importantDataValues.proto_name}</h1>
-              <div className='grid grid-cols-2 w-full justify-items-center items-center'>
-                <TemperatureGauge allowed_temperature={importantDataValues.allowed_temperature} temperature={dataValues.temperature} />
-                <HumidityGauge allowed_humidity={importantDataValues.allowed_humidity} humidity={dataValues.humidity} />
+              <div className='grid grid-cols-2 w-full justify-items-center items-center gap-1'>
+                <Gauges.TemperatureGauge
+                allowed_temperature={importantDataValues.allowed_temperature} 
+                temperature={dataValues.temperature}
+                parentClassname={parentClassname}
+                />
+                <Gauges.HumidityGauge 
+                allowed_humidity={importantDataValues.allowed_humidity} 
+                humidity={dataValues.humidity}
+                parentClassname={parentClassname}
+                />
+                <Gauges.SmokeGasGauge
+                allowed_smoke_gas={importantDataValues.allowed_smoke_gas}
+                smokeGas={dataValues.smoke_gas}
+                parentClassname={parentClassname}
+                />
+                <Gauges.VibrationGauge
+                allow_vibration={importantDataValues.allowed_vibration}
+                vibration={dataValues.vibration}
+                parentClassname={parentClassname}
+                />
               </div>
             </>
           )}

@@ -2,14 +2,15 @@ import React from 'react'
 import GaugeComponent from 'react-gauge-component'
 
 export default function HumidityGauge( {
-    allowed_humidity, // Allowed temperature
-    humidity, // Temperature reading
+    allowed_humidity, // Allowed humidity
+    humidity, // Humidity reading
+    parentClassname, // Classname of Parent div
 } ) {
   return (
-    <div className='w-full'>
+    <div className={parentClassname}>
         <div className='grid grid-cols-2 items-center'>
             <h1 className='text-xs'>Humidity</h1>
-            <h1 className={`text-xs ${(humidity > allowed_humidity && humidity < allowed_humidity + 5) ? 'text-orange-400' : humidity > allowed_humidity ? 'text-red-400' : 'text-yellow-400'}`}>{(humidity > allowed_humidity && humidity < allowed_humidity + 5) ? 'High' : humidity > allowed_humidity ? 'Danger' : 'Normal'}</h1>
+            <h1 className={`text-xs text-white rounded-md p-1 text-center ${(humidity > allowed_humidity && humidity < allowed_humidity + 5) ? 'bg-orange-600' : humidity > allowed_humidity ? 'bg-red-400' : 'bg-yellow-400'}`}>{(humidity > allowed_humidity && humidity < allowed_humidity + 5) ? 'High' : humidity > allowed_humidity ? 'Danger' : 'Normal'}</h1>
         </div>
         <GaugeComponent
             type='radial'
