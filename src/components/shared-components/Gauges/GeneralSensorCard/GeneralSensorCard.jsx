@@ -38,21 +38,35 @@ export default function GeneralSensorCard( {
                 allowed_temperature={importantDataValues.allowed_temperature} 
                 temperature={dataValues.temperature}
                 parentClassname={parentClassname}
+                firstLimitText='Allowed Temperature'
+                secondLimitText='Too High Temperature!'
+                thirdLimitText='Danger Zone!'
+                gaugeType='radial'
                 />
                 <Gauges.HumidityGauge 
                 allowed_humidity={importantDataValues.allowed_humidity} 
                 humidity={dataValues.humidity}
                 parentClassname={parentClassname}
+                firstLimitText='Allowed Humidity'
+                secondLimitText='Too High Humidity!'
+                thirdLimitText='Danger Zone!'
+                gaugeType='radial'
                 />
                 <Gauges.SmokeGasGauge
                 allowed_smoke_gas={importantDataValues.allowed_smoke_gas}
                 smokeGas={dataValues.smoke_gas}
                 parentClassname={parentClassname}
+                firstLimitText='No Smoke and Gas'
+                secondLimitText='Smoke and Gas Detected'
+                gaugeType='radial'
                 />
                 <Gauges.VibrationGauge
                 allow_vibration={importantDataValues.allowed_vibration}
                 vibration={dataValues.vibration}
                 parentClassname={parentClassname}
+                firstLimitText='No Vibration'
+                secondLimitText='Vibration Detected'
+                gaugeType='radial'
                 />
               </div>
             </>

@@ -5,6 +5,14 @@ export default function SmokeGasGauge( {
     allowed_smoke_gas, // Allowed Smoke and Gas
     smokeGas, // Smoke gas reading
     parentClassname, // Classname for parent div
+    maximumValue = 2, // Gauge's maximum value
+    minimunValue = 0, // Gauge's minimum value
+    firstLimitText = 'Normal', // The message on the first limit
+    secondLimitText = 'High', // The message on the second limit
+    thirdLimitText = null, // The message on the third limit
+    gaugeType = 'radial', // Determines the gauge type
+    textSize = '50px', // Determine the size of the text
+    colorFill = '#d5d5d5', // Set the color of the text
 } ) {
   return (
     <div className={parentClassname}>
@@ -13,24 +21,23 @@ export default function SmokeGasGauge( {
             <h1 className={`text-xs text-white rounded-md p-1 text-center ${smokeGas > allowed_smoke_gas ? 'bg-red-600' : 'bg-yellow-600'}`}>{smokeGas > allowed_smoke_gas ? 'Detected' : 'Undetected'}</h1>
         </div>
         <GaugeComponent
-            type='radial'
+            type={gaugeType}
             arc={{
-            width: 0.15,
-            padding: 0.02,
-            cornerRadius: 1,
+            width: 0.2,
+            cornerRadius: 3,
             subArcs: [
                 {
                 limit: allowed_smoke_gas,
                 color: '#F5CD19',
                 // showTick: true,
                 tooltip: {
-                    text: 'No Smoke and Gas'
+                    text: firstLimitText
                 },
                 },
                 {
                 color: '#ff0000',
                 tooltip: {
-                    text: 'Smoke/Gas Detected'
+                    text: secondLimitText
                 }
                 }
             ]
@@ -44,25 +51,20 @@ export default function SmokeGasGauge( {
             }}
             labels={{
             valueLabel: { 
-                formatTextValue: value => value,
+                formatTextValue: value => '',
                 style: {
-                fontSize: "50px",
+                fontSize: textSize,
                 color: "#808080",
-                fill: "#d5d5d5", 
+                fill: colorFill, 
                 }
             },
-            // tickLabels: {
-            //     type: 'outer',
-            //     valueConfig: { formatTextValue: value => value + 'ºC', fontSize: 3 },
-            //     ticks: [
-            //     { value: allowed_smoke_gas },
-            //     { value: (allowed_smoke_gas + 5) },
-            //     ],
-            // }
+            tickLabels: {
+                hideMinMax: true,
+            }
             }}
-            value={smokeGas ? smokeGas : 0}
-            minValue={0}
-            maxValue={2}
+            value={smokeGas ? smokeGas - 0.5 : 0}
+            minValue={minimunValue}
+            maxValue={maximumValue}
         />
     </div>
   )

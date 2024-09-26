@@ -5,6 +5,14 @@ export default function VibrationGauge( {
     allow_vibration, // Allowed vibration
     vibration, // Vibration reading
     parentClassname, // Classname of parent div
+    maximumValue = 2, // Gauge's maximum value
+    minimunValue = 0, // Gauge's minimum value
+    firstLimitText = 'Normal', // The message on the first limit
+    secondLimitText = 'High', // The message on the second limit
+    thirdLimitText = null, // The message on the third limit
+    gaugeType = 'radial', // Determines the gauge type
+    textSize = '50px', // Determine the size of the text
+    colorFill = '#d5d5d5', // Set the color of the text
 } ) {
   return (
     <div className={parentClassname}>
@@ -13,24 +21,23 @@ export default function VibrationGauge( {
             <h1 className={`text-xs text-white rounded-md p-1 text-center ${vibration > allow_vibration ? 'bg-red-600' : 'bg-yellow-600'}`}>{vibration > allow_vibration ? 'Detected' : 'Undetected'}</h1>
         </div>
         <GaugeComponent
-            type='radial'
+            type={gaugeType}
             arc={{
-            width: 0.15,
-            padding: 0.02,
-            cornerRadius: 1,
+            width: 0.2,
+            cornerRadius: 3,
             subArcs: [
                 {
                 limit: allow_vibration,
                 color: '#F5CD19',
                 // showTick: true,
                 tooltip: {
-                    text: 'No Vibration'
+                    text: firstLimitText
                 },
                 },
                 {
                 color: '#ff0000',
                 tooltip: {
-                    text: 'Vibration Detected!'
+                    text: secondLimitText
                 }
                 }
             ]
@@ -44,25 +51,20 @@ export default function VibrationGauge( {
             }}
             labels={{
             valueLabel: { 
-                formatTextValue: value => value,
+                formatTextValue: value => '',
                 style: {
-                fontSize: "50px",
+                fontSize: textSize,
                 color: "#808080",
-                fill: "#d5d5d5", 
+                fill: colorFill, 
                 }
             },
-            // tickLabels: {
-            //     type: 'outer',
-            //     valueConfig: { formatTextValue: value => value + 'ºC', fontSize: 3 },
-            //     ticks: [
-            //     { value: allow_vibration },
-            //     { value: (allow_vibration + 5) },
-            //     ],
-            // }
+            tickLabels: {
+                hideMinMax: true,
+            }
             }}
-            value={vibration ? vibration : 0}
-            minValue={0}
-            maxValue={2}
+            value={vibration ? vibration - 0.5 : 0}
+            minValue={minimunValue}
+            maxValue={maximumValue}
         />
     </div>
   )
