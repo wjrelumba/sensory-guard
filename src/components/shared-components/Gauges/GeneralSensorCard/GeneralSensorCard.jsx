@@ -33,7 +33,7 @@ export default function GeneralSensorCard( {
           {dataValues && importantDataValues && (
             <>
               <h1 className='border-b py-1 border-black w-full mb-4'>{importantDataValues.proto_name}</h1>
-              <div className='grid grid-cols-2 w-full justify-items-center items-center gap-1'>
+              <div className='grid grid-cols-2 sm:grid-cols-4 w-full justify-items-center items-center gap-1'>
                 <Gauges.TemperatureGauge
                 allowed_temperature={importantDataValues.allowed_temperature} 
                 temperature={dataValues.temperature}
