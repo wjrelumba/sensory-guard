@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import GeneralCard from '../shared-components/GeneralCard/GeneralCard'
 import { supabase } from '../../Essentials/Supabase';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../shared-components/Loader/Loader';
 
 export default function DashboardSensors() {
     const navigate = useNavigate();
     const [showSidebar, setShowSidebar] = useState(false);
     const [dpLink, setDpLink] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     const [dataValues, setDataValues] = useState(null); // Values for readings
     const [impDataValues, setImpDataValues] = useState(null); // Important Values such as Prototype ID, allowable temps and humidity, etc.
@@ -20,6 +22,7 @@ export default function DashboardSensors() {
         if(importantValues){
           setImpDataValues(importantValues);
         }
+        setIsLoading(false);
       }
   
       const getUserSession = async() => {
@@ -64,20 +67,26 @@ export default function DashboardSensors() {
     },[]);
   return (
     <div className='grid grid-rows-2 gap-3 w-full'>
-        <GeneralCard
-        onClick={navigator}
-        key={'4718a148-0f82-401a-af9e-79bb66b9fe4f'}
-        prototypeId={'4718a148-0f82-401a-af9e-79bb66b9fe4f'}
-        readingValues={dataValues}
-        prototypeImportantValues={impDataValues}
-        />
-        <GeneralCard
-        onClick={navigator}
-        key={'84af9f58-26c9-453a-8c16-d8358579c221'}
-        prototypeId={'84af9f58-26c9-453a-8c16-d8358579c221'}
-        readingValues={dataValues}
-        prototypeImportantValues={impDataValues}
-        />
+        {isLoading ? (
+          <Loader/>
+        ) : (
+          <>
+            <GeneralCard
+            onClick={navigator}
+            key={'4718a148-0f82-401a-af9e-79bb66b9fe4f'}
+            prototypeId={'4718a148-0f82-401a-af9e-79bb66b9fe4f'}
+            readingValues={dataValues}
+            prototypeImportantValues={impDataValues}
+            />
+            <GeneralCard
+            onClick={navigator}
+            key={'84af9f58-26c9-453a-8c16-d8358579c221'}
+            prototypeId={'84af9f58-26c9-453a-8c16-d8358579c221'}
+            readingValues={dataValues}
+            prototypeImportantValues={impDataValues}
+            />
+          </>
+        )}
     </div>
   )
 }

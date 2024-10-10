@@ -63,11 +63,11 @@ export default function Login() {
         <form onSubmit={signInWithEmail} className='slide-up-fade-in w-full flex justify-center flex-col items-center'>
           <div className='w-[75%] flex flex-col items-start justify-between px-2'>
             <label className='text-gray-600 font-mono text-xl' htmlFor="email">Email:</label>
-            <input onChange={inputHandler} name='email' className='px-2 py-1 rounded-md w-full' type="email" />
+            <input onChange={inputHandler} name='email' className='px-2 py-1 rounded-md w-full' type="email" required/>
           </div>
           <div className='w-[75%] flex flex-col items-start justify-between px-2'>
             <label className='text-gray-600 font-mono text-xl' htmlFor="password">Password</label>
-            <input onChange={inputHandler} name='password' className='px-2 py-1 rounded-md w-full' type="password" />
+            <input onChange={inputHandler} name='password' className='px-2 py-1 rounded-md w-full' type="password" required/>
           </div>
           <div className='w-[75%] flex justify-between px-2 mt-2'>
             <Link to={'/'} className='flex justify-center px-3 py-2 bg-gray-600 text-red-300 border-red-300 border w-1/2 mr-1 rounded-md'>Cancel</Link>
