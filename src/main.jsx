@@ -4,14 +4,13 @@ import App from './App.jsx'
 import './App.css'
 import './index.css'
 import 'react-toastify/dist/ReactToastify.css';
-import { BrowserRouter } from 'react-router-dom'
+import { RouterProvider } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
+import router from './assets/Router.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ToastContainer/>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <RouterProvider router={router}/>
   </StrictMode>,
 )
