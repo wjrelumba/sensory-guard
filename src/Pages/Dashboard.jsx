@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { showErrorToast } from '../Essentials/ShowToast';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Sidebar from '../components/shared-components/Sidebar/Sidebar';
 import Navbar from '../components/shared-components/Navbar/Navbar';
 import { supabase } from '../Essentials/Supabase';
@@ -52,19 +52,19 @@ export default function Dashboard() {
           schema: 'public',
           table: 'readings'
         }, (payload) => {
-          getImportantData()
+          getImportantData();
           console.log(payload);
         }).on('postgres_changes', {
           event: 'UPDATE',
           schema: 'public',
           table: 'readings',
         }, (payload) => {
-          getImportantData()
+          getImportantData();
           console.log(payload);
         }).subscribe();
 
         return () => {
-          supabase.removeChannel(subscription);
+          subscription.unsubscribe();
         }
     },[]);
 
@@ -76,7 +76,8 @@ export default function Dashboard() {
   <>
     <div className='w-full max-w-full absolute top-[5rem]'>
         <div className='w-full h-full flex flex-col gap-1 p-2'>
-          {dataValues && impDataValues && (
+        <Outlet/>
+          {/* {dataValues && impDataValues && (
             <>
               <GeneralSensorCard 
               key={'4718a148-0f82-401a-af9e-79bb66b9fe4f'}
@@ -92,7 +93,7 @@ export default function Dashboard() {
               prototypeImportantValues={impDataValues}
               />
             </>
-          )}
+          )} */}
         </div>
     </div>
     <Navbar toggleSideBar={toggleSideBar} dpLink={dpLink}/>

@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Pages, { TestPages } from "../pages";
+import Pages, { DashboardPages, TestPages } from "../pages";
 
 const router = createBrowserRouter([{
   path: '/',
@@ -15,7 +15,14 @@ const router = createBrowserRouter([{
 },
 {
   path: '/dashboard',
-  element: <Pages.Dashboard/>
+  element: <Pages.Dashboard/>,
+  children: [{
+    path: '',
+    element: <DashboardPages.DashboardSensors/>
+  },{
+    path: 'prototype',
+    element: <Pages.IndividualPrototype/>
+  }]
 },
 {
   path: '/test',

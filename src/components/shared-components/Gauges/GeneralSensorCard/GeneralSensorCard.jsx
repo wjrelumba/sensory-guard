@@ -15,8 +15,10 @@ export default function GeneralSensorCard( {
     const dataValueChild = readingValues?.filter(value => value.proto_id === prototypeId); // Get only data for specific prototype
     const importantDataValueChild = prototypeImportantValues?.filter(value => value.id === prototypeId) // Get only important data for specific prototype
 
-    setDataValues(dataValueChild[dataValueChild.length-1]);
-    setImportantDataValues(importantDataValueChild[0]);
+    if(dataValueChild && importantDataValueChild){
+      setDataValues(dataValueChild[dataValueChild.length-1]);
+      setImportantDataValues(importantDataValueChild[0]);
+    }
   }
 
   useEffect(() => {
