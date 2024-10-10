@@ -66,7 +66,7 @@ export default function DashboardSensors() {
         }
     },[]);
   return (
-    <div className='grid grid-rows-2 gap-3 w-full'>
+    <div className='grid grid-rows-2 gap-2 w-full'>
         {isLoading ? (
           <Loader/>
         ) : (

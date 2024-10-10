@@ -25,7 +25,7 @@ export default function GeneralCard( {
 
   const statusSetter = (data, allowed_data, type, classNameMode, normalColor, warningColor, dangerColor) => {
     if(type == 'temperature' || type == 'humidity'){
-        if(data < allowed_data){
+        if(data <= allowed_data){
             if(classNameMode){
                 return normalColor;
             }
@@ -88,7 +88,7 @@ export default function GeneralCard( {
   useEffect(() => {console.log(dataValues)},[dataValues]);
   
   return (
-    <div onClick={() => onClick(importantDataValues.id)} className='w-full p-2 bg-gray-600 text-gray-300 rounded-xl'>
+    <div onClick={() => onClick(importantDataValues.id)} className='w-full p-2 bg-gray-600 text-gray-300 rounded-md'>
       <div className='w-full p-2 flex'>
         <div className='flex flex-col items-center w-full'>
           {dataValues && importantDataValues && (
