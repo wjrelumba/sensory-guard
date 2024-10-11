@@ -3,6 +3,7 @@ import GeneralCard from '../shared-components/GeneralCard/GeneralCard'
 import { supabase } from '../../Essentials/Supabase';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../shared-components/Loader/Loader';
+import Chart from '../shared-components/Chart/Chart';
 
 export default function DashboardSensors() {
     const navigate = useNavigate();
@@ -85,6 +86,7 @@ export default function DashboardSensors() {
             readingValues={dataValues}
             prototypeImportantValues={impDataValues}
             />
+            <Chart/>
           </>
         )}
     </div>
