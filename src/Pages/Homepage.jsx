@@ -29,9 +29,12 @@ export default function Homepage() {
           <div className='w-[20rem] h-[20rem] mt-5'>
             <img className='object-contain w-full h-full' src="./channels4_profile-removebg-preview.png" alt="" />
           </div>
-          <h1 className='text-gray-600 p-2 text-2xl font-mono mb-5'>SensoryGuard</h1>
+          <div className='w-full flex justify-center items-center gap-0'>
+             <h1 className='text-gray-800 text-3xl mb-5'>Sensory</h1>
+             <h1 className='text-blue-600 text-3xl mb-5'>Guard</h1>
+          </div>
             <div className='flex flex-col items-center justify-center w-full'>
-              <Link className='flex justify-center border-[2px] border-gray-900 px-3 py-2 bg-gray-400 rounded-md text-white font-mono w-[50%] mb-1' to={'/login'}>Login</Link>
+              <Link className='reddit-sans-condensed flex justify-center border-[2px] border-gray-900 px-3 py-1 bg-blue-600 rounded-md text-white w-[50%] mb-1' to={'/login'}>Login</Link>
               {/* <Link className='flex justify-center border-[2px] border-blue-400 px-3 py-2 bg-gray-900 rounded-md text-white w-[75%] mt-1' to={'/signup'}>Signup</Link> */}
             </div>
         </div>

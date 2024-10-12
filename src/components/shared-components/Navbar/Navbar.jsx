@@ -22,7 +22,7 @@ export default function Navbar({
     };
   },[location])
   return (
-    <div className='absolute w-full p-2 bg-gray-400 h-[5rem] grid grid-cols-3'>
+    <div className='absolute w-full p-2 h-[5rem] grid grid-cols-3'>
         <div className='w-full h-full flex items-center'>
             <button onClick={backMode ? backBtn : toggleSideBar } className='p-[0.1rem] text-gray-600'>
                 {/* <img src={dpLink ? dpLink: '/profileIcon.jpg'} className='w-[2.5rem] h-[2.5rem] rounded-full' alt="" /> */}
@@ -34,7 +34,10 @@ export default function Navbar({
             </button>
         </div>
         <div className='w-full h-full flex justify-center items-center'>
-            <h1 className='text-gray-700 text-xl'>SensoryGuard</h1>
+          <div className='w-full flex justify-center items-center'>
+            <h1 className='text-gray-700 text-2xl'>Sensory</h1>
+            <h1 className='text-blue-600 text-2xl'>Guard</h1>
+          </div>
             {/* <img src="/BookKeep-img-noBg.png" className='w-[3.5rem] h-[3.5rem]' alt="" /> */}
         </div>
     </div>

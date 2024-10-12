@@ -7,8 +7,6 @@ import Chart from '../shared-components/Chart/Chart';
 
 export default function DashboardSensors() {
     const navigate = useNavigate();
-    const [showSidebar, setShowSidebar] = useState(false);
-    const [dpLink, setDpLink] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
     const [dataValues, setDataValues] = useState(null); // Values for readings
@@ -52,14 +50,12 @@ export default function DashboardSensors() {
           table: 'readings'
         }, (payload) => {
           getImportantData();
-          console.log(payload);
         }).on('postgres_changes', {
           event: 'UPDATE',
           schema: 'public',
           table: 'readings',
         }, (payload) => {
           getImportantData();
-          console.log(payload);
         }).subscribe();
 
         return () => {
@@ -71,7 +67,8 @@ export default function DashboardSensors() {
         {isLoading ? (
           <Loader/>
         ) : (
-          <>
+          <div className='flex flex-col gap-2'>
+            <h1 className='text-xl text-gray-800'>Prototype</h1>
             <GeneralCard
             onClick={navigator}
             key={'4718a148-0f82-401a-af9e-79bb66b9fe4f'}
@@ -87,7 +84,7 @@ export default function DashboardSensors() {
             prototypeImportantValues={impDataValues}
             />
             <Chart/>
-          </>
+          </div>
         )}
     </div>
   )

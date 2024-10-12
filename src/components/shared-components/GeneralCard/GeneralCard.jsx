@@ -94,11 +94,16 @@ export default function GeneralCard( {
           {dataValues && importantDataValues && (
             <>
               <h1 className='border-b py-1 border-black w-full mb-4'>{importantDataValues.proto_name}</h1>
-              <div className='grid grid-row-4 sm:grid-cols-4 w-full justify-items-center items-center gap-1'>
-                {renderer('Temperature', 'temperature', 'allowed_temperature', 'bg-blue-600', 'bg-yellow-600', 'bg-red-600')}
-                {renderer('Humidity', 'humidity', 'allowed_humidity', 'bg-yellow-600', 'bg-orange-600', 'bg-red-600')}
-                {renderer('Smoke/Gas', 'smoke_gas', 'allowed_smoke_gas', 'bg-yellow-600', 'bg-red-600')}
-                {renderer('Vibration', 'vibration', 'allowed_vibration', 'bg-yellow-600', 'bg-red-600')}
+              <div className='grid grid-cols-2 sm:grid-cols-4 w-full justify-items-center items-center'>
+                <div>
+                  <h1>Icon</h1>
+                </div>
+                <div className='grid grid-row-4 sm:grid-cols-4 w-full justify-items-center items-center gap-1'>
+                  {renderer('Temperature', 'temperature', 'allowed_temperature', 'bg-blue-600', 'bg-yellow-600', 'bg-red-600')}
+                  {renderer('Humidity', 'humidity', 'allowed_humidity', 'bg-yellow-600', 'bg-orange-600', 'bg-red-600')}
+                  {renderer('Smoke/Gas', 'smoke_gas', 'allowed_smoke_gas', 'bg-yellow-600', 'bg-red-600')}
+                  {renderer('Vibration', 'vibration', 'allowed_vibration', 'bg-yellow-600', 'bg-red-600')}
+                </div>
               </div>
             </>
           )}
