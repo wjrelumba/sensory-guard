@@ -74,7 +74,8 @@ export default function Dashboard() {
     },[dataValues, impDataValues])
   return (
   <>
-    <div className='w-full max-w-full absolute top-[5rem]'>
+    <div className='w-full max-w-full absolute top-0'>
+      <Navbar toggleSideBar={toggleSideBar} dpLink={dpLink}/>
         <div className='w-full h-full flex flex-col gap-1 p-2'>
         <Outlet/>
           {/* {dataValues && impDataValues && (
@@ -96,7 +97,6 @@ export default function Dashboard() {
           )} */}
         </div>
     </div>
-    <Navbar toggleSideBar={toggleSideBar} dpLink={dpLink}/>
     <Sidebar shown={showSidebar} toggleSideBar={toggleSideBar}/>
   </>
   )

@@ -15,14 +15,17 @@ export default function Navbar({
   }
 
   useEffect(() => {
-    if(location.pathname !== '/dashboard'){
-      setBackMode(true);
-    }else{
+    if(location.pathname === '/dashboard' || 
+      location.pathname === '/dashboard/control' ||
+      location.pathname === '/dashboard/history' ||
+      location.pathname === '/dashboard/accounts'){
       setBackMode(false);
+    }else{
+      setBackMode(true);
     };
   },[location])
   return (
-    <div className='absolute w-full p-2 h-[5rem] grid grid-cols-3'>
+    <div className='sticky top-0 bg-white w-full p-2 h-[5rem] grid grid-cols-3'>
         <div className='w-full h-full flex items-center'>
             <button onClick={backMode ? backBtn : toggleSideBar } className='p-[0.1rem] text-gray-600'>
                 {/* <img src={dpLink ? dpLink: '/profileIcon.jpg'} className='w-[2.5rem] h-[2.5rem] rounded-full' alt="" /> */}

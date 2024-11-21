@@ -68,7 +68,7 @@ export default function DashboardSensors() {
           <Loader/>
         ) : (
           <div className='flex flex-col gap-2'>
-            <h1 className='text-xl text-gray-800'>Prototype</h1>
+            <h1 className='text-xl text-gray-800'>Prototypes</h1>
             <GeneralCard
             onClick={navigator}
             key={'4718a148-0f82-401a-af9e-79bb66b9fe4f'}

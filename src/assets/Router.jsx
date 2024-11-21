@@ -22,7 +22,16 @@ const router = createBrowserRouter([{
   },{
     path: 'prototype',
     element: <Pages.IndividualPrototype/>
-  }]
+  },{
+    path: 'control',
+    element: <Pages.Control/>,
+  },{
+    path: 'history',
+    element: <Pages.History/>,
+  },{
+    path: 'accounts',
+    element: <Pages.Accounts/>,
+  },]
 },
 {
   path: '/test',

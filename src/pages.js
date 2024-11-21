@@ -1,11 +1,14 @@
 import DashboardSensors from "./components/DashboardSensors/DashboardSensors";
 import TestDashboard from "./components/testing/TestDashboard";
+import Control from "./Pages/DashboardPages/Control";
 import Dashboard from "./Pages/Dashboard";
 import Homepage from "./Pages/Homepage";
 import IndividualPrototype from "./Pages/IndividualPrototype";
 import Login from "./Pages/Login";
 import NotFound from "./Pages/NotFound";
 import Signup from "./Pages/Signup";
+import History from "./Pages/DashboardPages/History";
+import Accounts from "./Pages/DashboardPages/Accounts";
 
 export const Pages = {
     Homepage,
@@ -14,6 +17,9 @@ export const Pages = {
     Signup,
     Dashboard,
     IndividualPrototype,
+    Control,
+    History,
+    Accounts,
 }
 
 export const DashboardPages = {
