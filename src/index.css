@@ -101,6 +101,7 @@ h5,
 h6,
 label,
 input,
+canvas,
 button {
   font-family: 'reddit-sans-condensed';
 }

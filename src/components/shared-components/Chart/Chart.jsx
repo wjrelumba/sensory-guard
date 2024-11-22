@@ -10,14 +10,14 @@ export default function Chart() {
             labels: ['January', 'February', 'March', 'April', 'May'],
             datasets: [{
                 label: 'Readings',
-                data: [12, 19, 18, 5, 2],
+                data: [14, 19, 18, 5, 2],
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1,
             }],
         };
 
-        const colorValue = 'rgba(216, 222, 225, 1)';
+        const colorValue = 'rgba(56, 56, 56, 1)';
     
         const optionValue = {
             scales: {
@@ -68,7 +68,7 @@ export default function Chart() {
 
     return (
         <div className="w-full">
-            <div className="w-full p-2 rounded-md bg-gray-600 text-gray-300">
+            <div className="w-full p-2 rounded-md from-white border-[2px] border-gray-300 shadow-xl to-blue-600 bg-gradient-to-b text-gray-900">
                 <canvas ref={chartRef} />
             </div>
         </div>

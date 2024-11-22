@@ -65,19 +65,21 @@ export default function Login() {
         <h1 className='text-gray-600 text-2xl mb-5'>Login</h1>
         <form onSubmit={signInWithEmail} className='slide-up-fade-in w-full flex justify-center flex-col items-center'>
           <div className='w-[75%] flex flex-col items-start justify-between px-2'>
-            <label className='text-gray-600 text-xl' htmlFor="email">Email:</label>
+            <label className='text-gray-600 text-xl' htmlFor="email">Email</label>
             <input onChange={inputHandler} name='email' className='px-2 py-1 rounded-md w-full border-[2px] border-blue-600' type="email" required/>
           </div>
           <div className='w-[75%] flex flex-col items-start justify-between px-2'>
             <label className='text-gray-600 text-xl' htmlFor="password">Password</label>
             <input onChange={inputHandler} name='password' className='px-2 py-1 rounded-md w-full border-[2px] border-blue-600  ' type="password" required/>
           </div>
+          <div className='w-[75%] px-2 flex'>
+            <button className='text-xs mt-1'>Can't remember? Forgot Password</button>
+          </div>
           <div className='w-[75%] flex justify-between px-2 mt-2'>
-            <Link to={'/'} className='reddit-sans-condensed flex justify-center px-3 py-2 bg-gray-800 text-red-300 border-red-300 border w-1/2 mr-1 rounded-md'>Cancel</Link>
-            <button className='flex justify-center px-3 py-2 bg-gray-800 w-1/2 ml-1 rounded-md border-green-300 border text-green-300'>Login</button>
+            <Link to={'/'} className='reddit-sans-condensed flex justify-center px-3 py-2 text-red-700 border-red-700 border w-1/2 mr-1 rounded-md'>Cancel</Link>
+            <button className='flex justify-center px-3 py-2 w-1/2 ml-1 rounded-md border-green-700 border text-green-700'>Login</button>
           </div>
         </form>
-        <button>Forgot Password</button>
         <Link className='mt-10' to={'/test/dashboard'}>Testing Dashboard</Link>
       </div>
     </div>

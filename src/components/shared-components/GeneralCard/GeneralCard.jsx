@@ -88,7 +88,7 @@ export default function GeneralCard( {
   useEffect(() => {console.log(dataValues)},[dataValues]);
   
   return (
-    <div onClick={() => onClick(importantDataValues.id)} className='w-full p-2 bg-gray-600 text-gray-300 rounded-md'>
+    <div onClick={() => onClick(importantDataValues.id)} className='w-full p-2 bg-white border-[2px] border-gray-300 shadow-xl text-gray-900 rounded-md'>
       <div className='w-full p-2 flex'>
         <div className='flex flex-col items-center w-full'>
           {dataValues && importantDataValues && (
