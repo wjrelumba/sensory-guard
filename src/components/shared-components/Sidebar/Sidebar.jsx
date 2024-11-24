@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import LogOutBtn from '../../buttons/LogOutBtn';
 import { Link, useLocation } from 'react-router-dom';
 
-export default function Sidebar({shown,toggleSideBar}) {
+export default function Sidebar({shown,toggleSideBar,email}) {
     const [hasLoaded, setHasLoaded] = useState(false);
     const location = useLocation();
 
@@ -45,7 +45,7 @@ export default function Sidebar({shown,toggleSideBar}) {
         };
     },[shown]);
   return (
-    <div className={`w-[70%] h-full top-0 bottom-0 bg-white fixed border-r-[2px] ${shown === false ? (hasLoaded ? 'slide-left-out' : 'ml-[-100%]') : 'slide-right'} px-5 flex flex-col`}>
+    <div className={`w-[70%] sm:w-[25%] h-full top-0 bottom-0 bg-white fixed border-r-[2px] ${shown === false ? (hasLoaded ? 'slide-left-out' : 'ml-[-100%]') : 'slide-right'} px-5 flex flex-col`}>
         <div className='w-full flex justify-end items-center px-2 border-b-[2px] border-gray-400 text-gray-600 h-[5rem]'>
             <svg onClick={toggleSideBar} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#000000" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         </div>
@@ -108,8 +108,17 @@ export default function Sidebar({shown,toggleSideBar}) {
                 </div>
             </Link>
         </div>
-        <div className='flex flex-col w-full items-start'>
-            <LogOutBtn btnClass={'w-full flex justify-start mt-5 border-b border-gray-400 text-gray-600'}/>
+        <div className='fixed bottom-10 flex flex-col gap-2 items-start'>
+            <div className='flex gap-1 text-blue-600'>
+                <div className='rounded-full bg-blue-600 flex justify-center items-center'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 24 24" fill="#fff" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </div>
+                <h1>{email}</h1>
+            </div>
+            <div className='flex gap-1 text-red-600'>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                <LogOutBtn btnClass={'w-full text-sm flex justify-start text-red-600'}/>
+            </div>
         </div>
         <div className='fixed bottom-0 mb-2'>
             <h1 className='font-thin text-xs text-gray-600'>&copy; ACEM, SensoryGuard 2024</h1>

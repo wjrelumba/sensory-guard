@@ -9,6 +9,7 @@ import GeneralSensorCard from '../components/shared-components/Gauges/GeneralSen
 export default function Dashboard() {
     const [showSidebar, setShowSidebar] = useState(false);
     const [dpLink, setDpLink] = useState(null);
+    const [email, setEmail] = useState(null);
 
     const [dataValues, setDataValues] = useState(null); // Values for readings
     const [impDataValues, setImpDataValues] = useState(null); // Important Values such as Prototype ID, allowable temps and humidity, etc.
@@ -35,6 +36,7 @@ export default function Dashboard() {
         try {
             const { data: { session } } = await supabase.auth.getSession();
             if(session) {
+                setEmail(session.user.email)
                 getImportantData();
             }else{
                 navigate('/');
@@ -97,7 +99,7 @@ export default function Dashboard() {
           )} */}
         </div>
     </div>
-    <Sidebar shown={showSidebar} toggleSideBar={toggleSideBar}/>
+    <Sidebar shown={showSidebar} toggleSideBar={toggleSideBar} email={email}/>
   </>
   )
 }

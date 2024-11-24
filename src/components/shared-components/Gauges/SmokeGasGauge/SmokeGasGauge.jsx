@@ -13,6 +13,7 @@ export default function SmokeGasGauge( {
     gaugeType = 'radial', // Determines the gauge type
     textSize = '50px', // Determine the size of the text
     colorFill = '#d5d5d5', // Set the color of the text
+    arrowColor = '#616161'
 } ) {
   return (
     <div className={parentClassname}>
@@ -44,7 +45,7 @@ export default function SmokeGasGauge( {
             }}
             pointer={{
             type: 'needle',
-            color: '#d5d5d5',
+            color: arrowColor,
             length: 0.70,
             width: 10,
             // elastic: true,

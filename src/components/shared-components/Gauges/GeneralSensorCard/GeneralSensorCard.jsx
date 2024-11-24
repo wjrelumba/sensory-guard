@@ -11,7 +11,7 @@ export default function GeneralSensorCard( {
   const [importantDataValues, setImportantDataValues] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const parentClassname = 'w-full bg-gray-700 rounded-xl p-2';
+  const parentClassname = 'w-full bg-white rounded-xl p-2 border-[2px] border-gray-300 shadow-lg';
 
   const getDataValues = () => {
     const dataValueChild = readingValues?.filter(value => value.proto_id === prototypeId); // Get only data for specific prototype
@@ -32,7 +32,7 @@ export default function GeneralSensorCard( {
   useEffect(() => {console.log(dataValues)},[dataValues]);
   
   return (
-    <div className='w-full p-2 bg-gray-600 text-gray-300 rounded-xl'>
+    <div className='w-full p-2 bg-white text-gray-900 rounded-xl'>
       <div className='w-full p-2 flex'>
         <div className='flex flex-col items-center w-full'>
           {isLoading ? (
