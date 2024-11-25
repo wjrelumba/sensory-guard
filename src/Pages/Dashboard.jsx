@@ -22,6 +22,15 @@ export default function Dashboard() {
 
     const getImportantData = async() => {
       console.log('run');
+
+      const nicoId = 'asdf';
+      const {data:nico} = await supabase.from('readings').select().eq('proto_id', '4718a148-0f82-401a-af9e-79bb66b9fe4f');
+
+      if(nico){
+        console.log('Nico data: ', nico);
+        console.log('Nico zero index data: ', nico[0]);
+        console.log('Nico zero index temperature data: ', nico[0].temperature);
+      }
       const {data:readings} = await supabase.from('readings').select();
       const {data:importantValues} = await supabase.from('prototypes').select();
       if(readings){
