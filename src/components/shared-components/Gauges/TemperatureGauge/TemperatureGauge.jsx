@@ -19,7 +19,7 @@ export default function TemperatureGauge( {
     <div className={parentClassname}>
         <div className='grid grid-cols-2 items-center'>
             <h1 className='text-xs'>Temperature</h1>
-            <h1 className={`text-xs text-white rounded-md p-1 text-center ${(temperature > allowed_temperature && temperature < allowed_temperature + 5) ? 'bg-yellow-600' : temperature > allowed_temperature ? 'bg-red-600' : 'bg-blue-600'}`}>{(temperature > allowed_temperature && temperature < allowed_temperature + 5) ? 'High' : temperature > allowed_temperature ? 'Danger' : 'Normal'}</h1>
+            <h1 className={`text-xs text-white rounded-md p-1 text-center ${(temperature > allowed_temperature.normal.high && temperature < allowed_temperature.high.high) ? 'bg-yellow-600' : temperature > allowed_temperature.high.high ? 'bg-red-600' : 'bg-blue-600'}`}>{(temperature > allowed_temperature.normal.high && temperature < allowed_temperature.high.high) ? 'High' : temperature > allowed_temperature.high.high ? 'Danger' : 'Normal'}</h1>
         </div>
         <GaugeComponent
             type={gaugeType}
@@ -28,7 +28,7 @@ export default function TemperatureGauge( {
             cornerRadius: 3,
             subArcs: [
                 {
-                limit: allowed_temperature,
+                limit: allowed_temperature.normal.high,
                 color: '#00a2ff',
                 // showTick: true,
                 tooltip: {
@@ -36,13 +36,14 @@ export default function TemperatureGauge( {
                 },
                 },
                 {
-                limit: allowed_temperature + 5,
+                limit: allowed_temperature.high.high,
                 color: '#F5CD19',
                 tooltip: {
                     text: secondLimitText
                 }
                 },
                 {
+                limit: allowed_temperature.danger.high,
                 color: '#ff0000',
                 tooltip: {
                     text: thirdLimitText
@@ -71,8 +72,8 @@ export default function TemperatureGauge( {
             }
             }}
             value={temperature ? temperature : 0}
-            minValue={minimunValue}
-            maxValue={maximumValue}
+            minValue={allowed_temperature.normal.low}
+            maxValue={allowed_temperature.danger.high}
         />
     </div>
   )

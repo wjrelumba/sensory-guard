@@ -25,7 +25,7 @@ export default function GeneralCard( {
 
   const statusSetter = (data, allowed_data, type, classNameMode, normalColor, warningColor, dangerColor) => {
     if(type == 'temperature' || type == 'humidity'){
-        if(data <= allowed_data){
+        if(data <= allowed_data.normal.high){
             if(classNameMode){
                 return normalColor;
             }
@@ -33,7 +33,7 @@ export default function GeneralCard( {
                 return 'Normal';
             }
         }
-        else if(data < allowed_data + 5){
+        else if(data < allowed_data.high.high){
             if(classNameMode){
                 return warningColor;
             }
@@ -50,7 +50,7 @@ export default function GeneralCard( {
             }
         }
     }else if(type == 'smoke_gas' || type == 'vibration'){
-        if(data - 0.5 < allowed_data){
+        if(data - 0.5 < allowed_data.normal.high){
             if(classNameMode){
                 return normalColor
             }
@@ -69,13 +69,13 @@ export default function GeneralCard( {
     }
   };
 
-  const renderer = (dataName, type, allowedType, normalColor, warningColor, dangerColor) => (
+  const renderer = (dataName, type, variableName, normalColor, warningColor, dangerColor) => (
     <div className='w-full h-[1rem] grid grid-cols-2 items-center gap-1'>
         <div className='w-full px-1'>
             <h1 className='text-xs'>{dataName}</h1>
         </div>
-        <div className={`w-full h-full flex rounded items-center justify-center px-1 ${statusSetter(dataValues[type], importantDataValues[allowedType], type, true, normalColor, warningColor, dangerColor)}`}>
-            <h1 className='text-xs text-center'>{statusSetter(dataValues[type], importantDataValues[allowedType], type, false)}</h1>
+        <div className={`w-full h-full flex rounded items-center justify-center px-1 ${statusSetter(dataValues[type], importantDataValues[variableName], type, true, normalColor, warningColor, dangerColor)}`}>
+            <h1 className='text-xs text-center'>{statusSetter(dataValues[type], importantDataValues[variableName], type, false)}</h1>
         </div>
     </div>
   );
@@ -99,10 +99,10 @@ export default function GeneralCard( {
                   <h1>Icon</h1>
                 </div>
                 <div className='grid grid-row-4 sm:grid-cols-4 w-full justify-items-center items-center gap-1'>
-                  {renderer('Temperature', 'temperature', 'allowed_temperature', 'bg-blue-600', 'bg-yellow-600', 'bg-red-600')}
-                  {renderer('Humidity', 'humidity', 'allowed_humidity', 'bg-yellow-600', 'bg-orange-600', 'bg-red-600')}
-                  {renderer('Smoke/Gas', 'smoke_gas', 'allowed_smoke_gas', 'bg-yellow-600', 'bg-red-600')}
-                  {renderer('Vibration', 'vibration', 'allowed_vibration', 'bg-yellow-600', 'bg-red-600')}
+                  {renderer('Temperature', 'temperature', 'temperature_variables', 'bg-blue-600', 'bg-yellow-600', 'bg-red-600')}
+                  {renderer('Humidity', 'humidity', 'humidity_variables', 'bg-yellow-600', 'bg-orange-600', 'bg-red-600')}
+                  {renderer('Smoke/Gas', 'smoke_gas', 'smoke_gas_variables', 'bg-yellow-600', 'bg-red-600')}
+                  {renderer('Vibration', 'vibration', 'vibration_variables', 'bg-yellow-600', 'bg-red-600')}
                 </div>
               </div>
             </>

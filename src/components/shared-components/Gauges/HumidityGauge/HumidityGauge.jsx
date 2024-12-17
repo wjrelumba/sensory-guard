@@ -19,7 +19,7 @@ export default function HumidityGauge( {
     <div className={parentClassname}>
         <div className='grid grid-cols-2 items-center'>
             <h1 className='text-xs'>Humidity</h1>
-            <h1 className={`text-xs text-white rounded-md p-1 text-center ${(humidity > allowed_humidity && humidity < allowed_humidity + 5) ? 'bg-orange-600' : humidity > allowed_humidity ? 'bg-red-600' : 'bg-yellow-600'}`}>{(humidity > allowed_humidity && humidity < allowed_humidity + 5) ? 'High' : humidity > allowed_humidity ? 'Danger' : 'Normal'}</h1>
+            <h1 className={`text-xs text-white rounded-md p-1 text-center ${(humidity > allowed_humidity.normal.high && humidity < allowed_humidity.high.high) ? 'bg-orange-600' : humidity > allowed_humidity.high.high ? 'bg-red-600' : 'bg-yellow-600'}`}>{(humidity > allowed_humidity.normal.high && humidity < allowed_humidity.high.high) ? 'High' : humidity > allowed_humidity.high.high ? 'Danger' : 'Normal'}</h1>
         </div>
         <GaugeComponent
             type={gaugeType}
@@ -28,7 +28,7 @@ export default function HumidityGauge( {
             cornerRadius: 3,
             subArcs: [
                 {
-                limit: allowed_humidity,
+                limit: allowed_humidity.normal.high,
                 color: '#F5CD19',
                 // showTick: true,
                 tooltip: {
@@ -36,13 +36,14 @@ export default function HumidityGauge( {
                 },
                 },
                 {
-                limit: allowed_humidity + 5,
+                limit: allowed_humidity.high.high,
                 color: '#ff8f00',
                 tooltip: {
                     text: secondLimitText
                 }
                 },
                 {
+                limit: allowed_humidity.danger.high,
                 color: '#ff0000',
                 tooltip: {
                     text: thirdLimitText
@@ -71,8 +72,8 @@ export default function HumidityGauge( {
             }
             }}
             value={humidity ? humidity : 0}
-            minValue={minimunValue}
-            maxValue={maximumValue}
+            minValue={allowed_humidity.normal.low}
+            maxValue={allowed_humidity.danger.high}
         />
     </div>
   )

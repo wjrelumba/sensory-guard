@@ -44,7 +44,7 @@ export default function GeneralSensorCard( {
                 <h1 className='border-b py-1 border-black w-full mb-4'>{importantDataValues.proto_name}</h1>
                   <div className='grid grid-cols-2 sm:grid-cols-4 w-full justify-items-center items-center gap-1'>
                     <Gauges.TemperatureGauge
-                    allowed_temperature={importantDataValues.allowed_temperature} 
+                    allowed_temperature={importantDataValues.temperature_variables} 
                     temperature={dataValues.temperature}
                     parentClassname={parentClassname}
                     firstLimitText='Allowed Temperature'
@@ -53,7 +53,7 @@ export default function GeneralSensorCard( {
                     gaugeType='radial'
                     />
                     <Gauges.HumidityGauge 
-                    allowed_humidity={importantDataValues.allowed_humidity} 
+                    allowed_humidity={importantDataValues.humidity_variables} 
                     humidity={dataValues.humidity}
                     parentClassname={parentClassname}
                     firstLimitText='Allowed Humidity'
@@ -62,20 +62,24 @@ export default function GeneralSensorCard( {
                     gaugeType='radial'
                     />
                     <Gauges.SmokeGasGauge
-                    allowed_smoke_gas={importantDataValues.allowed_smoke_gas}
+                    allowed_smoke_gas={importantDataValues.smoke_gas_variables}
                     smokeGas={dataValues.smoke_gas}
                     parentClassname={parentClassname}
                     firstLimitText='No Smoke and Gas'
                     secondLimitText='Smoke and Gas Detected'
                     gaugeType='radial'
+                    maximumValue={37}
+                    minimunValue={10}
                     />
                     <Gauges.VibrationGauge
-                    allow_vibration={importantDataValues.allowed_vibration}
+                    allow_vibration={importantDataValues.vibration_variables}
                     vibration={dataValues.vibration}
                     parentClassname={parentClassname}
                     firstLimitText='No Vibration'
                     secondLimitText='Vibration Detected'
                     gaugeType='radial'
+                    maximumValue={37}
+                    minimunValue={10}
                     />
                   </div>
                 </>
