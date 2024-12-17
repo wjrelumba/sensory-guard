@@ -41,7 +41,7 @@ export default function Control() {
 
   return (
     <div className='w-full h-full flex flex-col gap-6'>
-      <div className='p-1'>
+      {/* <div className='p-1'>
         <h1 className='text-xl font-bold text-gray-700'>Air Conditioners</h1>
         <div className='flex gap-1'>
           {sampleAircons && (
@@ -50,12 +50,12 @@ export default function Control() {
                 <div key={index} className='grid grid-cols-2 px-3 py-2 justify-items-center items-center rounded-lg border-[2px] h-[3rem] shadow-lg w-1/2 border-gray-300'>
                     <h1 className='font-bold text-gray-600'>{data.name}</h1>
                     <div onClick={() => airconClick(index)} className={`grid grid-cols-2 w-full p-1 justify-items-center items-center h-full rounded ${data.open ? 'bg-blue-600':'bg-red-600'}`}>
-                      <div className={`flex justify-center items-center font-bold rounded w-full h-full text-xs ${data.open ? 'bg-white' : 'text-white'}`}>
+                      <div className={`flex justify-center items-center font-bold rounded w-full h-full text-xs ${data.open ? 'bg-white switch-slide-left' : 'text-white'}`}>
                         <h1>
                           ON
                         </h1>
                       </div>
-                      <div className={`flex justify-center items-center font-bold rounded w-full h-full text-xs ${!data.open ? 'bg-white' : 'text-white'}`}>
+                      <div className={`flex justify-center items-center font-bold rounded w-full h-full text-xs ${!data.open ? 'bg-white switch-slide-right' : 'text-white'}`}>
                         <h1>
                           OFF
                         </h1>
@@ -66,7 +66,7 @@ export default function Control() {
             </>
           )}
         </div>
-      </div>
+      </div> */}
       <div className='p-1 flex flex-col gap-1'>
         <h1 className='text-xl font-bold text-gray-700'>Buzzer</h1>
         <div className='flex gap-4 items-center'>
@@ -86,9 +86,9 @@ export default function Control() {
                 <div key={index} className='grid grid-cols-2 px-3 py-2 justify-items-center items-center rounded-lg border-[2px] h-[3rem] shadow-lg w-1/2 border-gray-300'>
                     <h1 className='font-bold text-gray-600'>{data.name}</h1>
                     <div onClick={() => buzzerClick(index)} className={`bg-gray-400 flex w-full p-1 justify-center items-center h-full rounded`}>
-                      <div className={`${data.open ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-600'} w-full h-full rounded flex justify-center items-center`}>
+                      <div className={`${data.open ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-500'} w-full h-full rounded flex justify-center items-center`}>
                         <h1 className='text-xs font-bold'>
-                          {data.open ? 'ON' : 'OFF'}
+                          {data.open ? 'MUTE' : 'UNMUTE'}
                         </h1>
                       </div>
                     </div>

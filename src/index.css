@@ -7,6 +7,32 @@
   100% { transform: rotate(360deg); }
 }
 
+@keyframes switchButtonRight {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes switchButtonLeft {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.switch-slide-right {
+  animation: switchButtonRight 0.2s ease-out;
+}
+
+.switch-slide-left {
+  animation: switchButtonLeft 0.2s ease-out;
+}
+
 .loader {
   border-top-color: gray;
   animation: spin 1.5s linear infinite;
