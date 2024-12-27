@@ -70,7 +70,7 @@ export default function GeneralCard( {
   };
 
   const renderer = (dataName, type, variableName, normalColor, warningColor, dangerColor) => (
-    <div className='w-full h-[1rem] grid grid-cols-2 items-center gap-1'>
+    <div className='w-full h-[1rem] grid grid-cols-2 items-center gap-1 sm:border-[2px] sm:h-full sm:p-2 border-gray-300 sm:rounded-md'>
         <div className='w-full px-1'>
             <h1 className='text-xs'>{dataName}</h1>
         </div>
@@ -94,11 +94,11 @@ export default function GeneralCard( {
           {dataValues && importantDataValues && (
             <>
               <h1 className='border-b py-1 border-black w-full mb-4'>{importantDataValues.proto_name}</h1>
-              <div className='grid grid-cols-2 sm:grid-cols-4 w-full justify-items-center items-center'>
-                <div>
+              <div className='grid grid-flow-col w-full justify-items-center items-center'>
+                <div className='col-span-1'>
                   <h1>Icon</h1>
                 </div>
-                <div className='grid grid-row-4 sm:grid-cols-4 w-full justify-items-center items-center gap-1'>
+                <div className='col-span-2 grid grid-row-4 sm:grid-cols-4 w-full justify-items-center items-center gap-1'>
                   {renderer('Temperature', 'temperature', 'temperature_variables', 'bg-blue-600', 'bg-yellow-600', 'bg-red-600')}
                   {renderer('Humidity', 'humidity', 'humidity_variables', 'bg-yellow-600', 'bg-orange-600', 'bg-red-600')}
                   {renderer('Smoke/Gas', 'smoke_gas', 'smoke_gas_variables', 'bg-yellow-600', 'bg-red-600')}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { supabase } from '../../Essentials/Supabase';
+import { toast } from 'react-toastify';
 
 export default function Control() { 
   // const [sampleAircons, setSampleAircons] = useState();
@@ -9,8 +10,88 @@ export default function Control() {
   const [tempvarClicked, setTempvarClicked] = useState(false);
   const [humidvarClicked, setHumidvarClicked] = useState(false);
 
+  // Create a state for input object
+  const [inputObjectSetter, setInputObjectSetter] = useState(null);
+
   // Set states for prototypes
   const [prototypeData, setPrototypeData] = useState(null);
+
+  // Input states for temperature
+  const [tempNormalLow, setTempNormalLow] = useState({});
+  const [tempNormalHigh, setTempNormalHigh] = useState({});
+
+  const [tempHighLow, setTempHighLow] = useState({});
+  const [tempHighHigh, setTempHighHigh] = useState({});
+
+  const [tempDangerLow, setTempDangerLow] = useState({});
+  const [tempDangerHigh, setTempDangerHigh] = useState({});
+
+  // Input states for humidity
+  const [humidNormalLow, setHumidNormalLow] = useState({});
+  const [humidNormalHigh, setHumidNormalHigh] = useState({});
+
+  const [humidHighLow, setHumidHighLow] = useState({});
+  const [humidHighHigh, setHumidHighHigh] = useState({});
+
+  const [humidDangerLow, setHumidDangerLow] = useState({});
+  const [humidDangerHigh, setHumidDangerHigh] = useState({});
+
+  const inputObjectFunction = (data) => {
+    const inputObjectSetterChild = { // This is the object for the input handlers
+    }
+    for(var i = 0; i < data.length; i++){
+      inputObjectSetterChild[`temperature-normal-low-${i+1}`] = {
+        'updater': setTempNormalLow,
+        'state': tempNormalLow,
+      };
+      inputObjectSetterChild[`temperature-normal-high-${i+1}`] = {
+        'updater': setTempNormalHigh,
+        'state': tempNormalHigh,
+      };
+      inputObjectSetterChild[`temperature-high-low-${i+1}`] = {
+        'updater': setTempHighLow,
+        'state': tempHighLow
+      };
+      inputObjectSetterChild[`temperature-high-high-${i+1}`] = {
+        'updater': setTempHighHigh,
+        'state': tempHighHigh,
+      };
+      inputObjectSetterChild[`temperature-danger-low-${i+1}`] = {
+        'updater': setTempDangerLow,
+        'state': tempDangerLow,
+      };
+      inputObjectSetterChild[`temperature-danger-high-${i+1}`] = {
+        'updater': setTempDangerHigh,
+        'state': tempDangerHigh,
+      };
+
+      inputObjectSetterChild[`humidity-normal-low-${i+1}`] = {
+        'updater': setHumidNormalLow,
+        'state': humidNormalLow,
+      };
+      inputObjectSetterChild[`humidity-normal-high-${i+1}`] = {
+        'updater': setHumidNormalHigh,
+        'state': humidNormalHigh,
+      };
+      inputObjectSetterChild[`humidity-high-low-${i+1}`] = {
+        'updater': setHumidHighLow,
+        'state': humidHighLow,
+      };
+      inputObjectSetterChild[`humidity-high-high-${i+1}`] = {
+        'updater': setHumidHighHigh,
+        'state': humidHighHigh,
+      };
+      inputObjectSetterChild[`humidity-danger-low-${i+1}`] = {
+        'updater': setHumidDangerLow,
+        'state': humidDangerLow,
+      };
+      inputObjectSetterChild[`humidity-danger-high-${i+1}`] = {
+        'updater': setHumidDangerHigh,
+        'state': humidDangerHigh,
+      };
+    };
+    return inputObjectSetterChild;
+  }
 
   const getVariables = async() => {
     const {data} = await supabase.from('prototypes').select();
@@ -19,8 +100,11 @@ export default function Control() {
       data.sort((a,b) => a.proto_number - b.proto_number);
       console.log(data);
       setPrototypeData(data);
+      
+      const inputObjectSetterHolder = inputObjectFunction(data);
+      setInputObjectSetter(inputObjectSetterHolder);
     }
-  }
+  };
 
   const variableBoxFunc = (e) => {
     const {name} = e.currentTarget.dataset;
@@ -30,7 +114,240 @@ export default function Control() {
     if(name == 'humidvar'){
       setHumidvarClicked(!humidvarClicked);
     }
-  }
+  };
+
+  // Cancel the changing of variables for temperature
+  const temperatureCancelBtn = () => {
+    setTempNormalLow({});
+    setTempNormalHigh({});
+    setTempHighLow({});
+    setTempHighHigh({});
+    setTempDangerLow({});
+    setTempDangerHigh({});
+    setTempvarClicked(false);
+  };
+
+  // Update the temperature variables in the database
+  const temperatureUpdateDB = async() => {
+    const {data} = await supabase.from('prototypes').select();
+    
+    const protoIds = data.map(a => a.id);
+
+    const temperature_variables = {};
+    console.log(temperature_variables);
+
+    for(var i=0; i < protoIds.length; i++){
+      temperature_variables[protoIds[i]] = {}; // Create the object for specific proto ID
+      temperature_variables[protoIds[i]].normal = {}; // Normal range
+      temperature_variables[protoIds[i]].high = {}; // High range
+      temperature_variables[protoIds[i]].danger = {}; // Danger range
+
+      const {data} = await supabase.from('prototypes').select().eq('id', protoIds[i]);
+
+      // Normal range
+      if(tempNormalLow[protoIds[i]] != undefined){
+        temperature_variables[protoIds[i]].normal.low = tempNormalLow[protoIds[i]]; // If the user inputs something, this will run
+      }
+      else{
+        temperature_variables[protoIds[i]].normal.low = data[0].temperature_variables.normal.low; // If the user did not input anything, it will take its existing value
+      }
+
+      if(tempNormalHigh[protoIds[i]] != undefined){
+        temperature_variables[protoIds[i]].normal.high = tempNormalHigh[protoIds[i]]; // If the user inputs something, this will run
+      }
+      else{
+        temperature_variables[protoIds[i]].normal.high = data[0].temperature_variables.normal.high; // If the user did not input anything, it will take its existing value
+      }
+
+      // High range
+      if(tempHighLow[protoIds[i]] != undefined){
+        temperature_variables[protoIds[i]].high.low = tempHighLow[protoIds[i]]; // If the user inputs something, this will run
+      }
+      else{
+        temperature_variables[protoIds[i]].high.low = data[0].temperature_variables.high.low; // If the user did not input anything, it will take its existing value
+      }
+
+      if(tempHighHigh[protoIds[i]] != undefined){
+        temperature_variables[protoIds[i]].high.high = tempHighHigh[protoIds[i]]; // If the user inputs something, this will run
+      }
+      else{
+        temperature_variables[protoIds[i]].high.high = data[0].temperature_variables.high.high; // If the user did not input anything, it will take its existing value
+      }
+
+      // Danger range
+      if(tempDangerLow[protoIds[i]] != undefined){
+        temperature_variables[protoIds[i]].danger.low = tempDangerLow[protoIds[i]]; // If the user inputs something, this will run
+      }
+      else{
+        temperature_variables[protoIds[i]].danger.low = data[0].temperature_variables.danger.low; // If the user did not input anything, it will take its existing value
+      }
+
+      if(tempDangerHigh[protoIds[i]] != undefined){
+        temperature_variables[protoIds[i]].danger.high = tempDangerHigh[protoIds[i]]; // If the user inputs something, this will run
+      }
+      else{
+        temperature_variables[protoIds[i]].danger.high = data[0].temperature_variables.danger.high; // If the user did not input anything, it will take its existing value
+      }
+
+      if(
+        temperature_variables[protoIds[i]].normal.low >= temperature_variables[protoIds[i]].normal.high ||
+        temperature_variables[protoIds[i]].normal.high >= temperature_variables[protoIds[i]].high.low ||
+        temperature_variables[protoIds[i]].normal.high <= temperature_variables[protoIds[i]].normal.low ||
+        temperature_variables[protoIds[i]].high.low >= temperature_variables[protoIds[i]].high.high ||
+        temperature_variables[protoIds[i]].high.high <= temperature_variables[protoIds[i]].high.low ||
+        temperature_variables[protoIds[i]].high.high >= temperature_variables[protoIds[i]].danger.low ||
+        temperature_variables[protoIds[i]].danger.low >= temperature_variables[protoIds[i]].danger.high ||
+        temperature_variables[protoIds[i]].danger.high <= temperature_variables[protoIds[i]].danger.low
+      ){
+        toast.error(`${data[0].proto_name}: Range error, check your inputs`);
+      }
+      else {
+        const {error} = await supabase.from('prototypes').update({
+          temperature_variables: temperature_variables[protoIds[i]]
+        }).eq('id', protoIds[i]);
+        if(!error){
+          toast.success(`${data[0].proto_name}: Temperature Variables successfully updated`);
+        };
+      };
+
+      console.log(tempNormalLow[protoIds[i]]);
+      console.log(temperature_variables);
+    }
+  };
+
+  // Cancel the changing of variables for humidity
+  const humidityCancelBtn = () => {
+    setHumidNormalLow({});
+    setHumidNormalHigh({});
+    setHumidHighLow({});
+    setHumidHighHigh({});
+    setHumidDangerLow({});
+    setHumidDangerHigh({});
+    setHumidvarClicked(false);
+  };
+
+  // Update the humidity variables in the database
+  const humidityUpdateDB = async() => {
+    const {data} = await supabase.from('prototypes').select();
+
+    const protoIds = data.map(a => a.id);
+
+    const humidity_variables = {};
+    console.log(humidity_variables);
+
+    for(var i=0; i < protoIds.length; i++){
+      humidity_variables[protoIds[i]] = {}; // Create the object for specific proto ID
+      humidity_variables[protoIds[i]].normal = {}; // Normal range
+      humidity_variables[protoIds[i]].high = {}; // High range
+      humidity_variables[protoIds[i]].danger = {}; // Danger range
+
+      const {data} = await supabase.from('prototypes').select().eq('id', protoIds[i]);
+
+      // Normal range
+      if(humidNormalLow[protoIds[i]] != undefined){
+        humidity_variables[protoIds[i]].normal.low = humidNormalLow[protoIds[i]]; // If the user inputs something, this will run
+      }
+      else{
+        humidity_variables[protoIds[i]].normal.low = data[0].humidity_variables.normal.low; // If the user did not input anything, it will take its existing value
+      }
+
+      if(humidNormalHigh[protoIds[i]] != undefined){
+        humidity_variables[protoIds[i]].normal.high = humidNormalHigh[protoIds[i]]; // If the user inputs something, this will run
+      }
+      else{
+        humidity_variables[protoIds[i]].normal.high = data[0].humidity_variables.normal.high; // If the user did not input anything, it will take its existing value
+      }
+
+      // High range
+      if(humidHighLow[protoIds[i]] != undefined){
+        humidity_variables[protoIds[i]].high.low = humidHighLow[protoIds[i]]; // If the user inputs something, this will run
+      }
+      else{
+        humidity_variables[protoIds[i]].high.low = data[0].humidity_variables.high.low; // If the user did not input anything, it will take its existing value
+      }
+
+      if(humidHighHigh[protoIds[i]] != undefined){
+        humidity_variables[protoIds[i]].high.high = humidHighHigh[protoIds[i]]; // If the user inputs something, this will run
+      }
+      else{
+        humidity_variables[protoIds[i]].high.high = data[0].humidity_variables.high.high; // If the user did not input anything, it will take its existing value
+      }
+
+      // Danger range
+      if(humidDangerLow[protoIds[i]] != undefined){
+        humidity_variables[protoIds[i]].danger.low = humidDangerLow[protoIds[i]]; // If the user inputs something, this will run
+      }
+      else{
+        humidity_variables[protoIds[i]].danger.low = data[0].humidity_variables.danger.low; // If the user did not input anything, it will take its existing value
+      }
+
+      if(humidDangerHigh[protoIds[i]] != undefined){
+        humidity_variables[protoIds[i]].danger.high = humidDangerHigh[protoIds[i]]; // If the user inputs something, this will run
+      }
+      else{
+        humidity_variables[protoIds[i]].danger.high = data[0].humidity_variables.danger.high; // If the user did not input anything, it will take its existing value
+      }
+
+      if(
+        humidity_variables[protoIds[i]].normal.low >= humidity_variables[protoIds[i]].normal.high ||
+        humidity_variables[protoIds[i]].normal.high >= humidity_variables[protoIds[i]].high.low ||
+        humidity_variables[protoIds[i]].normal.high <= humidity_variables[protoIds[i]].normal.low ||
+        humidity_variables[protoIds[i]].high.low >= humidity_variables[protoIds[i]].high.high ||
+        humidity_variables[protoIds[i]].high.high <= humidity_variables[protoIds[i]].high.low ||
+        humidity_variables[protoIds[i]].high.high >= humidity_variables[protoIds[i]].danger.low ||
+        humidity_variables[protoIds[i]].danger.low >= humidity_variables[protoIds[i]].danger.high ||
+        humidity_variables[protoIds[i]].danger.high <= humidity_variables[protoIds[i]].danger.low
+      ){
+        toast.error(`${data[0].proto_name}: Range error, check your inputs`);
+      }
+      else {
+        const {error} = await supabase.from('prototypes').update({
+          humidity_variables: humidity_variables[protoIds[i]]
+        }).eq('id', protoIds[i]);
+        if(!error){
+          toast.success(`${data[0].proto_name}: Humidity Variables successfully updated`);
+        };
+      };
+
+      console.log(humidNormalLow[protoIds[i]]);
+      console.log(humidity_variables);
+    }
+  };
+
+  const inputHandler = (e) => {
+    const {value, name, defaultValue} = e.target;
+    const {id} = e.target.dataset;
+    
+    let tempObjectHolder = {...inputObjectSetter[name].state};
+    console.log(tempObjectHolder);
+    tempObjectHolder[id] = parseInt(value);
+
+    console.log(tempObjectHolder);
+
+    inputObjectSetter[name].updater(tempObjectHolder);
+
+    //inputObjectSetter[name](value); // Use the object to automatically get the state updater and update its value
+  };
+
+  useEffect(() => { // UseEffect to always update the inputObjectSetter
+    if(prototypeData){
+      const inputObjectSetterHolder = inputObjectFunction(prototypeData);
+      setInputObjectSetter(inputObjectSetterHolder);
+    }
+  },[
+    tempNormalLow,
+    tempNormalHigh,
+    tempHighLow,
+    tempHighHigh,
+    tempDangerLow,
+    tempDangerHigh,
+    humidNormalLow,
+    humidNormalHigh,
+    humidHighLow,
+    humidHighHigh,
+    humidDangerLow,
+    humidDangerHigh,
+  ]);
 
   useEffect(() => {
     getVariables();
@@ -68,7 +385,7 @@ export default function Control() {
     setSampleBuzzers(arrayHolder);
   };
 
-  const variableRenderer = (text, dataValue, range, mode) => {
+  const variableRenderer = (text, dataValue, range, mode, proto_number, proto_id) => {
     let modeValue;
     if(mode == 'temperature'){
       modeValue = '°C';
@@ -83,13 +400,13 @@ export default function Control() {
             </div>
             <div className='grid grid-flow-col items-center gap-2 w-[75%]'>
               <div className='col-span-2'>
-                <input type="number" className='w-full rounded-lg px-2 py-1 border border-gray-400' defaultValue={dataValue[`${mode}_variables`][range].low}/>
+                <input data-id={proto_id} onChange={inputHandler} name={`${mode}-${range}-low-${proto_number}`} type="number" className='w-full rounded-lg px-2 py-1 border border-gray-400' defaultValue={dataValue[`${mode}_variables`][range].low}/>
               </div>
-              <div className='col-span-1'>
+              <div className='col-span-1 flex justify-center'>
                 <h1>-</h1>
               </div>
               <div className='col-span-2'>
-                <input type="number" className='w-full rounded-lg px-2 py-1 border border-gray-400' defaultValue={dataValue[`${mode}_variables`][range].high}/>
+                <input data-id={proto_id} onChange={inputHandler} name={`${mode}-${range}-high-${proto_number}`} type="number" className='w-full rounded-lg px-2 py-1 border border-gray-400' defaultValue={dataValue[`${mode}_variables`][range].high}/>
               </div>
               <div className='col-span-1'>
                 <h1>{modeValue}</h1>
@@ -168,7 +485,7 @@ export default function Control() {
                 <h1 className='text-xl font-bold'>Temperature</h1>
               </div>
               <div className='flex items-center'>
-                <button data-name='tempvar' onClick={variableBoxFunc}>
+                <button data-name='tempvar' onClick={!tempvarClicked ? variableBoxFunc : temperatureCancelBtn}>
                   {!tempvarClicked ? (
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
                   ):(
@@ -186,16 +503,16 @@ export default function Control() {
                       <h1 className='py-1 px-3 bg-gray-900 rounded-2xl text-white text-center font-bold'>{data.proto_name}</h1>
                     </div>
                     <div className='grid grid-rows-3 w-full mt-2 gap-2 px-1'>
-                      {variableRenderer('Normal', data, 'normal', 'temperature')}
-                      {variableRenderer('High', data, 'high', 'temperature')}
-                      {variableRenderer('Danger', data, 'danger', 'temperature')}
+                      {variableRenderer('Normal', data, 'normal', 'temperature', data.proto_number, data.id)}
+                      {variableRenderer('High', data, 'high', 'temperature', data.proto_number, data.id)}
+                      {variableRenderer('Danger', data, 'danger', 'temperature', data.proto_number, data.id)}
                     </div>
                   </div>
                 ))}
                 <div className='w-full flex justify-end'>
                   <div className='w-1/2 grid grid-cols-2 gap-2'>
-                    <button className='w-full bg-blue-600 rounded-full text-white'>Apply</button>
-                    <button className='w-full bg-gray-300 rounded-full text-gray-800'>Cancel</button>
+                    <button onClick={temperatureUpdateDB} className='w-full bg-blue-600 rounded-full text-white'>Apply</button>
+                    <button onClick={temperatureCancelBtn} className='w-full bg-gray-300 rounded-full text-gray-800'>Cancel</button>
                   </div>
                 </div>
               </>
@@ -208,7 +525,7 @@ export default function Control() {
                 <h1 className='text-xl font-bold'>Humidity</h1>
               </div>
               <div className='flex items-center'>
-                <button data-name='humidvar' onClick={variableBoxFunc}>
+                <button data-name='humidvar' onClick={!humidvarClicked ? variableBoxFunc : humidityCancelBtn}>
                   {!humidvarClicked ? (
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
                   ):(
@@ -226,16 +543,16 @@ export default function Control() {
                       <h1 className='py-1 px-3 bg-gray-900 rounded-2xl text-white text-center font-bold'>{data.proto_name}</h1>
                     </div>
                     <div className='grid grid-rows-3 w-full mt-2 gap-2 px-1'>
-                      {variableRenderer('Normal', data, 'normal', 'humidity')}
-                      {variableRenderer('High', data, 'high', 'humidity')}
-                      {variableRenderer('Danger', data, 'danger', 'humidity')}
+                      {variableRenderer('Normal', data, 'normal', 'humidity', data.proto_number, data.id)}
+                      {variableRenderer('High', data, 'high', 'humidity', data.proto_number, data.id)}
+                      {variableRenderer('Danger', data, 'danger', 'humidity', data.proto_number, data.id)}
                     </div>
                   </div>
                 ))}
                 <div className='w-full flex justify-end'>
                   <div className='w-1/2 grid grid-cols-2 gap-2'>
-                    <button className='w-full bg-blue-600 rounded-full text-white'>Apply</button>
-                    <button className='w-full bg-gray-300 rounded-full text-gray-800'>Cancel</button>
+                    <button onClick={humidityUpdateDB} className='w-full bg-blue-600 rounded-full text-white'>Apply</button>
+                    <button onClick={humidityCancelBtn} className='w-full bg-gray-300 rounded-full text-gray-800'>Cancel</button>
                   </div>
                 </div>
               </>

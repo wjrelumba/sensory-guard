@@ -66,11 +66,11 @@ export default function Login() {
         <form onSubmit={signInWithEmail} className='slide-up-fade-in w-full flex justify-center flex-col items-center'>
           <div className='w-[75%] flex flex-col items-start justify-between px-2'>
             <label className='text-gray-600 text-xl' htmlFor="email">Email</label>
-            <input onChange={inputHandler} name='email' className='px-2 py-1 rounded-md w-full border-[2px] border-blue-600' type="email" required/>
+            <input onChange={inputHandler} name='email' className='px-2 py-1 rounded-md w-full border-[2px] border-blue-600 focus:outline-black' type="email" required/>
           </div>
           <div className='w-[75%] flex flex-col items-start justify-between px-2'>
             <label className='text-gray-600 text-xl' htmlFor="password">Password</label>
-            <input onChange={inputHandler} name='password' className='px-2 py-1 rounded-md w-full border-[2px] border-blue-600  ' type="password" required/>
+            <input onChange={inputHandler} name='password' className='px-2 py-1 rounded-md w-full border-[2px] border-blue-600 focus:outline-black' type="password" required/>
           </div>
           <div className='w-[75%] px-2 flex'>
             <button className='text-xs mt-1'>Can't remember? Forgot Password</button>
