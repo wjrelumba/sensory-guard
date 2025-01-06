@@ -9,6 +9,7 @@ import NotFound from "./Pages/NotFound";
 import Signup from "./Pages/Signup";
 import History from "./Pages/DashboardPages/History";
 import Accounts from "./Pages/DashboardPages/Accounts";
+import Settings from "./Pages/DashboardPages/Settings";
 
 export const Pages = {
     Homepage,
@@ -20,6 +21,7 @@ export const Pages = {
     Control,
     History,
     Accounts,
+    Settings,
 }
 
 export const DashboardPages = {

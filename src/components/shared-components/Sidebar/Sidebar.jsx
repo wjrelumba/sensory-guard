@@ -10,6 +10,7 @@ export default function Sidebar({shown,toggleSideBar,email}) {
     const [controlActive, setControlActive] = useState(false);
     const [historyActive, setHistoryActive] = useState(false);
     const [accountsActive, setAccountsActive] = useState(false);
+    const [settingsActive, setSettingsActive] = useState(false);
 
     useEffect(() => {
         if(location.pathname == '/dashboard'){
@@ -17,24 +18,35 @@ export default function Sidebar({shown,toggleSideBar,email}) {
             setControlActive(false);
             setHistoryActive(false);
             setAccountsActive(false);
+            setSettingsActive(false);
         }
         if(location.pathname == '/dashboard/control'){
             setDashboardActive(false);
             setControlActive(true);
             setHistoryActive(false);
             setAccountsActive(false);
+            setSettingsActive(false);
         }
         if(location.pathname == '/dashboard/history'){
             setDashboardActive(false);
             setControlActive(false);
             setHistoryActive(true);
             setAccountsActive(false);
+            setSettingsActive(false);
         }
         if(location.pathname == '/dashboard/accounts'){
             setDashboardActive(false);
             setControlActive(false);
             setHistoryActive(false);
             setAccountsActive(true);
+            setSettingsActive(false);
+        }
+        if(location.pathname == '/dashboard/settings'){
+            setDashboardActive(false);
+            setControlActive(false);
+            setHistoryActive(false);
+            setAccountsActive(false);
+            setSettingsActive(true);
         }
     }, [location])
 
@@ -105,6 +117,14 @@ export default function Sidebar({shown,toggleSideBar,email}) {
                     <path fillRule="evenodd" clipRule="evenodd" d="M10 11C10.5523 11 11 10.5523 11 10C11 9.44772 10.5523 9 10 9C9.44772 9 9 9.44772 9 10C9 10.5523 9.44772 11 10 11ZM10 13C11.6569 13 13 11.6569 13 10C13 8.34315 11.6569 7 10 7C8.34315 7 7 8.34315 7 10C7 11.6569 8.34315 13 10 13Z"/>
                     </svg>
                 <h1 className={accountsActive ? 'text-white' : 'text-blue-600'}>Accounts</h1>
+                </div>
+            </Link>
+        </div>
+        <div className='flex border-b-[2px] border-gray-400 h-[3rem] py-1'>
+            <Link onClick={toggleSideBar} to={'/dashboard/settings'} className={`w-full h-full rounded-full ${settingsActive ? 'bg-blue-600 text-white' : 'text-black'}`}>
+                <div className='w-full h-full flex justify-start items-center px-3 gap-2'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${!settingsActive ? 'text-blue-600' : 'text-white'} feather feather-settings`}><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    <h1 className={settingsActive ? 'text-white' : 'text-blue-600'}>Settings</h1>
                 </div>
             </Link>
         </div>

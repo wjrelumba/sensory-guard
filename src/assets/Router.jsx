@@ -31,7 +31,10 @@ const router = createBrowserRouter([{
   },{
     path: 'accounts',
     element: <Pages.Accounts/>,
-  },]
+  },{
+    path: 'settings',
+    element: <Pages.Settings/>
+  }]
 },
 {
   path: '/test',
