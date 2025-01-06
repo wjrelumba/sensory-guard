@@ -49,8 +49,8 @@ export default function GeneralCard( {
                 return 'Danger';
             }
         }
-    }else if(type == 'smoke_gas' || type == 'vibration'){
-        if(data - 0.5 < allowed_data.normal.high){
+    }else if(type == 'smoke_gas'){
+        if(data - 0.5 < allowed_data.threshold){
             if(classNameMode){
                 return normalColor
             }
@@ -66,6 +66,24 @@ export default function GeneralCard( {
                 return 'Detected'
             }
         }
+    }
+    else if(type == 'vibration'){
+      if(data - 0.5 < allowed_data.threshold){
+        if(classNameMode){
+            return normalColor
+        }
+        else{
+            return 'Undetected'
+        }
+    }
+    else {
+        if(classNameMode){
+            return warningColor
+        }
+        else{
+            return 'Detected'
+        }
+    }
     }
   };
 

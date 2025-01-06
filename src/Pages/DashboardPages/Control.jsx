@@ -9,6 +9,7 @@ export default function Control() {
   // Create states for variables
   const [tempvarClicked, setTempvarClicked] = useState(false);
   const [humidvarClicked, setHumidvarClicked] = useState(false);
+  const [smokeGasVarClicked, setSmokeGasVarClicked] = useState(false);
 
   // Create a state for input object
   const [inputObjectSetter, setInputObjectSetter] = useState(null);
@@ -36,10 +37,15 @@ export default function Control() {
   const [humidDangerLow, setHumidDangerLow] = useState({});
   const [humidDangerHigh, setHumidDangerHigh] = useState({});
 
+  // Input states for smoke and gas
+  const [smokeGasValue, setSmokeGasValue] = useState({});
+
   const inputObjectFunction = (data) => {
     const inputObjectSetterChild = { // This is the object for the input handlers
     }
     for(var i = 0; i < data.length; i++){
+
+      // Temperature
       inputObjectSetterChild[`temperature-normal-low-${i+1}`] = {
         'updater': setTempNormalLow,
         'state': tempNormalLow,
@@ -65,6 +71,7 @@ export default function Control() {
         'state': tempDangerHigh,
       };
 
+      // Humidity
       inputObjectSetterChild[`humidity-normal-low-${i+1}`] = {
         'updater': setHumidNormalLow,
         'state': humidNormalLow,
@@ -89,6 +96,14 @@ export default function Control() {
         'updater': setHumidDangerHigh,
         'state': humidDangerHigh,
       };
+
+      // Smoke and Gas
+      inputObjectSetterChild[`smoke_gas-threshold-${i+1}`] = {
+        'updater': setSmokeGasValue,
+        'state': smokeGasValue,
+      };
+
+      // Vibration
     };
     return inputObjectSetterChild;
   }
@@ -113,6 +128,9 @@ export default function Control() {
     }
     if(name == 'humidvar'){
       setHumidvarClicked(!humidvarClicked);
+    }
+    if(name == 'smokegasvar'){
+      setSmokeGasVarClicked(!smokeGasVarClicked);
     }
   };
 
@@ -314,6 +332,45 @@ export default function Control() {
     }
   };
 
+  const smokeGasCancelBtn = () => {
+    setSmokeGasValue({});
+    setSmokeGasVarClicked(false);
+  };
+
+  // Update the humidity variables in the database
+  const smokeGasUpdateDB = async() => {
+    const {data} = await supabase.from('prototypes').select();
+
+    const protoIds = data.map(a => a.id);
+
+    const smoke_gas_variables = {};
+    console.log(smoke_gas_variables);
+
+    for(var i=0; i < protoIds.length; i++){
+      smoke_gas_variables[protoIds[i]] = {}; // Create the object for specific proto ID
+      smoke_gas_variables[protoIds[i]].threshold = {}; // threshold
+
+      const {data} = await supabase.from('prototypes').select().eq('id', protoIds[i]);
+
+      // Threshold
+      if(smokeGasValue[protoIds[i]] != undefined){
+        smoke_gas_variables[protoIds[i]].threshold = smokeGasValue[protoIds[i]]; // If the user inputs something, this will run
+      }
+      else{
+        smoke_gas_variables[protoIds[i]].threshold = data[0].smoke_gas_variables.threshold; // If the user did not input anything, it will take its existing value
+      }
+
+      console.log(smoke_gas_variables[protoIds[i]]);
+
+      const {error} = await supabase.from('prototypes').update({
+        smoke_gas_variables: smoke_gas_variables[protoIds[i]]
+      }).eq('id', protoIds[i]);
+      if(!error){
+        toast.success(`${data[0].proto_name}: Smoke and Gas Variables successfully updated`);
+      };
+    }
+  };
+
   const inputHandler = (e) => {
     const {value, name, defaultValue} = e.target;
     const {id} = e.target.dataset;
@@ -391,29 +448,52 @@ export default function Control() {
       modeValue = '°C';
     }
     else if(mode == 'humidity'){
-      modeValue = 'g/kg'
+      modeValue = 'g/kg';
     }
-    return (
-          <div className='flex items-center'>
-            <div className='w-[25%]'>
-              <h1 className='text-gray-500 font-bold'>{text}</h1>
+    else if(mode == 'smoke_gas'){
+      modeValue = 'ppm';
+    }
+
+    if(mode == 'temperature' || mode == 'humidity'){
+      return (
+        <div className='flex items-center'>
+          <div className='w-[25%]'>
+            <h1 className='text-gray-500 font-bold'>{text}</h1>
+          </div>
+          <div className='grid grid-flow-col items-center gap-2 w-[75%]'>
+            <div className='col-span-2'>
+              <input data-id={proto_id} onChange={inputHandler} name={`${mode}-${range}-low-${proto_number}`} type="number" className='w-full rounded-lg px-2 py-1 border border-gray-400' defaultValue={dataValue[`${mode}_variables`][range].low}/>
             </div>
-            <div className='grid grid-flow-col items-center gap-2 w-[75%]'>
-              <div className='col-span-2'>
-                <input data-id={proto_id} onChange={inputHandler} name={`${mode}-${range}-low-${proto_number}`} type="number" className='w-full rounded-lg px-2 py-1 border border-gray-400' defaultValue={dataValue[`${mode}_variables`][range].low}/>
-              </div>
-              <div className='col-span-1 flex justify-center'>
-                <h1>-</h1>
-              </div>
-              <div className='col-span-2'>
-                <input data-id={proto_id} onChange={inputHandler} name={`${mode}-${range}-high-${proto_number}`} type="number" className='w-full rounded-lg px-2 py-1 border border-gray-400' defaultValue={dataValue[`${mode}_variables`][range].high}/>
-              </div>
-              <div className='col-span-1'>
-                <h1>{modeValue}</h1>
-              </div>
+            <div className='col-span-1 flex justify-center'>
+              <h1>-</h1>
+            </div>
+            <div className='col-span-2'>
+              <input data-id={proto_id} onChange={inputHandler} name={`${mode}-${range}-high-${proto_number}`} type="number" className='w-full rounded-lg px-2 py-1 border border-gray-400' defaultValue={dataValue[`${mode}_variables`][range].high}/>
+            </div>
+            <div className='col-span-1'>
+              <h1>{modeValue}</h1>
             </div>
           </div>
-    )
+        </div>
+      )
+    }
+    else if(mode == 'smoke_gas'){
+      return (
+        <div className='flex items-center'>
+          <div className='w-[25%]'>
+            <h1 className='text-gray-500 font-bold'>{text}</h1>
+          </div>
+          <div className='grid grid-flow-col items-center gap-2 w-[75%]'>
+            <div className='col-span-2'>
+              <input data-id={proto_id} onChange={inputHandler} name={`${mode}-${range}-${proto_number}`} type="number" className='w-full rounded-lg px-2 py-1 border border-gray-400' defaultValue={dataValue[`${mode}_variables`][range]}/>
+            </div>
+            <div className='col-span-1'>
+              <h1>{modeValue}</h1>
+            </div>
+          </div>
+        </div>
+      )
+    }
   }
 
   return (
@@ -553,6 +633,44 @@ export default function Control() {
                   <div className='w-1/2 grid grid-cols-2 gap-2'>
                     <button onClick={humidityUpdateDB} className='w-full bg-blue-600 rounded-full text-white'>Apply</button>
                     <button onClick={humidityCancelBtn} className='w-full bg-gray-300 rounded-full text-gray-800'>Cancel</button>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+          <div className={`flex flex-col justify-center gap-2 ${!smokeGasVarClicked ? 'bg-gray-300' : 'bg-gray-200'} w-full rounded-lg px-4 py-3 text-gray-700`}>
+            <div className='flex items-center justify-between w-full'>
+              <div className='flex items-center gap-1'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill='#374151' width="20" height="24" viewBox="0 0 640 512"><path d="M32 144c0 79.5 64.5 144 144 144l123.3 0c22.6 19.9 52.2 32 84.7 32s62.1-12.1 84.7-32l27.3 0c61.9 0 112-50.1 112-112s-50.1-112-112-112c-10.7 0-21 1.5-30.8 4.3C443.8 27.7 401.1 0 352 0c-32.6 0-62.4 12.2-85.1 32.3C242.1 12.1 210.5 0 176 0C96.5 0 32 64.5 32 144zM616 368l-336 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l336 0c13.3 0 24-10.7 24-24s-10.7-24-24-24zm-64 96l-112 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l112 0c13.3 0 24-10.7 24-24s-10.7-24-24-24zm-192 0L24 464c-13.3 0-24 10.7-24 24s10.7 24 24 24l336 0c13.3 0 24-10.7 24-24s-10.7-24-24-24zM224 392c0-13.3-10.7-24-24-24L96 368c-13.3 0-24 10.7-24 24s10.7 24 24 24l104 0c13.3 0 24-10.7 24-24z"/></svg>
+                <h1 className='text-xl font-bold'>Smoke and Gas</h1>
+              </div>
+              <div className='flex items-center'>
+                <button data-name='smokegasvar' onClick={!smokeGasVarClicked ? variableBoxFunc : smokeGasCancelBtn}>
+                  {!smokeGasVarClicked ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                  ):(
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                  )}
+                </button>
+              </div>
+            </div>
+            {prototypeData && smokeGasVarClicked && (
+              <>
+                <h1 className='text-xs'>Set the threshold for smoke (default 300)</h1>
+                {prototypeData.map((data) => (
+                  <div className='w-full' key={data.proto_number}>
+                    <div className='w-[35%]'>
+                      <h1 className='py-1 px-3 bg-gray-900 rounded-2xl text-white text-center font-bold'>{data.proto_name}</h1>
+                    </div>
+                    <div className='grid grid-rows-1 w-full mt-2 gap-2 px-1'>
+                      {variableRenderer('Threshold', data, 'threshold', 'smoke_gas', data.proto_number, data.id)}
+                    </div>
+                  </div>
+                ))}
+                <div className='w-full flex justify-end'>
+                  <div className='w-1/2 grid grid-cols-2 gap-2'>
+                    <button onClick={smokeGasUpdateDB} className='w-full bg-blue-600 rounded-full text-white'>Apply</button>
+                    <button onClick={smokeGasCancelBtn} className='w-full bg-gray-300 rounded-full text-gray-800'>Cancel</button>
                   </div>
                 </div>
               </>
