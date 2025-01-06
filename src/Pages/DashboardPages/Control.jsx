@@ -662,7 +662,7 @@ export default function Control() {
                     <div className='w-[35%]'>
                       <h1 className='py-1 px-3 bg-gray-900 rounded-2xl text-white text-center font-bold'>{data.proto_name}</h1>
                     </div>
-                    <div className='grid grid-rows-1 w-full mt-2 gap-2 px-1'>
+                    <div className='grid grid-rows-1ww w-full mt-2 gap-2 px-1'>
                       {variableRenderer('Threshold', data, 'threshold', 'smoke_gas', data.proto_number, data.id)}
                     </div>
                   </div>
