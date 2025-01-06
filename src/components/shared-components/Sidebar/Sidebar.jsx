@@ -10,6 +10,7 @@ export default function Sidebar({shown,toggleSideBar,email}) {
     const [controlActive, setControlActive] = useState(false);
     const [historyActive, setHistoryActive] = useState(false);
     const [accountsActive, setAccountsActive] = useState(false);
+    const [settingsActive, setSettingsActive] = useState(false);
 
     useEffect(() => {
         if(location.pathname == '/dashboard'){
@@ -17,24 +18,35 @@ export default function Sidebar({shown,toggleSideBar,email}) {
             setControlActive(false);
             setHistoryActive(false);
             setAccountsActive(false);
+            setSettingsActive(false);
         }
         if(location.pathname == '/dashboard/control'){
             setDashboardActive(false);
             setControlActive(true);
             setHistoryActive(false);
             setAccountsActive(false);
+            setSettingsActive(false);
         }
         if(location.pathname == '/dashboard/history'){
             setDashboardActive(false);
             setControlActive(false);
             setHistoryActive(true);
             setAccountsActive(false);
+            setSettingsActive(false);
         }
         if(location.pathname == '/dashboard/accounts'){
             setDashboardActive(false);
             setControlActive(false);
             setHistoryActive(false);
             setAccountsActive(true);
+            setSettingsActive(false);
+        }
+        if (location.pathname === '/dashboard/settings') {
+            setDashboardActive(false);
+            setControlActive(false);
+            setHistoryActive(false);
+            setAccountsActive(false);
+            setSettingsActive(true);
         }
     }, [location])
 
@@ -105,6 +117,27 @@ export default function Sidebar({shown,toggleSideBar,email}) {
                     <path fillRule="evenodd" clipRule="evenodd" d="M10 11C10.5523 11 11 10.5523 11 10C11 9.44772 10.5523 9 10 9C9.44772 9 9 9.44772 9 10C9 10.5523 9.44772 11 10 11ZM10 13C11.6569 13 13 11.6569 13 10C13 8.34315 11.6569 7 10 7C8.34315 7 7 8.34315 7 10C7 11.6569 8.34315 13 10 13Z"/>
                     </svg>
                 <h1 className={accountsActive ? 'text-white' : 'text-blue-600'}>Accounts</h1>
+                </div>
+            </Link>
+        </div>
+        {/* Settings Button */}
+        <div className="flex border-b-[2px] border-gray-400 h-[3rem] py-1">
+            <Link
+                onClick={toggleSideBar}
+                to={'/dashboard/settings'}
+                className={`w-full h-full rounded-full ${
+                    settingsActive ? 'bg-blue-600 text-white' : 'text-black'
+                }`}
+            >
+                <div className="w-full h-full flex justify-start items-center px-3 gap-2">
+                    <svg className={settingsActive ? 'stroke-white' : 'stroke-blue'} fill="none" width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M19.43 12.98c.04-.32.07-.66.07-.98s-.03-.66-.1-.98l2.11-1.65c.19-.15.25-.42.12-.64l-2-3.46c-.12-.22-.37-.3-.6-.22l-2.49 1a7.03 7.03 0 0 0-1.7-.98l-.38-2.65a.488.488 0 0 0-.48-.4h-4c-.24 0-.45.17-.48.4l-.38 2.65c-.63.24-1.21.56-1.7.98l-2.49-1a.5.5 0 0 0-.6.22l-2 3.46a.495.495 0 0 0 .12.64l2.11 1.65c-.07.32-.1.66-.1.98s.03.66.1.98l-2.11 1.65a.495.495 0 0 0-.12.64l2 3.46c.12.22.37.3.6.22l2.49-1c.5.42 1.07.74 1.7.98l.38 2.65c.03.23.24.4.48.4h4c.24 0 .45-.17.48-.4l.38-2.65c.63-.24 1.21-.56 1.7-.98l2.49 1c.23.08.48 0 .6-.22l2-3.46a.495.495 0 0 0-.12-.64l-2.11-1.65zM12 15c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z"
+                        />
+                    </svg>
+                    <h1 className={settingsActive ? 'text-white' : 'text-blue-600'}>
+                        Settings
+                    </h1>
                 </div>
             </Link>
         </div>

@@ -18,7 +18,8 @@ export default function Navbar({
     if(location.pathname === '/dashboard' || 
       location.pathname === '/dashboard/control' ||
       location.pathname === '/dashboard/history' ||
-      location.pathname === '/dashboard/accounts'){
+      location.pathname === '/dashboard/accounts' ||
+      location.pathname === '/dashboard/settings'){
       setBackMode(false);
     }else{
       setBackMode(true);
