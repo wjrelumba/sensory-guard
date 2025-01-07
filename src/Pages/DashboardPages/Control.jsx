@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 export default function Control() { 
   // const [sampleAircons, setSampleAircons] = useState();
-  const [sampleBuzzers, setSampleBuzzers] = useState();
+  const [buzzers, setBuzzers] = useState();
 
   // Create states for variables
   const [tempvarClicked, setTempvarClicked] = useState(false);
@@ -406,6 +406,14 @@ export default function Control() {
     humidDangerHigh,
   ]);
 
+  const getBuzzerData = async() => {
+    const {data} = await supabase.from('prototypes').select('buzzer_state, id, proto_number');
+    if(data){
+      data.sort((a,b) => a.proto_number - b.proto_number); // Sort the array first before setting state
+      setBuzzers(data);
+    };
+  };
+
   useEffect(() => {
     getVariables();
     // const sampleAirconsValue = [{
@@ -416,16 +424,9 @@ export default function Control() {
     //   open: true,
     // }];
 
-    const sampleBuzzersValue = [{
-      name: 'BZ 1',
-      open: false,
-    },{
-      name: 'BZ 2',
-      open: true,
-    }]
+    getBuzzerData();
 
     // setSampleAircons(sampleAirconsValue);
-    setSampleBuzzers(sampleBuzzersValue);
   },[]);
 
   // const airconClick = (index) => {
@@ -435,11 +436,18 @@ export default function Control() {
   //   setSampleAircons(arrayHolder);
   // };
 
-  const buzzerClick = (index) => {
-    const arrayHolder = [...sampleBuzzers];
-    arrayHolder[index].open = !arrayHolder[index].open;
-
-    setSampleBuzzers(arrayHolder);
+  const buzzerClick = async(proto_id, buzzer_state) => { 
+    if(buzzer_state == 1){ // Check if the buzzer state is 1 so that we can change to 0
+      await supabase.from('prototypes').update({
+        buzzer_state: 0
+      }).eq('id', proto_id);
+    }
+    else{
+      await supabase.from('prototypes').update({
+        buzzer_state: 1
+      }).eq('id', proto_id);
+    }
+    getBuzzerData();
   };
 
   const variableRenderer = (text, dataValue, range, mode, proto_number, proto_id) => {
@@ -537,15 +545,15 @@ export default function Control() {
           </div>
         </div>
         <div className='flex gap-1'>
-          {sampleBuzzers && (
+          {buzzers && (
             <>
-              {sampleBuzzers.map((data, index) => (
+              {buzzers.map((data, index) => (
                 <div key={index} className='grid grid-cols-2 px-3 py-2 justify-items-center items-center rounded-lg border-[2px] h-[3rem] shadow-lg w-1/2 border-gray-300'>
-                    <h1 className='font-bold text-gray-600'>{data.name}</h1>
-                    <div onClick={() => buzzerClick(index)} className={`bg-gray-400 flex w-full p-1 justify-center items-center h-full rounded`}>
-                      <div className={`${data.open ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-500'} w-full h-full rounded flex justify-center items-center`}>
+                    <h1 className='font-bold text-gray-600'>BZ {data.proto_number}</h1>
+                    <div onClick={() => buzzerClick(data.id, data.buzzer_state)} className={`bg-gray-400 flex w-full p-1 justify-center items-center h-full rounded`}>
+                      <div className={`${data.buzzer_state == 1 ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-500'} w-full h-full rounded flex justify-center items-center`}>
                         <h1 className='text-xs font-bold'>
-                          {data.open ? 'MUTE' : 'UNMUTE'}
+                          {data.buzzer_state == 1 ? 'MUTE' : 'UNMUTE'}
                         </h1>
                       </div>
                     </div>
