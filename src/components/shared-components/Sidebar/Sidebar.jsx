@@ -41,7 +41,7 @@ export default function Sidebar({shown,toggleSideBar,email}) {
             setAccountsActive(true);
             setSettingsActive(false);
         }
-        if (location.pathname === '/dashboard/settings') {
+        if(location.pathname == '/dashboard/settings'){
             setDashboardActive(false);
             setControlActive(false);
             setHistoryActive(false);
@@ -120,24 +120,11 @@ export default function Sidebar({shown,toggleSideBar,email}) {
                 </div>
             </Link>
         </div>
-        {/* Settings Button */}
-        <div className="flex border-b-[2px] border-gray-400 h-[3rem] py-1">
-            <Link
-                onClick={toggleSideBar}
-                to={'/dashboard/settings'}
-                className={`w-full h-full rounded-full ${
-                    settingsActive ? 'bg-blue-600 text-white' : 'text-black'
-                }`}
-            >
-                <div className="w-full h-full flex justify-start items-center px-3 gap-2">
-                    <svg className={settingsActive ? 'stroke-white' : 'stroke-blue'} fill="none" width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M19.43 12.98c.04-.32.07-.66.07-.98s-.03-.66-.1-.98l2.11-1.65c.19-.15.25-.42.12-.64l-2-3.46c-.12-.22-.37-.3-.6-.22l-2.49 1a7.03 7.03 0 0 0-1.7-.98l-.38-2.65a.488.488 0 0 0-.48-.4h-4c-.24 0-.45.17-.48.4l-.38 2.65c-.63.24-1.21.56-1.7.98l-2.49-1a.5.5 0 0 0-.6.22l-2 3.46a.495.495 0 0 0 .12.64l2.11 1.65c-.07.32-.1.66-.1.98s.03.66.1.98l-2.11 1.65a.495.495 0 0 0-.12.64l2 3.46c.12.22.37.3.6.22l2.49-1c.5.42 1.07.74 1.7.98l.38 2.65c.03.23.24.4.48.4h4c.24 0 .45-.17.48-.4l.38-2.65c.63-.24 1.21-.56 1.7-.98l2.49 1c.23.08.48 0 .6-.22l2-3.46a.495.495 0 0 0-.12-.64l-2.11-1.65zM12 15c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z"
-                        />
-                    </svg>
-                    <h1 className={settingsActive ? 'text-white' : 'text-blue-600'}>
-                        Settings
-                    </h1>
+        <div className='flex border-b-[2px] border-gray-400 h-[3rem] py-1'>
+            <Link onClick={toggleSideBar} to={'/dashboard/settings'} className={`w-full h-full rounded-full ${settingsActive ? 'bg-blue-600 text-white' : 'text-black'}`}>
+                <div className='w-full h-full flex justify-start items-center px-3 gap-2'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${!settingsActive ? 'text-blue-600' : 'text-white'} feather feather-settings`}><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    <h1 className={settingsActive ? 'text-white' : 'text-blue-600'}>Settings</h1>
                 </div>
             </Link>
         </div>
