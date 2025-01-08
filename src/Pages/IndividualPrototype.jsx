@@ -14,7 +14,7 @@ export default function IndividualPrototype() {
 
     const getImportantData = async() => {
       console.log('run');
-      const {data:readings} = await supabase.from('readings').select().order('created_at', {ascending: false}).eq('proto_id', protoId);
+      const {data:readings} = await supabase.from('readings').select().order('created_at', {ascending: false}).eq('proto_id', protoId).limit(1);
       if(readings){
         console.log(readings[0]);
         setDataValues(readings[0]);

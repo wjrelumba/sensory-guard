@@ -13,7 +13,7 @@ export default function GeneralCard( {
   const parentClassname = 'w-full bg-gray-700 rounded-xl p-2';
 
   const getValueFromDB = async() => {
-    const {data} = await supabase.from('readings').select().order('created_at', {ascending: false}).eq('proto_id', prototypeId);
+    const {data} = await supabase.from('readings').select().order('created_at', {ascending: false}).eq('proto_id', prototypeId).limit(1);
     if(data){
       setDataValues(data[0]);
       console.log(data);
