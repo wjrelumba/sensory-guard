@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { supabase } from '../../../Essentials/Supabase';
 
 export default function GeneralCard( {
   prototypeId, // Current prototype ID
@@ -11,13 +12,18 @@ export default function GeneralCard( {
 
   const parentClassname = 'w-full bg-gray-700 rounded-xl p-2';
 
+  const getValueFromDB = async() => {
+    const {data} = await supabase.from('readings').select().order('created_at', {ascending: false}).eq('proto_id', prototypeId);
+    if(data){
+      setDataValues(data[0]);
+      console.log(data);
+    };
+  }
+
   const getDataValues = () => {
-    const dataValueChild = readingValues?.filter(value => value.proto_id === prototypeId); // Get only data for specific prototype
     const importantDataValueChild = prototypeImportantValues?.filter(value => value.id === prototypeId) // Get only important data for specific prototype
 
-    if(dataValueChild && importantDataValueChild){
-        setDataValues(dataValueChild[dataValueChild.length-1]);
-        console.log(dataValueChild[dataValueChild.length-1]);
+    if(importantDataValueChild){
         console.log(importantDataValueChild[0]);
         setImportantDataValues(importantDataValueChild[0]);
     }
@@ -98,9 +104,13 @@ export default function GeneralCard( {
     </div>
   );
 
+
   useEffect(() => {
     getDataValues();
-    console.log(readingValues);
+  },[])
+
+  useEffect(() => {
+    getValueFromDB();
   },[readingValues])
 
   useEffect(() => {console.log(dataValues)},[dataValues]);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { supabase } from '../../Essentials/Supabase';
-import { toast } from 'react-toastify';
+import { showErrorToast, showSuccessToast } from '../../Essentials/ShowToast';
 
 export default function Control() { 
   // const [sampleAircons, setSampleAircons] = useState();
@@ -217,14 +217,14 @@ export default function Control() {
         temperature_variables[protoIds[i]].danger.low >= temperature_variables[protoIds[i]].danger.high ||
         temperature_variables[protoIds[i]].danger.high <= temperature_variables[protoIds[i]].danger.low
       ){
-        toast.error(`${data[0].proto_name}: Range error, check your inputs`);
+        showErrorToast(`${data[0].proto_name}: Range error, check your inputs`);
       }
       else {
         const {error} = await supabase.from('prototypes').update({
           temperature_variables: temperature_variables[protoIds[i]]
         }).eq('id', protoIds[i]);
         if(!error){
-          toast.success(`${data[0].proto_name}: Temperature Variables successfully updated`);
+          showSuccessToast(`${data[0].proto_name}: Temperature Variables successfully updated`);
         };
       };
 
@@ -316,14 +316,14 @@ export default function Control() {
         humidity_variables[protoIds[i]].danger.low >= humidity_variables[protoIds[i]].danger.high ||
         humidity_variables[protoIds[i]].danger.high <= humidity_variables[protoIds[i]].danger.low
       ){
-        toast.error(`${data[0].proto_name}: Range error, check your inputs`);
+        showErrorToast(`${data[0].proto_name}: Range error, check your inputs`);
       }
       else {
         const {error} = await supabase.from('prototypes').update({
           humidity_variables: humidity_variables[protoIds[i]]
         }).eq('id', protoIds[i]);
         if(!error){
-          toast.success(`${data[0].proto_name}: Humidity Variables successfully updated`);
+          showSuccessToast(`${data[0].proto_name}: Humidity Variables successfully updated`);
         };
       };
 
@@ -366,7 +366,7 @@ export default function Control() {
         smoke_gas_variables: smoke_gas_variables[protoIds[i]]
       }).eq('id', protoIds[i]);
       if(!error){
-        toast.success(`${data[0].proto_name}: Smoke and Gas Variables successfully updated`);
+        showSuccessToast(`${data[0].proto_name}: Smoke and Gas Variables successfully updated`);
       };
     }
   };

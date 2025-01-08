@@ -80,23 +80,6 @@ export default function Dashboard() {
       <Navbar toggleSideBar={toggleSideBar} dpLink={dpLink}/>
         <div className='w-full h-full flex flex-col gap-1 p-2'>
         <Outlet/>
-          {/* {dataValues && impDataValues && (
-            <>
-              <GeneralSensorCard 
-              key={'4718a148-0f82-401a-af9e-79bb66b9fe4f'}
-              prototypeId={'4718a148-0f82-401a-af9e-79bb66b9fe4f'} 
-              readingValues={dataValues} 
-              prototypeImportantValues={impDataValues}
-              />
-
-              <GeneralSensorCard
-              key={'84af9f58-26c9-453a-8c16-d8358579c221'}
-              prototypeId={'84af9f58-26c9-453a-8c16-d8358579c221'} 
-              readingValues={dataValues} 
-              prototypeImportantValues={impDataValues}
-              />
-            </>
-          )} */}
         </div>
     </div>
     <Sidebar shown={showSidebar} toggleSideBar={toggleSideBar} email={email}/>

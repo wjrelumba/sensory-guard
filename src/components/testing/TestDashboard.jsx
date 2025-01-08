@@ -31,7 +31,7 @@ export default function TestDashboard() {
       vibration: vibrationSecond,
       smoke_gas: smokeGasSecond,
     });
-    window.location.reload();
+    // window.location.reload();
   };
 
   const inputHandler = (e) => {

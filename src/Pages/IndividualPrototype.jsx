@@ -14,14 +14,19 @@ export default function IndividualPrototype() {
 
     const getImportantData = async() => {
       console.log('run');
-      const {data:readings} = await supabase.from('readings').select().eq('proto_id', protoId);
-      const {data:importantValues} = await supabase.from('prototypes').select().eq('id', protoId);
+      const {data:readings} = await supabase.from('readings').select().order('created_at', {ascending: false}).eq('proto_id', protoId);
       if(readings){
-        setDataValues(readings);
+        console.log(readings[0]);
+        setDataValues(readings[0]);
       }
-      if(importantValues){
-        setImpDataValues(importantValues);
+      if(!impDataValues){
+        const {data:importantValues} = await supabase.from('prototypes').select();
+        if(importantValues){
+          console.log(importantValues);
+          setImpDataValues(importantValues);
+        }
       }
+      
     }
 
     const getUserSession = async() => {
@@ -40,6 +45,8 @@ export default function IndividualPrototype() {
 
     useEffect(() => {
         getUserSession();
+        getImportantData();
+
         const subscription = supabase.channel('readings').on('postgres_changes', {
           event: 'INSERT',
           schema: 'public',
@@ -63,12 +70,14 @@ export default function IndividualPrototype() {
 
   return (
     <div>
+      {impDataValues && dataValues && (
         <GeneralSensorCard 
         key={protoId}
         prototypeId={protoId} 
         readingValues={dataValues} 
         prototypeImportantValues={impDataValues}
         />
+      )}
     </div>
   )
 }

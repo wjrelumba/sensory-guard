@@ -1,35 +1,37 @@
 import React, { useEffect, useState } from 'react'
 import { Gauges } from '../Gauge';
 import Loader from '../../Loader/Loader';
+import { supabase } from '../../../../Essentials/Supabase';
 
 export default function GeneralSensorCard( {
   prototypeId, // Current prototype ID
   readingValues, // Values
   prototypeImportantValues // Important values from prototype
 } ) {
-  const [dataValues, setDataValues] = useState(null);
   const [importantDataValues, setImportantDataValues] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const parentClassname = 'w-full bg-white rounded-xl p-2 border-[2px] border-gray-300 shadow-lg';
 
-  const getDataValues = () => {
-    const dataValueChild = readingValues?.filter(value => value.proto_id === prototypeId); // Get only data for specific prototype
-    const importantDataValueChild = prototypeImportantValues?.filter(value => value.id === prototypeId) // Get only important data for specific prototype
-
-    if(dataValueChild && importantDataValueChild){
-      setDataValues(dataValueChild[dataValueChild.length-1]);
-      setImportantDataValues(importantDataValueChild[0]);
-      setIsLoading(false);
-    }
-  }
+    const getDataValues = () => {
+      const importantDataValueChild = prototypeImportantValues?.filter(value => value.id === prototypeId) // Get only important data for specific prototype
+      console.log(prototypeImportantValues);
+      console.log(readingValues);
+      console.log(importantDataValueChild);
+      if(importantDataValueChild){
+          console.log(importantDataValueChild[0]);
+          setImportantDataValues(importantDataValueChild[0]);
+          setIsLoading(false);
+      }
+    };
 
   useEffect(() => {
-    getDataValues();
-    console.log(readingValues);
-  },[readingValues])
+      getDataValues();
+    },[])
 
-  useEffect(() => {console.log(dataValues)},[dataValues]);
+    useEffect(() => {
+      console.log(isLoading);
+    },[isLoading])
   
   return (
     <div className='w-full p-2 bg-white text-gray-900 rounded-xl'>
@@ -39,13 +41,13 @@ export default function GeneralSensorCard( {
             <Loader/>
           ):(
             <>
-              {dataValues && importantDataValues && (
+              {importantDataValues && (
               <>
                 <h1 className='border-b py-1 border-black w-full mb-4'>{importantDataValues.proto_name}</h1>
                   <div className='grid grid-cols-2 sm:grid-cols-4 w-full justify-items-center items-center gap-1'>
                     <Gauges.TemperatureGauge
                     allowed_temperature={importantDataValues.temperature_variables} 
-                    temperature={dataValues.temperature}
+                    temperature={readingValues.temperature}
                     parentClassname={parentClassname}
                     firstLimitText='Allowed Temperature'
                     secondLimitText='Too High Temperature!'
@@ -54,7 +56,7 @@ export default function GeneralSensorCard( {
                     />
                     <Gauges.HumidityGauge 
                     allowed_humidity={importantDataValues.humidity_variables} 
-                    humidity={dataValues.humidity}
+                    humidity={readingValues.humidity}
                     parentClassname={parentClassname}
                     firstLimitText='Allowed Humidity'
                     secondLimitText='Too High Humidity!'
@@ -63,7 +65,7 @@ export default function GeneralSensorCard( {
                     />
                     <Gauges.SmokeGasGauge
                     allowed_smoke_gas={importantDataValues.smoke_gas_variables}
-                    smokeGas={dataValues.smoke_gas}
+                    smokeGas={readingValues.smoke_gas}
                     parentClassname={parentClassname}
                     firstLimitText='No Smoke and Gas'
                     secondLimitText='Smoke and Gas Detected'
@@ -73,7 +75,7 @@ export default function GeneralSensorCard( {
                     />
                     <Gauges.VibrationGauge
                     allow_vibration={importantDataValues.vibration_variables}
-                    vibration={dataValues.vibration}
+                    vibration={readingValues.vibration}
                     parentClassname={parentClassname}
                     firstLimitText='No Vibration'
                     secondLimitText='Vibration Detected'

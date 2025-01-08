@@ -14,12 +14,15 @@ export default function DashboardSensors() {
 
     const getImportantData = async() => {
         const {data:readings} = await supabase.from('readings').select();
-        const {data:importantValues} = await supabase.from('prototypes').select();
         if(readings){
           setDataValues(readings);
         }
-        if(importantValues){
-          setImpDataValues(importantValues);
+        if(impDataValues === null){
+          const {data:importantValues} = await supabase.from('prototypes').select();
+          if(importantValues){
+            importantValues.sort((a,b) => a.proto_number - b.proto_number);
+            setImpDataValues(importantValues);
+          }
         }
         setIsLoading(false);
       }
@@ -69,20 +72,15 @@ export default function DashboardSensors() {
         ) : (
           <div className='flex flex-col gap-2'>
             <h1 className='text-xl text-gray-800'>Prototypes</h1>
-            <GeneralCard
-            onClick={navigator}
-            key={'4718a148-0f82-401a-af9e-79bb66b9fe4f'}
-            prototypeId={'4718a148-0f82-401a-af9e-79bb66b9fe4f'}
-            readingValues={dataValues}
-            prototypeImportantValues={impDataValues}
-            />
-            <GeneralCard
-            onClick={navigator}
-            key={'84af9f58-26c9-453a-8c16-d8358579c221'}
-            prototypeId={'84af9f58-26c9-453a-8c16-d8358579c221'}
-            readingValues={dataValues}
-            prototypeImportantValues={impDataValues}
-            />
+            {impDataValues && impDataValues.map((data) => (
+              <GeneralCard
+              onClick={navigator}
+              key={data.id}
+              prototypeId={data.id}
+              readingValues={dataValues}
+              prototypeImportantValues={impDataValues}
+              />
+            ))}
             <Chart/>
           </div>
         )}
