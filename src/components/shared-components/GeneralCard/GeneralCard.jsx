@@ -74,7 +74,25 @@ export default function GeneralCard( {
         }
     }
     else if(type == 'vibration'){
-      if(data - 0.5 < allowed_data.threshold){
+      if(data - 0.5 < allowed_data.allowed){
+        if(classNameMode){
+            return normalColor
+        }
+        else{
+            return 'Undetected'
+        }
+    }
+    else {
+        if(classNameMode){
+            return warningColor
+        }
+        else{
+            return 'Detected'
+        }
+    }
+    }
+    else if(type == 'flame'){
+      if(data - 0.5 < allowed_data.allowed){
         if(classNameMode){
             return normalColor
         }
@@ -127,10 +145,11 @@ export default function GeneralCard( {
                   <h1>Icon</h1>
                 </div>
                 <div className='col-span-2 grid grid-row-4 sm:grid-cols-4 w-full justify-items-center items-center gap-1'>
-                  {renderer('Temperature', 'temperature', 'temperature_variables', 'bg-blue-600', 'bg-yellow-600', 'bg-red-600')}
-                  {renderer('Humidity', 'humidity', 'humidity_variables', 'bg-yellow-600', 'bg-orange-600', 'bg-red-600')}
-                  {renderer('Smoke/Gas', 'smoke_gas', 'smoke_gas_variables', 'bg-yellow-600', 'bg-red-600')}
-                  {renderer('Vibration', 'vibration', 'vibration_variables', 'bg-yellow-600', 'bg-red-600')}
+                  {renderer('Temperature', 'temperature', 'temperature_variables', 'bg-blue-600 text-white', 'bg-orange-600 text-white', 'bg-red-600 text-white')}
+                  {renderer('Humidity', 'humidity', 'humidity_variables', 'bg-blue-600 text-white', 'bg-orange-600 text-white', 'bg-red-600 text-white')}
+                  {renderer('Smoke/Gas', 'smoke_gas', 'smoke_gas_variables', 'bg-blue-600 text-white', 'bg-red-600 text-white')}
+                  {renderer('Vibration', 'vibration', 'vibration_variables', 'bg-blue-600 text-white', 'bg-red-600 text-white')}
+                  {renderer('Flame', 'flame', 'flame_variables', 'bg-blue-600 text-white', 'bg-red-600 text-white')}
                 </div>
               </div>
             </>

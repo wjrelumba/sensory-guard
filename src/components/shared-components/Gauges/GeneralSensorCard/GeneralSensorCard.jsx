@@ -83,6 +83,16 @@ export default function GeneralSensorCard( {
                     maximumValue={37}
                     minimunValue={10}
                     />
+                    <Gauges.FlameGauge
+                    allow_flame={importantDataValues.flame_variables}
+                    flame={readingValues.flame}
+                    parentClassname={parentClassname}
+                    firstLimitText='No Flame'
+                    secondLimitText='Flame Detected'
+                    gaugeType='radial'
+                    maximumValue={37}
+                    minimunValue={10}
+                    />
                   </div>
                 </>
               )}

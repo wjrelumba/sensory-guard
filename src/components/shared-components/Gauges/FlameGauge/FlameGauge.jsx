@@ -1,12 +1,12 @@
 import React from 'react'
 import GaugeComponent from 'react-gauge-component'
 
-export default function HumidityGauge( {
-    allowed_humidity, // Allowed humidity
-    humidity, // Humidity reading
-    parentClassname, // Classname of Parent div
-    maximumValue = 37, // Gauge's maximum value
-    minimunValue = 10, // Gauge's minimum value
+export default function FlameGauge( {
+    allow_flame, // Allowed flame
+    flame, // flame reading
+    parentClassname, // Classname of parent div
+    maximumValue = 2, // Gauge's maximum value
+    minimunValue = 0, // Gauge's minimum value
     firstLimitText = 'Normal', // The message on the first limit
     secondLimitText = 'High', // The message on the second limit
     thirdLimitText = null, // The message on the third limit
@@ -15,11 +15,12 @@ export default function HumidityGauge( {
     colorFill = '#d5d5d5', // Set the color of the text
     arrowColor = '#616161',
 } ) {
+    console.log(flame)
   return (
     <div className={parentClassname}>
         <div className='grid grid-cols-2 items-center'>
-            <h1 className='text-xs'>Humidity</h1>
-            <h1 className={`text-xs text-white rounded-md p-1 text-center ${(humidity > allowed_humidity.normal.high && humidity < allowed_humidity.high.high) ? 'bg-orange-600' : humidity > allowed_humidity.high.high ? 'bg-red-600' : 'bg-blue-600'}`}>{(humidity > allowed_humidity.normal.high && humidity < allowed_humidity.high.high) ? 'High' : humidity > allowed_humidity.high.high ? 'Danger' : 'Normal'}</h1>
+            <h1 className='text-xs'>Flame</h1>
+            <h1 className={`text-xs text-white rounded-md p-1 text-center ${flame > allow_flame.allowed ? 'bg-red-600' : 'bg-blue-600'}`}>{flame > allow_flame.allowed ? 'Detected' : 'Undetected'}</h1>
         </div>
         <GaugeComponent
             type={gaugeType}
@@ -28,7 +29,7 @@ export default function HumidityGauge( {
             cornerRadius: 3,
             subArcs: [
                 {
-                limit: allowed_humidity.normal.high,
+                limit: allow_flame.allowed + 0.5,
                 color: '#00a2ff',
                 // showTick: true,
                 tooltip: {
@@ -36,17 +37,9 @@ export default function HumidityGauge( {
                 },
                 },
                 {
-                limit: allowed_humidity.high.high,
-                color: '#ff8f00',
-                tooltip: {
-                    text: secondLimitText
-                }
-                },
-                {
-                limit: allowed_humidity.danger.high,
                 color: '#ff0000',
                 tooltip: {
-                    text: thirdLimitText
+                    text: secondLimitText
                 }
                 }
             ]
@@ -60,7 +53,7 @@ export default function HumidityGauge( {
             }}
             labels={{
             valueLabel: { 
-                formatTextValue: value => value,
+                formatTextValue: value => '',
                 style: {
                 fontSize: textSize,
                 color: "#808080",
@@ -71,9 +64,9 @@ export default function HumidityGauge( {
                 hideMinMax: true,
             }
             }}
-            value={humidity ? humidity : 0}
-            minValue={allowed_humidity.normal.low}
-            maxValue={allowed_humidity.danger.high}
+            value={flame == 0 ? 0.25 : flame == 1 ? 0.75 : 0}
+            minValue={allow_flame.allowed}
+            maxValue={allow_flame.allowed + 1}
         />
     </div>
   )
