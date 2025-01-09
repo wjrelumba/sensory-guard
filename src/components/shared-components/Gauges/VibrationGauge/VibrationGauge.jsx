@@ -19,7 +19,7 @@ export default function VibrationGauge( {
     <div className={parentClassname}>
         <div className='grid grid-cols-2 items-center'>
             <h1 className='text-xs'>Vibration</h1>
-            <h1 className={`text-xs text-white rounded-md p-1 text-center ${vibration > allow_vibration.normal.high ? 'bg-red-600' : 'bg-yellow-600'}`}>{vibration > allow_vibration.normal.high ? 'Detected' : 'Undetected'}</h1>
+            <h1 className={`text-xs text-white rounded-md p-1 text-center ${vibration > allow_vibration.allowed ? 'bg-red-600' : 'bg-blue-600'}`}>{vibration > allow_vibration.allowed ? 'Detected' : 'Undetected'}</h1>
         </div>
         <GaugeComponent
             type={gaugeType}
@@ -28,8 +28,8 @@ export default function VibrationGauge( {
             cornerRadius: 3,
             subArcs: [
                 {
-                limit: allow_vibration.normal.high,
-                color: '#F5CD19',
+                limit: allow_vibration.allowed + 0.5,
+                color: '#00a2ff',
                 // showTick: true,
                 tooltip: {
                     text: firstLimitText
@@ -63,9 +63,9 @@ export default function VibrationGauge( {
                 hideMinMax: true,
             }
             }}
-            value={vibration ? vibration - 0.5 : 0}
-            minValue={allow_vibration.normal.low}
-            maxValue={allow_vibration.danger.high}
+            value={vibration == 0 ? 0.25 : vibration == 1 ? 0.75 : 0}
+            minValue={allow_vibration.allowed}
+            maxValue={allow_vibration.allowed + 1}
         />
     </div>
   )

@@ -19,7 +19,7 @@ export default function SmokeGasGauge( {
     <div className={parentClassname}>
         <div className='grid grid-cols-2 items-center'>
             <h1 className='text-xs'>Smoke/Gas</h1>
-            <h1 className={`text-xs text-white rounded-md p-1 text-center ${smokeGas > allowed_smoke_gas.threshold ? 'bg-red-600' : 'bg-yellow-600'}`}>{smokeGas > allowed_smoke_gas.threshold ? 'Detected' : 'Undetected'}</h1>
+            <h1 className={`text-xs text-white rounded-md p-1 text-center ${smokeGas > allowed_smoke_gas.threshold ? 'bg-red-600' : 'bg-blue-600'}`}>{smokeGas > allowed_smoke_gas.threshold ? 'Danger' : 'Normal'}</h1>
         </div>
         <GaugeComponent
             type={gaugeType}
@@ -29,7 +29,7 @@ export default function SmokeGasGauge( {
             subArcs: [
                 {
                 limit: allowed_smoke_gas.threshold,
-                color: '#F5CD19',
+                color: '#00a2ff',
                 // showTick: true,
                 tooltip: {
                     text: firstLimitText

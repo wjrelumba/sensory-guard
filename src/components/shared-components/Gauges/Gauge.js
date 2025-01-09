@@ -1,3 +1,4 @@
+import FlameGauge from "./FlameGauge/FlameGauge";
 import HumidityGauge from "./HumidityGauge/HumidityGauge";
 import SmokeGasGauge from "./SmokeGasGauge/SmokeGasGauge";
 import TemperatureGauge from "./TemperatureGauge/TemperatureGauge";
@@ -8,4 +9,5 @@ export const Gauges = {
     HumidityGauge,
     SmokeGasGauge,
     VibrationGauge,
+    FlameGauge,
 }
