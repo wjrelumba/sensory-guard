@@ -111,11 +111,39 @@ export default function Settings() {
                     <div className='w-full mt-5 flex flex-col'>
                         <h1 className='font-bold'>Prototype WifiManager:</h1>
                         <div className='flex flex-col w-full px-2 py-1'>
-                            <p className='text-[0.60rem] leading-[0.75rem] text-gray-400 w-full'>Below are the prototypes' WiFi name incase of disconnection from the main network.</p>
+                            <p className='text-[0.60rem] leading-[0.75rem] text-gray-500 w-full'>Below are the prototypes' WiFi name incase of disconnection from the main network.</p>
                             <ul className="list-disc pl-5 text-gray-600">
                                 <li className='text-xs'>SensoryGuard-P1</li>
                                 <li className='text-xs'>SensoryGuard-P2</li>
                             </ul>
+                        </div>
+                        <h1 className='text-xs'>Follow these steps below when hardware disconnects:</h1>
+                        <div className='flex flex-col w-full px-2 py-1'>
+                            <ol className="list-decimal pl-5 text-gray-600">
+                                <li className='text-xs italic'>
+                                    On your device, open <span className='font-bold'>
+                                    Settings
+                                    </span> &gt; <span className='font-bold'>
+                                        WiFi
+                                    </span>, 
+                                    and select "SensoryGuard-P1" and "SensoryGuard-P2"</li>
+                                <li className='text-xs italic'>
+                                    Wait for a tab to show and load you to the Wifi Manager.
+                                </li>
+                                <li className='text-xs italic'>
+                                    Now, select "<span className='font-bold'>Configure WiFi.</span>"
+                                </li>
+                                <li className='text-xs italic'>
+                                    Select the network or manually type in the SSID and then the password. <span className='font-bold'>
+                                        Save
+                                    </span> to connect and '<span className='font-bold'>Refresh</span>' if the network is not seen.
+                                </li>
+                                <li className='text-xs italic'>
+                                    Once, hardware is connected, it will show "<span className='font-bold'>
+                                        Wifi Connected
+                                        </span>" and then show the Sensor Readings. Note: Do the same thing for the other prototype once disconnected.
+                                </li>
+                            </ol>
                         </div>
                     </div>
                 )}
