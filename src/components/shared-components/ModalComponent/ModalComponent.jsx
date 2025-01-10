@@ -4,10 +4,10 @@ export default function ModalComponent({
   closeButtonShow = true,
   closeButtonMessage = 'Close',
   closeButtonClassname = 'bg-gray-300 hover:bg-gray-400 text-black px-4 rounded-full',
-  title, 
+  title,
   message=null, 
   acceptMessage='Save Changes', 
-  acceptClassname="bg-blue-500 hover:bg-blue-700 text-white px-4 rounded-full",
+  acceptClassname="bg-blue-500 hover:bg-blue-700 text-white px-4 rounded-full mr-1",
   acceptFunction=null,
   color='bg-white',
   mode = 'confirmation', // Modes: confirmation, input, notfication
@@ -25,24 +25,24 @@ export default function ModalComponent({
       <div className="fixed z-50 inset-0 flex items-center justify-center animate-in">
         <div className={`${color} rounded-lg shadow-lg w-11/12 max-w-lg`}>
           <div className="px-6 py-4">
-            <h2 className="text-xl font-bold w-full border-b-[2px] border-gray-300 font-mono">{title}</h2>
+            <h2 className="text-xl text-gray-700 font-bold w-full border-b-[2px] border-gray-600 pb-1 font-mono">{title}</h2>
             {message && (<p>{message}</p>)}
           </div>
           <div className="flex justify-end px-6 py-4">
-            {closeButtonShow && (
-              <button
-              className="mr-2 bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded"
-              onClick={onClose}
-            >
-              {closeButtonMessage}
-            </button>
-          )}
             <button
               className={acceptClassname}
               onClick={acceptFunction ? acceptFunction : onClose} // Replace with your save function
             >
               {acceptMessage}
             </button>
+            {closeButtonShow && (
+              <button
+              className={closeButtonClassname}
+              onClick={onClose}
+            >
+              {closeButtonMessage}
+            </button>
+          )}
           </div>
         </div>
       </div>
