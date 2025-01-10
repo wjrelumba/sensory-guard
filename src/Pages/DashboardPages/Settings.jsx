@@ -6,12 +6,33 @@ export default function Settings() {
     const [ssidInput, setSsidInput] = useState(null);
     const [passInput, setPassInput] = useState(null);
 
+    const [showInst, setShowInst] = useState(false);
+
+    // Function to toggle showing instructions
+    const showInstFunc = () => {
+        setShowInst(!showInst);
+    }
+
     // Fetch data from DB
     const getDataFromDB = async() => {
         const {data} = await supabase.from('wifi_settings').select();
         if(data){
+            const tempArray = [];
+            for(var i = 0; i < data.length; i++){
+                const {data:protoData} = await supabase.from('prototypes').select().eq('id', data[i].proto_id);
+                if(protoData && protoData.length > 0){
+                    const tempObject = {
+                        ssid: data[i].ssid,
+                        proto_number: protoData[0].proto_number,
+                        proto_name: protoData[0].proto_name,
+                    }
+                    tempArray.push(tempObject);
+                }
+            }
+            tempArray.sort((a,b) => a.proto_number - b.proto_number);
+            console.log(tempArray);
             console.log(data);
-            setWifiData(data);
+            setWifiData(tempArray);
         };
     };
 
@@ -67,7 +88,39 @@ export default function Settings() {
     <div className='w-full h-full p-2'>
         <div className='w-full h-full flex flex-col'>
             <h1 className='text-2xl font-bold'>Settings</h1>
-            <div className='w-full flex gap-1'>
+            <div className='flex flex-col w-full mt-2'>
+                {wifiData && wifiData.map((data) => (
+                    <div className='w-full flex gap-1 items-center' key={data.proto_number}>
+                        <h1>{data.proto_name} is/was connected to</h1>
+                        <h1 className='font-bold text-blue-600'>{data.ssid}</h1>
+                    </div>
+                ))}
+            </div>
+            <div className='w-full border-[2px] border-gray-300 rounded-lg mt-9 px-3 py-2 shadow-lg'>
+                <div className='w-full flex justify-between items-center'>
+                    <h1 className='font-bold'>WifiManager</h1>
+                    <div onClick={showInstFunc}>
+                        {showInst ? (
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-chevron-up"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                        ) : (
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        )}
+                    </div>
+                </div>
+                {showInst && (
+                    <div className='w-full mt-5 flex flex-col'>
+                        <h1 className='font-bold'>Prototype WifiManager:</h1>
+                        <div className='flex flex-col w-full px-2 py-1'>
+                            <p className='text-[0.60rem] leading-[0.75rem] text-gray-400 w-full'>Below are the prototypes' WiFi name incase of disconnection from the main network.</p>
+                            <ul className="list-disc pl-5 text-gray-600">
+                                <li className='text-xs'>SensoryGuard-P1</li>
+                                <li className='text-xs'>SensoryGuard-P2</li>
+                            </ul>
+                        </div>
+                    </div>
+                )}
+            </div>
+            {/* <div className='w-full flex gap-1'>
                 <h1>Connected to</h1>
                 <h1 className='text-blue-600 font-bold'>{wifiData && (wifiData?.length > 0 ? wifiData[0].ssid : '')}</h1>
             </div>
@@ -91,7 +144,7 @@ export default function Settings() {
                         Connect
                     </button>
                 </div>
-            </div>
+            </div> */}
         </div>
     </div>
   )
