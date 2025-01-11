@@ -4,9 +4,10 @@ import monthExtractor from '../../../Essentials/MonthExtractor'
 export default function AccountsCard({
     dataObject,
     index,
+    clickFunction,
 }) {
   return (
-    <div className='w-full flex p-2 h-[5.2rem] bg-gray-100 rounded-md border border-gray-400 hover:border-blue-500 hover:bg-blue-100' key={index}>
+    <div onClick={() => clickFunction(dataObject)} className='w-full flex p-2 h-[5.2rem] bg-gray-100 rounded-md border border-gray-400 hover:border-blue-500 hover:bg-blue-100' key={index}>
         <div className='w-[75%] flex flex-col justify-between'>
         <div className='w-full flex flex-col'>
             <h1 className='font-bold'>{dataObject.name}</h1>

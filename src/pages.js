@@ -10,6 +10,8 @@ import Signup from "./Pages/Signup";
 import History from "./Pages/DashboardPages/History";
 import Accounts from "./Pages/DashboardPages/Accounts";
 import Settings from "./Pages/DashboardPages/Settings";
+import TestingPage from "./TestingPage/TestingPage";
+import IndividualAccount from "./Pages/AccountsPages/IndividualAccount";
 
 export const Pages = {
     Homepage,
@@ -22,6 +24,7 @@ export const Pages = {
     History,
     Accounts,
     Settings,
+    IndividualAccount,
 }
 
 export const DashboardPages = {
@@ -30,6 +33,7 @@ export const DashboardPages = {
 
 export const TestPages = {
     TestDashboard,
+    TestingPage,
 }
 
 export default Pages;

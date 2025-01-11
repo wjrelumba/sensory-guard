@@ -3,9 +3,11 @@ import ModalComponent from '../../components/shared-components/ModalComponent/Mo
 import { supabase } from '../../Essentials/Supabase';
 import { showErrorToast } from '../../Essentials/ShowToast';
 import AccountsCard from '../../components/shared-components/AccountsCard/AccountsCard';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Accounts() {
+  const navigate = useNavigate();
   const [sampleUser, setSampleUser] = useState();
   const [shownUser, setShownUser] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -148,6 +150,10 @@ export default function Accounts() {
     setTotalPages(totalPageValue);
   };
 
+  const navigateToIndiv = (dataValue) => {
+    navigate('/dashboard/individualAcc', {state: dataValue})
+  }
+
   // Run once on component load, get the number of pages
   useEffect(() => {
     getAccounts();
@@ -223,6 +229,7 @@ export default function Accounts() {
             <AccountsCard
             dataObject={data}
             index={index}
+            clickFunction={navigateToIndiv}
             />
           ))}
         </div>
