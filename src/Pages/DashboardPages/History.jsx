@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import HistoryCard from '../../components/shared-components/HistoryCard/HistoryCard';
 import { showSuccessToast } from '../../Essentials/ShowToast';
 import ReportsCard from '../../components/shared-components/ReportsCard/ReportsCard';
+import { fetchMonthly } from '../../Functions/HistoryFunctions';
 
 const sampleHistory = [{
     date: 'December 3, 2024',
@@ -55,6 +56,20 @@ export default function History() {
   const showToast = () => {
     showSuccessToast('Clicked')
   }
+
+  const [reportsToShow, setReportsToShow] = useState(null);
+
+  const getData = async() => {
+    const dataRetrieved = await fetchMonthly(2025); // Temporarily Set to 2025 for now
+    console.log(dataRetrieved);
+    setReportsToShow(dataRetrieved);
+  };
+
+  useEffect(() => {
+    getData();
+  },[])
+
+
   return (
     <div className='w-full h-full p-2'>
       {/* History Section */}
@@ -71,6 +86,7 @@ export default function History() {
       <div className='flex flex-col w-full gap-2 mt-4 h-[20rem] pb-2 overflow-scroll'>
         {sampleHistory.map((data, index) => (
           <HistoryCard
+          key={index}
           dataObject={data}
           index={index}
           onClickFunction={showToast}
@@ -92,8 +108,9 @@ export default function History() {
         </select>
       </div>
       <div className='flex flex-col w-full gap-2 mt-4 h-[20rem] pb-2 overflow-scroll'>
-        {sampleReports.map((data, index) => (
+        {reportsToShow?.map((data, index) => (
           <ReportsCard
+          key={index}
           dataObject={data}
           index={index}
           onClickFunction={showToast}
