@@ -227,6 +227,7 @@ export default function Accounts() {
         <div className='w-full flex flex-col gap-2 mt-7'>
           {shownUser && shownUser.map((data, index) => (
             <AccountsCard
+            key={index}
             dataObject={data}
             index={index}
             clickFunction={navigateToIndiv}

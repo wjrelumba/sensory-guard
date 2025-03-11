@@ -172,6 +172,7 @@ label,
 select,
 input,
 canvas,
-button {
+button,
+textarea {
   font-family: 'reddit-sans-condensed';
 }
