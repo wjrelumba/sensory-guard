@@ -24,7 +24,7 @@ export const fetchMonthly = async (yearValue) => {
             let allData = [];
             let from = 0;
             let to = 999;
-            let hasMore = true;
+            let hasMore = true; 
 
             while (hasMore) { // While this is true, the system will keep fetching data
                 const { data, error } = await supabase
@@ -49,13 +49,20 @@ export const fetchMonthly = async (yearValue) => {
                 console.log(`Total Entries for Month ${value.month}:`, allData.length);
             };
 
+            let total = 0
+            for(let i = 0 ; i < allData.length; i++){
+                total += allData[i].temperature;
+            }
+
+            console.log(`Sum: ${total}, Length: ${allData.length}, Average: ${total / allData.length}`);
             return {
                 month: value.month,
                 dataExists: allData.length > 0 ? true : false,
                 temperature: allData.some((value) => value.temperature > sampleTempThreshold),
                 vibrationDetected: allData.some((value) => value.vibration > 0), // Check if vibration was detected
                 smokeDetected: allData.some((value) => value.smoke_gas > sampleSmokeThreshold), // Check if the analog smoke exceeded the threshold
-                flameDetected: allData.some((value) => value.flame > 0) // Check if flame was detected
+                flameDetected: allData.some((value) => value.flame > 0), // Check if flame was detected
+                averageTemp: total / allData.length,
             };
         })
     );

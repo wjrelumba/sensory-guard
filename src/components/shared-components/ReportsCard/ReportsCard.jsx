@@ -19,7 +19,7 @@ export default function ReportsCard({
       ) : (
         <>
           <h1 className='text-blue-600 font-bold text-xs'>Status:</h1>
-          <h1 className='text-gray-600 text-xs'>No data yet</h1>
+          <h1 className='text-gray-600 text-xs'>No data to show</h1>
         </>
       )}
     </div>

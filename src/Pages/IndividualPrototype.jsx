@@ -27,7 +27,7 @@ export default function IndividualPrototype() {
         }
       }
       
-    }
+    };
 
     const getUserSession = async() => {
         try {
