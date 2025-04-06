@@ -49,12 +49,17 @@ export const fetchMonthly = async (yearValue) => {
                 console.log(`Total Entries for Month ${value.month}:`, allData.length);
             };
 
-            let total = 0
+            let totalTempValue = 0;
             for(let i = 0 ; i < allData.length; i++){
-                total += allData[i].temperature;
+                totalTempValue += allData[i].temperature;
+            }
+            
+            let totalHumidValue = 0;
+            for(let i = 0 ; i < allData.length; i++){
+                totalHumidValue += allData[i].humidity;
             }
 
-            console.log(`Sum: ${total}, Length: ${allData.length}, Average: ${total / allData.length}`);
+            console.log(`Sum: ${totalTempValue}, Length: ${allData.length}, Average: ${totalTempValue / allData.length}`);
             return {
                 month: value.month,
                 dataExists: allData.length > 0 ? true : false,
@@ -62,7 +67,8 @@ export const fetchMonthly = async (yearValue) => {
                 vibrationDetected: allData.some((value) => value.vibration > 0), // Check if vibration was detected
                 smokeDetected: allData.some((value) => value.smoke_gas > sampleSmokeThreshold), // Check if the analog smoke exceeded the threshold
                 flameDetected: allData.some((value) => value.flame > 0), // Check if flame was detected
-                averageTemp: total / allData.length,
+                averageTemp: totalTempValue / allData.length,
+                averageHumidity: totalHumidValue / allData.length,
             };
         })
     );
