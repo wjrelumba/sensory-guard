@@ -77,3 +77,129 @@ export const fetchMonthly = async (yearValue) => {
 
     return dataRetrieved;
 };
+
+export const fetchWeekly = async (yearValue, monthValue) => {
+    const weekRanges = [
+        { month: 1, weeks: [[1, 7], [8, 14], [15, 21], [22, 31]] },
+        { month: 2, weeks: [[1, 7], [8, 14], [15, 21], [22, 28]] },
+        { month: 3, weeks: [[1, 7], [8, 14], [15, 21], [22, 31]] },
+        { month: 4, weeks: [[1, 7], [8, 14], [15, 21], [22, 30]] },
+        { month: 5, weeks: [[1, 7], [8, 14], [15, 21], [22, 31]] },
+        { month: 6, weeks: [[1, 7], [8, 14], [15, 21], [22, 30]] },
+        { month: 7, weeks: [[1, 7], [8, 14], [15, 21], [22, 31]] },
+        { month: 8, weeks: [[1, 7], [8, 14], [15, 21], [22, 31]] },
+        { month: 9, weeks: [[1, 7], [8, 14], [15, 21], [22, 30]] },
+        { month: 10, weeks: [[1, 7], [8, 14], [15, 21], [22, 31]] },
+        { month: 11, weeks: [[1, 7], [8, 14], [15, 21], [22, 30]] },
+        { month: 12, weeks: [[1, 7], [8, 14], [15, 21], [22, 31]] },
+    ];
+
+    const weeklyData = [];
+
+    for (let i = 0; i < weekRanges[monthValue - 1].weeks.length; i++) { // Traverse the weeks key array
+        const [startDay, endDay] = weekRanges[monthValue - 1].weeks[i]; // Extract the start day and end day from the given values in the array
+        let allData = [];
+        let from = 0;
+        let to = 999;
+        let hasMore = true;
+
+        while (hasMore) {
+            const { data, error } = await supabase
+                .from('readings')
+                .select('*', { count: 'exact' })
+                .gte('created_at', `${yearValue}-${weekRanges[monthValue - 1].month}-${String(startDay).padStart(2, '0')}`)
+                .lte('created_at', `${yearValue}-${weekRanges[monthValue - 1].month}-${String(endDay).padStart(2, '0')}`)
+                .range(from, to);
+
+            if (error) {
+                console.error(`Error fetching data for week ${i + 1} of month ${weekRanges[monthValue - 1].month}:`, error);
+                break;
+            }
+
+            allData = [...allData, ...data];
+
+            if (data.length < 1000) hasMore = false;
+            from += 1000;
+            to += 1000;
+        }
+
+        let totalTempValue = 0, totalHumidValue = 0;
+        allData.forEach((item) => {
+            totalTempValue += item.temperature;
+            totalHumidValue += item.humidity;
+        });
+
+        weeklyData.push({
+            month: weekRanges[monthValue - 1].month, // Get the month value using indexing month value = 1 - 1 = 0 {Meaning first item or object in the array}
+            week: i + 1,
+            dataExists: allData.length > 0,
+            temperature: allData.some((d) => d.temperature > sampleTempThreshold),
+            vibrationDetected: allData.some((d) => d.vibration > 0),
+            smokeDetected: allData.some((d) => d.smoke_gas > sampleSmokeThreshold),
+            flameDetected: allData.some((d) => d.flame > 0),
+            averageTemp: totalTempValue / allData.length || 0,
+            averageHumidity: totalHumidValue / allData.length || 0,
+        });
+    }
+
+    console.log("Weekly Data:", weeklyData);
+    return weeklyData;
+};
+
+export const fetchDaily = async (yearValue, monthValue) => {
+    const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    const dailyData = [];
+    const totalDays = daysInMonth[monthValue - 1]; // Assign totalDays from the daysInMonth array using what month is the loop on
+
+    for (let day = 1; day <= totalDays; day++) { // Loop through each day of the month
+        let allData = [];
+        let from = 0;
+        let to = 999;
+        let hasMore = true;
+
+        const startDate = `${yearValue}-${String(monthValue).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        const endDate = `${yearValue}-${String(monthValue).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+        while (hasMore) {
+            const { data, error } = await supabase
+                .from('readings')
+                .select('*', { count: 'exact' })
+                .gte('created_at', startDate)
+                .lt('created_at', `${yearValue}-${String(monthValue).padStart(2, '0')}-${String(day + 1).padStart(2, '0')}`)
+                .range(from, to);
+
+            if (error) {
+                console.error(`Error fetching data for ${startDate}:`, error);
+                break;
+            }
+
+            allData = [...allData, ...data];
+
+            if (data.length < 1000) hasMore = false;
+            from += 1000;
+            to += 1000;
+        }
+
+        let totalTempValue = 0, totalHumidValue = 0;
+        allData.forEach((item) => {
+            totalTempValue += item.temperature;
+            totalHumidValue += item.humidity;
+        });
+
+        dailyData.push({
+            date: day,
+            month: monthValue,
+            dataExists: allData.length > 0,
+            temperature: allData.some((d) => d.temperature > sampleTempThreshold),
+            vibrationDetected: allData.some((d) => d.vibration > 0),
+            smokeDetected: allData.some((d) => d.smoke_gas > sampleSmokeThreshold),
+            flameDetected: allData.some((d) => d.flame > 0),
+            averageTemp: totalTempValue / allData.length || 0,
+            averageHumidity: totalHumidValue / allData.length || 0,
+        });
+    }
+
+    console.log("Daily Data:", dailyData);
+    return dailyData;
+};

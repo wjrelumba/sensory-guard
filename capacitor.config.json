@@ -4,7 +4,8 @@
   "webDir": "dist",
   "plugins": {
     "LocalNotifications": {
-      "smallIcon": "splash"
+      "smallIcon": "splash",
+      "sound": "notification_sound.ogg"
     }
   }
 }

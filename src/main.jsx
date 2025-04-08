@@ -29,7 +29,6 @@ requestPermissions();
       name: 'Default Channel',
       description: `Channel for readings`,
       importance: 5,
-      sound: 'notification_sound.mp3',
     }
     await LocalNotifications.createChannel(channel);
   };
