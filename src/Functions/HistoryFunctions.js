@@ -67,8 +67,8 @@ export const fetchMonthly = async (yearValue) => {
                 vibrationDetected: allData.some((value) => value.vibration > 0), // Check if vibration was detected
                 smokeDetected: allData.some((value) => value.smoke_gas > sampleSmokeThreshold), // Check if the analog smoke exceeded the threshold
                 flameDetected: allData.some((value) => value.flame > 0), // Check if flame was detected
-                averageTemp: totalTempValue / allData.length,
-                averageHumidity: totalHumidValue / allData.length,
+                averageTemp: (totalTempValue / allData.length).toFixed(2),
+                averageHumidity: (totalHumidValue / allData.length).toFixed(2),
             };
         })
     );
@@ -137,8 +137,8 @@ export const fetchWeekly = async (yearValue, monthValue) => {
             vibrationDetected: allData.some((d) => d.vibration > 0),
             smokeDetected: allData.some((d) => d.smoke_gas > sampleSmokeThreshold),
             flameDetected: allData.some((d) => d.flame > 0),
-            averageTemp: totalTempValue / allData.length || 0,
-            averageHumidity: totalHumidValue / allData.length || 0,
+            averageTemp: (totalTempValue / allData.length).toFixed(2) || 0,
+            averageHumidity: (totalHumidValue / allData.length).toFixed(2) || 0,
         });
     }
 
@@ -195,8 +195,8 @@ export const fetchDaily = async (yearValue, monthValue) => {
             vibrationDetected: allData.some((d) => d.vibration > 0),
             smokeDetected: allData.some((d) => d.smoke_gas > sampleSmokeThreshold),
             flameDetected: allData.some((d) => d.flame > 0),
-            averageTemp: totalTempValue / allData.length || 0,
-            averageHumidity: totalHumidValue / allData.length || 0,
+            averageTemp: (totalTempValue / allData.length).toFixed(2) || 0,
+            averageHumidity: (totalHumidValue / allData.length).toFixed(2) || 0,
         });
     }
 

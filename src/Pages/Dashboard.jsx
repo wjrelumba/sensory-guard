@@ -144,7 +144,6 @@ export default function Dashboard() {
             }
           }
         } catch (err) {
-          console.error("Error handling app state change:", err);
         }
       };
 
