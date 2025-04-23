@@ -30,11 +30,16 @@ export default function Homepage() {
             <img className='object-contain w-full h-full' src="./channels4_profile-removebg-preview.png" alt="" />
           </div>
           <div className='w-full flex justify-center items-center gap-0'>
-             <h1 className='text-gray-800 text-3xl mb-5'>Sensory</h1>
-             <h1 className='text-blue-600 text-3xl mb-5'>Guard</h1>
+             <h1 className='text-gray-800 text-3xl font-bold'>Sensory</h1>
+             <h1 className='text-blue-600 text-3xl font-bold'>Guard</h1>
+             <h1 className='text-gray-800 text-3xl font-bold'>:</h1>
+          </div>
+          <div className='w-full flex flex-col items-center mb-5'>
+            <h1 className='text-gray-600 font-bold'>Server Room</h1>
+            <h1 className='text-gray-600 font-bold'>Monitoring System</h1>
           </div>
             <div className='flex flex-col items-center justify-center w-full'>
-              <Link className='reddit-sans-condensed flex justify-center border-[2px] border-gray-900 px-3 py-1 bg-blue-600 rounded-md text-white w-[50%] mb-1' to={'/login'}>Login</Link>
+              <Link className='reddit-sans-condensed flex justify-center px-3 py-2 font-bold bg-blue-600 rounded-md text-white w-[50%] mb-1' to={'/login'}>Login</Link>
               {/* <Link className='flex justify-center border-[2px] border-blue-400 px-3 py-2 bg-gray-900 rounded-md text-white w-[75%] mt-1' to={'/signup'}>Signup</Link> */}
             </div>
         </div>

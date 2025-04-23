@@ -27,7 +27,7 @@ export default function IndividualPrototype() {
         }
       }
       
-    }
+    };
 
     const getUserSession = async() => {
         try {
@@ -71,12 +71,20 @@ export default function IndividualPrototype() {
   return (
     <div>
       {impDataValues && dataValues && (
-        <GeneralSensorCard 
-        key={protoId}
-        prototypeId={protoId} 
-        readingValues={dataValues} 
-        prototypeImportantValues={impDataValues}
-        />
+        <div className='w-full h-full flex flex-col gap-1'>
+          <GeneralSensorCard 
+          key={protoId}
+          prototypeId={protoId} 
+          readingValues={dataValues} 
+          prototypeImportantValues={impDataValues}
+          />
+          <div className='w-full flex justify-between items-center px-5'>
+            <h1 className='font-bold'>Smoke Sensor Value: </h1>
+            <div className='bg-blue-600 flex justify-center items-center rounded px-10 py-1'>
+              <h1 className='text-white font-bold'>{dataValues.smoke_gas}</h1>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   )

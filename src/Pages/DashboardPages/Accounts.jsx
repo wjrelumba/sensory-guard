@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react'
 import ModalComponent from '../../components/shared-components/ModalComponent/ModalComponent';
 import { supabase } from '../../Essentials/Supabase';
 import { showErrorToast } from '../../Essentials/ShowToast';
+import AccountsCard from '../../components/shared-components/AccountsCard/AccountsCard';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Accounts() {
+  const navigate = useNavigate();
   const [sampleUser, setSampleUser] = useState();
   const [shownUser, setShownUser] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,45 +22,6 @@ export default function Accounts() {
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
   const [role, setRole] = useState('Admin');
-
-  const monthExtractor = (month) => {
-    if(month == 1){
-      return 'January';
-    }
-    if(month == 2){
-      return 'February';
-    }
-    if(month == 3){
-      return 'March';
-    }
-    if(month == 4){
-      return 'April';
-    }
-    if(month == 5){
-      return 'May';
-    }
-    if(month == 6){
-      return 'June';
-    }
-    if(month == 7){
-      return 'July';
-    };
-    if(month == 8){
-      return 'August';
-    }
-    if(month == 9){
-      return 'September';
-    }
-    if(month == 10){
-      return 'October';
-    }
-    if(month == 11){
-      return 'November';
-    }
-    if(month == 12){
-      return 'December';
-    }
-  };
 
   const getAccounts = async() => {
     const {data} = await supabase.from('accounts').select().order('created_at', {ascending: false});
@@ -186,6 +150,10 @@ export default function Accounts() {
     setTotalPages(totalPageValue);
   };
 
+  const navigateToIndiv = (dataValue) => {
+    navigate('/dashboard/individualAcc', {state: dataValue})
+  }
+
   // Run once on component load, get the number of pages
   useEffect(() => {
     getAccounts();
@@ -258,20 +226,12 @@ export default function Accounts() {
         </div>
         <div className='w-full flex flex-col gap-2 mt-7'>
           {shownUser && shownUser.map((data, index) => (
-            <div className='w-full flex p-2 h-[5.2rem] bg-gray-100 rounded-md border border-gray-400 hover:border-blue-500 hover:bg-blue-100' key={index}>
-              <div className='w-[75%] flex flex-col justify-between'>
-                <div className='w-full flex flex-col'>
-                  <h1 className='font-bold'>{data.name}</h1>
-                  <h1 className='text-sm'>{data.email}</h1>
-                </div>
-                <div className='w-full'>
-                  <h1 className='font-thin italic text-xs'>Created on: {monthExtractor(data.date_created.month)} {data.date_created.day}, {data.date_created.year}</h1>
-                </div>
-              </div>
-              <div className='w-[25%] flex justify-start items-center'>
-                <h1>{data.role}</h1>
-              </div>
-            </div>
+            <AccountsCard
+            key={index}
+            dataObject={data}
+            index={index}
+            clickFunction={navigateToIndiv}
+            />
           ))}
         </div>
         <div className='w-full flex justify-center'>
