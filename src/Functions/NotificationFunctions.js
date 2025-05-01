@@ -29,7 +29,7 @@ export const warningNotification = async (title, body, id, proto_name) => {
             title: `${title} - ${proto_name}`,
             body,
             id: protoTypeIdsMapper[id],
-            channelId: 'default',
+            channelId: 'default2',
             smallIcon: 'splash',
           },
         ],

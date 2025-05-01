@@ -8,7 +8,6 @@ import { ToastContainer } from 'react-toastify';
 import router from './assets/Router.jsx';
 
 import { LocalNotifications } from "@capacitor/local-notifications";
-import { supabase } from './Essentials/Supabase.js';
 
 // Ask for notification permissions first
 const requestPermissions = async () => {
@@ -25,10 +24,11 @@ requestPermissions();
 // Create a channel on app start for Android notifications
   const createNotificationChannel = async () => {
     const channel = {
-      id: 'default',
+      id: 'default2',
       name: 'Default Channel',
       description: `Channel for readings`,
       importance: 5,
+      sound: 'ringtone_calm.ogg',
     }
     await LocalNotifications.createChannel(channel);
   };
