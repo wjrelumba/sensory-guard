@@ -19,14 +19,14 @@ export const fetchMonthly = async (yearValue) => {
         { month: 12, startDay: 1, endDay: 31 },
     ];
 
-    const dataRetrieved = await Promise.all( // This is the array that will receive individual reports per month
+    const dataRetrieved = await Promise.all(
         monthRanges.map(async (value) => {
             let allData = [];
             let from = 0;
             let to = 999;
-            let hasMore = true; 
+            let hasMore = true;
 
-            while (hasMore) { // While this is true, the system will keep fetching data
+            while (hasMore) {
                 const { data, error } = await supabase
                     .from('readings')
                     .select('*', { count: 'exact' })
@@ -47,28 +47,43 @@ export const fetchMonthly = async (yearValue) => {
                 to += 1000;
 
                 console.log(`Total Entries for Month ${value.month}:`, allData.length);
-            };
+            }
 
             let totalTempValue = 0;
-            for(let i = 0 ; i < allData.length; i++){
-                totalTempValue += allData[i].temperature;
-            }
-            
             let totalHumidValue = 0;
-            for(let i = 0 ; i < allData.length; i++){
-                totalHumidValue += allData[i].humidity;
+            let lowTemp = Infinity;
+            let highTemp = -Infinity;
+            let lowHumidity = Infinity;
+            let highHumidity = -Infinity;
+
+            for (let i = 0; i < allData.length; i++) {
+                const { temperature, humidity } = allData[i];
+
+                totalTempValue += temperature;
+                totalHumidValue += humidity;
+
+                if (temperature < lowTemp) lowTemp = temperature;
+                if (temperature > highTemp) highTemp = temperature;
+
+                if (humidity < lowHumidity) lowHumidity = humidity;
+                if (humidity > highHumidity) highHumidity = humidity;
             }
 
-            console.log(`Sum: ${totalTempValue}, Length: ${allData.length}, Average: ${totalTempValue / allData.length}`);
+            const hasData = allData.length > 0;
+
             return {
                 month: value.month,
-                dataExists: allData.length > 0 ? true : false,
-                temperature: allData.some((value) => value.temperature > sampleTempThreshold),
-                vibrationDetected: allData.some((value) => value.vibration > 0), // Check if vibration was detected
-                smokeDetected: allData.some((value) => value.smoke_gas > sampleSmokeThreshold), // Check if the analog smoke exceeded the threshold
-                flameDetected: allData.some((value) => value.flame > 0), // Check if flame was detected
-                averageTemp: (totalTempValue / allData.length).toFixed(2),
-                averageHumidity: (totalHumidValue / allData.length).toFixed(2),
+                dataExists: hasData,
+                temperature: hasData && allData.some((val) => val.temperature > sampleTempThreshold),
+                vibrationDetected: hasData && allData.some((val) => val.vibration > 0),
+                smokeDetected: hasData && allData.some((val) => val.smoke_gas > sampleSmokeThreshold),
+                flameDetected: hasData && allData.some((val) => val.flame > 0),
+                averageTemp: hasData ? parseFloat((totalTempValue / allData.length).toFixed(2)) : null,
+                averageHumidity: hasData ? parseFloat((totalHumidValue / allData.length).toFixed(2)) : null,
+                lowTemp: hasData ? lowTemp : null,
+                highTemp: hasData ? highTemp : null,
+                lowHumidity: hasData ? lowHumidity : null,
+                highHumidity: hasData ? highHumidity : null,
             };
         })
     );
@@ -137,8 +152,12 @@ export const fetchWeekly = async (yearValue, monthValue) => {
             vibrationDetected: allData.some((d) => d.vibration > 0),
             smokeDetected: allData.some((d) => d.smoke_gas > sampleSmokeThreshold),
             flameDetected: allData.some((d) => d.flame > 0),
-            averageTemp: (totalTempValue / allData.length).toFixed(2) || 0,
-            averageHumidity: (totalHumidValue / allData.length).toFixed(2) || 0,
+            averageTemp: parseFloat((totalTempValue / allData.length).toFixed(2)) || 0,
+            averageHumidity: parseFloat((totalHumidValue / allData.length).toFixed(2)) || 0,
+            lowTemp: allData.length > 0 ? parseFloat(Math.min(...allData.map(d => d.temperature))).toFixed(2) : 0,
+            highTemp: allData.length > 0 ? parseFloat(Math.max(...allData.map(d => d.temperature))).toFixed(2) : 0,
+            lowHumidity: allData.length > 0 ? parseFloat(Math.min(...allData.map(d => d.humidity))).toFixed(2) : 0,
+            highHumidity: allData.length > 0 ? parseFloat(Math.max(...allData.map(d => d.humidity))).toFixed(2) : 0,
         });
     }
 
@@ -195,11 +214,109 @@ export const fetchDaily = async (yearValue, monthValue) => {
             vibrationDetected: allData.some((d) => d.vibration > 0),
             smokeDetected: allData.some((d) => d.smoke_gas > sampleSmokeThreshold),
             flameDetected: allData.some((d) => d.flame > 0),
-            averageTemp: (totalTempValue / allData.length).toFixed(2) || 0,
-            averageHumidity: (totalHumidValue / allData.length).toFixed(2) || 0,
+            averageTemp: parseFloat((totalTempValue / allData.length).toFixed(2)) || 0,
+            averageHumidity: parseFloat((totalHumidValue / allData.length).toFixed(2))|| 0,
+            lowTemp: allData.length > 0 ? parseFloat(Math.min(...allData.map(d => d.temperature)).toFixed(2)) : 0,
+            highTemp: allData.length > 0 ? parseFloat(Math.max(...allData.map(d => d.temperature)).toFixed(2)) : 0,
+            lowHumidity: allData.length > 0 ? parseFloat(Math.min(...allData.map(d => d.humidity)).toFixed(2)) : 0,
+            highHumidity: allData.length > 0 ? parseFloat(Math.max(...allData.map(d => d.humidity)).toFixed(2)) : 0,
         });
     }
 
     console.log("Daily Data:", dailyData);
     return dailyData;
+};
+
+export const fetchMonthlyHistory = async (yearValue) => {
+    const monthRanges = [];
+    const thirtyOneDayMonth = [
+        1,3,5,7,8,10,12
+    ]
+    const thirtyDayMonth = [
+        4,6,9,11
+    ]
+    const newDate = new Date();
+
+    for(var i = 0; i < 3; i++){
+        const objToAdd = {
+            month: newDate.getMonth() - i,
+            startDay: 1,
+            endDay: thirtyOneDayMonth.includes(newDate.getMonth() - i) ? 31 : thirtyDayMonth.includes(newDate.getMonth() - i) ? 30 : 28, 
+        }
+
+        monthRanges.push(objToAdd);
+    }
+
+    const dataRetrieved = await Promise.all(
+        monthRanges.map(async (value) => {
+            let allData = [];
+            let from = 0;
+            let to = 999;
+            let hasMore = true;
+
+            while (hasMore) {
+                const { data, error } = await supabase
+                    .from('readings')
+                    .select('*', { count: 'exact' })
+                    .gte('created_at', `${yearValue}-${value.month}-${value.startDay}`)
+                    .lt('created_at', `${yearValue}-${value.month}-${value.endDay}`)
+                    .range(from, to);
+
+                if (error) {
+                    console.error(`Error fetching data for month ${value.month}:`, error);
+                    break;
+                }
+
+                allData = [...allData, ...data];
+
+                if (data.length < 1000) hasMore = false;
+
+                from += 1000;
+                to += 1000;
+
+                console.log(`Total Entries for Month ${value.month}:`, allData.length);
+            }
+
+            let totalTempValue = 0;
+            let totalHumidValue = 0;
+            let lowTemp = Infinity;
+            let highTemp = -Infinity;
+            let lowHumidity = Infinity;
+            let highHumidity = -Infinity;
+
+            for (let i = 0; i < allData.length; i++) {
+                const { temperature, humidity } = allData[i];
+
+                totalTempValue += temperature;
+                totalHumidValue += humidity;
+
+                if (temperature < lowTemp) lowTemp = temperature;
+                if (temperature > highTemp) highTemp = temperature;
+
+                if (humidity < lowHumidity) lowHumidity = humidity;
+                if (humidity > highHumidity) highHumidity = humidity;
+            }
+
+            const hasData = allData.length > 0;
+
+            return {
+                month: value.month,
+                dataExists: hasData,
+                temperature: hasData && allData.some((val) => val.temperature > sampleTempThreshold),
+                vibrationDetected: hasData && allData.some((val) => val.vibration > 0),
+                smokeDetected: hasData && allData.some((val) => val.smoke_gas > sampleSmokeThreshold),
+                flameDetected: hasData && allData.some((val) => val.flame > 0),
+                averageTemp: hasData ? parseFloat((totalTempValue / allData.length).toFixed(2)) : null,
+                averageHumidity: hasData ? parseFloat((totalHumidValue / allData.length).toFixed(2)) : null,
+                lowTemp: hasData ? lowTemp : null,
+                highTemp: hasData ? highTemp : null,
+                lowHumidity: hasData ? lowHumidity : null,
+                highHumidity: hasData ? highHumidity : null,
+            };
+        })
+    );
+
+    console.log('Final Data:', dataRetrieved);
+
+    return dataRetrieved;
 };

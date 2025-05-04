@@ -5,6 +5,7 @@ export default function ReportsCard({
     dataObject,
     index,
     mode,
+    onClick,
 }) {
     
   if(mode.monthlyMode) return (
@@ -52,7 +53,7 @@ export default function ReportsCard({
   )
   
   if(mode.dailyMode) return (
-    <div className='border-[2px] border-gray-300 rounded-lg px-3 py-2 flex flex-col w-full shadow-lg' key={index}>
+    <div onClick={() => onClick(dataObject)} className='border-[2px] border-gray-300 rounded-lg px-3 py-2 flex flex-col w-full shadow-lg' key={index}>
       <h1 className='font-bold'>{monthExtractor(dataObject.month)} {dataObject.date}</h1>
       <div className='w-full flex flex-col px-2'>
         {dataObject.dataExists ? (

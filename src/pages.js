@@ -12,6 +12,7 @@ import Accounts from "./Pages/DashboardPages/Accounts";
 import Settings from "./Pages/DashboardPages/Settings";
 import TestingPage from "./TestingPage/TestingPage";
 import IndividualAccount from "./Pages/AccountsPages/IndividualAccount";
+import ViewReport from "./Pages/DashboardPages/HistoryPages/ViewReport";
 
 export const Pages = {
     Homepage,
@@ -25,6 +26,10 @@ export const Pages = {
     Accounts,
     Settings,
     IndividualAccount,
+}
+
+export const HistoryPages = {
+    ViewReport,
 }
 
 export const DashboardPages = {

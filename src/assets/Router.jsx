@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Pages, { DashboardPages, TestPages } from "../pages";
+import Pages, { DashboardPages, HistoryPages, TestPages } from "../pages";
 
 const router = createBrowserRouter([{
   path: '/',
@@ -41,6 +41,9 @@ const router = createBrowserRouter([{
   },{
     path: 'individualAcc',
     element: <Pages.IndividualAccount/>
+  },{
+    path: 'viewReport',
+    element: <HistoryPages.ViewReport/>
   }]
 },
 {

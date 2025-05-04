@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import HistoryCard from '../../components/shared-components/HistoryCard/HistoryCard';
 import { showSuccessToast } from '../../Essentials/ShowToast';
 import ReportsCard from '../../components/shared-components/ReportsCard/ReportsCard';
-import { fetchDaily, fetchMonthly, fetchWeekly } from '../../Functions/HistoryFunctions';
+import { fetchDaily, fetchMonthly, fetchMonthlyHistory, fetchWeekly } from '../../Functions/HistoryFunctions';
 import monthExtractor from '../../Essentials/MonthExtractor';
 import Loader from '../../components/shared-components/Loader/Loader';
+import { useNavigate } from 'react-router-dom';
 
 const sampleHistory = [{
     date: 'December 3, 2024',
@@ -27,15 +28,26 @@ const sampleHistory = [{
 ];
 
 export default function History() {
+  const navigate = useNavigate();
+
+  const navigateToShow = (data) => {
+    navigate('/dashboard/viewReport', {state: {data, chosenYear, monthlyMode, dailyMode, weeklyMode}})
+  }
+
   const showToast = () => {
-    showSuccessToast('Clicked')
+    console.log('clicked');
+    showSuccessToast('Clicked');
   }
 
   const [reportsToShow, setReportsToShow] = useState(null);
+  const [historyToShow, setHistoryToShow] = useState(null);
+
   const [chosenYear, setChosenYear] = useState(new Date().getFullYear());
+  const [historyChosenYear, setHistoryChosenYear] = useState(new Date().getFullYear());
   const [chosenMonth, setChosenMonth] = useState(1);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isReportsLoading, setIsReportsLoading] = useState(true);
+  const [isHistoryLoading, setIsHistoryLoading] = useState(true);
 
   const [modeObject, setModeObject] = useState(null);
 
@@ -45,9 +57,14 @@ export default function History() {
 
   const getData = async() => {
     const dataRetrieved = await (monthlyMode ? fetchMonthly(chosenYear) : weeklyMode ? fetchWeekly(chosenYear, chosenMonth) : dailyMode ? fetchDaily(chosenYear, chosenMonth) : null);
+    const historyDataRetrieved = await fetchMonthlyHistory(historyChosenYear);
+
     console.log(dataRetrieved);
+
+    setHistoryToShow(historyDataRetrieved);
     setReportsToShow(dataRetrieved);
-    setIsLoading(false);
+    setIsReportsLoading(false);
+    setIsHistoryLoading(false);
   };
 
   useEffect(() => {
@@ -57,24 +74,33 @@ export default function History() {
       weeklyMode,
       dailyMode,
     })
-  },[chosenYear, chosenMonth, monthlyMode, weeklyMode, dailyMode]);
+  },[chosenYear, chosenMonth, monthlyMode, weeklyMode, dailyMode, historyChosenYear]);
 
   const setYearFunction = (e) => {
-    setIsLoading(true);
-    const {value} = e.target;
-    console.log(value);
-    setChosenYear(value);
+    const {value, name} = e.target;
+    switch(name){
+      case 'reports':
+        setIsReportsLoading(true);
+        console.log(value);
+        setChosenYear(value);
+        break;
+      case 'history':
+        setIsHistoryLoading(true);
+        console.log(value);
+        setHistoryChosenYear(value);
+        break;
+    }
   };
 
   const setMonthFunction = (e) => {
-    setIsLoading(true);
+    setIsReportsLoading(true);
     const {value} = e.target;
     console.log(value);
     setChosenMonth(value);
   }
 
   const setReportModeFunc = (e) => {
-    setIsLoading(true);
+    setIsReportsLoading(true);
     const {value} = e.target;
     switch(value){
       case 'monthly':
@@ -135,8 +161,13 @@ export default function History() {
       <div className=''>
         <h1 className='text-xl font-bold'>History</h1>
         <div className='w-full flex justify-end gap-1'>
-          <select className='border border-gray-600 py-1 px-2 rounded-lg' name="" id="">
-            <option value="">Year</option>
+          <select 
+          onChange={setYearFunction} 
+          className='border border-gray-600 py-1 px-2 rounded-lg' 
+          name="history" id="" 
+          defaultValue={historyChosenYear}
+          >
+            {yearsOptions()}
           </select>
           <select className='border border-gray-600 py-1 px-2 rounded-lg' name="" id="">
             <option value="">Latest - oldest</option>
@@ -144,12 +175,12 @@ export default function History() {
         </div>
 
         <div className='flex flex-col w-full gap-2 mt-4 h-[20rem] pb-2 overflow-scroll'>
-          {sampleHistory.map((data, index) => (
+          {historyToShow && historyToShow.map((data, index) => (
             <HistoryCard
             key={index}
             dataObject={data}
             index={index}
-            onClickFunction={showToast}
+            onClick={showToast}
             />
           ))}
         </div>
@@ -168,7 +199,7 @@ export default function History() {
           <select 
           onChange={monthlyMode ? setYearFunction : weeklyMode ? setMonthFunction : dailyMode ? setMonthFunction : null} 
           className='border border-gray-600 py-1 px-2 rounded-lg w-[23%]' 
-          name="" 
+          name="reports" 
           id=""
           value={monthlyMode ? chosenYear : weeklyMode ? chosenMonth : dailyMode ? chosenMonth : null}
           >
@@ -184,14 +215,14 @@ export default function History() {
           </select>
         </div>
         <div className='flex flex-col w-full gap-2 mt-4 h-[20rem] pb-2 overflow-scroll'>
-          {isLoading ? <Loader/> : (
+          {isReportsLoading ? <Loader/> : (
             <>
               {reportsToShow?.map((data, index) => (
                 <ReportsCard
                 key={index}
                 dataObject={data}
                 index={index}
-                onClickFunction={showToast}
+                onClick={navigateToShow}
                 mode={modeObject}
                 />
               ))}
