@@ -142,6 +142,30 @@ animation: slideUpFadeIn 0.5s ease-out forwards;
 .stroke-blue {
   stroke: #2563eb;
 }
+
+.scanner-class {
+  flex: auto;
+  width: 100%;
+  height: 100%;
+  color: rgb(67, 67, 67);
+  background-color: white;
+
+  option, select {
+    border-radius: 0.4rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    background-color: #070707;
+    color: white;
+  }
+
+  button {
+    width: 70%;
+    color: white;
+    background-color: #003ac1;
+    border-radius: 0.4rem;
+    border: #3b82f6 2px solid;
+  }
+}
   
 body {
   background: white;

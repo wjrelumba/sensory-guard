@@ -79,8 +79,12 @@ export default function Login() {
             <Link to={'/'} className='reddit-sans-condensed flex justify-center px-3 py-2 text-red-700 border-red-700 border w-1/2 mr-1 rounded-md'>Cancel</Link>
             <button className='flex justify-center px-3 py-2 w-1/2 ml-1 rounded-md border-green-700 border text-green-700'>Login</button>
           </div>
+          <div className='w-[75%] px-2 flex mt-4 gap-1'>
+            <h1 className='text-xs'>Account not activated?</h1>
+            <Link className='text-xs text-blue-600 font-bold' to={'/activation'}>Activate Now</Link>
+          </div>
         </form>
-        <Link className='mt-10' to={'/test/dashboard'}>Testing Dashboard</Link>
+        <Link className='mt-10 border border-gray-500 px-3 py-1 rounded-md' to={'/test/dashboard'}>Testing Dashboard</Link>
       </div>
     </div>
   )

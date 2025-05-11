@@ -6,6 +6,9 @@ export default function Control() {
   // const [sampleAircons, setSampleAircons] = useState();
   const [buzzers, setBuzzers] = useState();
 
+  // Role variable
+  const [role, setRole] = useState(null);
+
   // Create states for variables
   const [tempvarClicked, setTempvarClicked] = useState(false);
   const [humidvarClicked, setHumidvarClicked] = useState(false);
@@ -414,6 +417,21 @@ export default function Control() {
     };
   };
 
+  const getRole = async() => {
+      const {data: {session}} = await supabase.auth.getSession();
+      if(session){
+          const {data, error} = await supabase.from('accounts').select('role').eq('user_id', session.user.id);
+          if(error){
+              showErrorToast(error.message);
+          }
+          if(data){
+              if(data[0]){
+                  setRole(data[0].role);
+              }
+          }
+      }
+  }
+
   useEffect(() => {
     getVariables();
     // const sampleAirconsValue = [{
@@ -422,8 +440,9 @@ export default function Control() {
     // },{
     //   name: 'AC 2',
     //   open: true,
-    // }];
+    // }];   
 
+    getRole();
     getBuzzerData();
 
     // setSampleAircons(sampleAirconsValue);
@@ -563,129 +582,132 @@ export default function Control() {
           )}
         </div>
       </div>
-      <div className='p-1 flex flex-col gap-1'>
-        <h1 className='text-xl font-bold text-gray-700'>Variables</h1>
-        <div className='w-full flex flex-col justify-center gap-2 items-center'>
-          <div className={`flex flex-col justify-center gap-2 ${!tempvarClicked ? 'bg-gray-300' : 'bg-gray-200'} w-full rounded-lg px-4 py-3 text-gray-700`}>
-            <div className='flex items-center justify-between w-full'>
-              <div className='flex items-center'>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-thermometer"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path></svg>
-                <h1 className='text-xl font-bold'>Temperature</h1>
-              </div>
-              <div className='flex items-center'>
-                <button data-name='tempvar' onClick={!tempvarClicked ? variableBoxFunc : temperatureCancelBtn}>
-                  {!tempvarClicked ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-                  ):(
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                  )}
-                </button>
-              </div>
-            </div>
-            {prototypeData && tempvarClicked && (
-              <>
-                <h1 className='text-xs'>Set the variable (ranges) for temperature</h1>
-                {prototypeData.map((data) => (
-                  <div className='w-full' key={data.proto_number}>
-                    <div className='w-[35%]'>
-                      <h1 className='py-1 px-3 bg-gray-900 rounded-2xl text-white text-center font-bold'>{data.proto_name}</h1>
-                    </div>
-                    <div className='grid grid-rows-3 w-full mt-2 gap-2 px-1'>
-                      {variableRenderer('Normal', data, 'normal', 'temperature', data.proto_number, data.id)}
-                      {variableRenderer('High', data, 'high', 'temperature', data.proto_number, data.id)}
-                      {variableRenderer('Danger', data, 'danger', 'temperature', data.proto_number, data.id)}
-                    </div>
-                  </div>
-                ))}
-                <div className='w-full flex justify-end'>
-                  <div className='w-1/2 grid grid-cols-2 gap-2'>
-                    <button onClick={temperatureUpdateDB} className='w-full bg-blue-600 rounded-full text-white'>Apply</button>
-                    <button onClick={temperatureCancelBtn} className='w-full bg-gray-300 rounded-full text-gray-800'>Cancel</button>
-                  </div>
+      {/* Variables section */}
+      {role == 'Admin' && (
+        <div className='p-1 flex flex-col gap-1'>
+          <h1 className='text-xl font-bold text-gray-700'>Variables</h1>
+          <div className='w-full flex flex-col justify-center gap-2 items-center'>
+            <div className={`flex flex-col justify-center gap-2 ${!tempvarClicked ? 'bg-gray-300' : 'bg-gray-200'} w-full rounded-lg px-4 py-3 text-gray-700`}>
+              <div className='flex items-center justify-between w-full'>
+                <div className='flex items-center'>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-thermometer"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path></svg>
+                  <h1 className='text-xl font-bold'>Temperature</h1>
                 </div>
-              </>
-            )}
-          </div>
-          <div className={`flex flex-col justify-center gap-2 ${!humidvarClicked ? 'bg-gray-300' : 'bg-gray-200'} w-full rounded-lg px-4 py-3 text-gray-700`}>
-            <div className='flex items-center justify-between w-full'>
-              <div className='flex items-center'>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-droplet"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
-                <h1 className='text-xl font-bold'>Humidity</h1>
-              </div>
-              <div className='flex items-center'>
-                <button data-name='humidvar' onClick={!humidvarClicked ? variableBoxFunc : humidityCancelBtn}>
-                  {!humidvarClicked ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-                  ):(
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                  )}
-                </button>
-              </div>
-            </div>
-            {prototypeData && humidvarClicked && (
-              <>
-                <h1 className='text-xs'>Set the variable (ranges) for humidity</h1>
-                {prototypeData.map((data) => (
-                  <div className='w-full' key={data.proto_number}>
-                    <div className='w-[35%]'>
-                      <h1 className='py-1 px-3 bg-gray-900 rounded-2xl text-white text-center font-bold'>{data.proto_name}</h1>
-                    </div>
-                    <div className='grid grid-rows-3 w-full mt-2 gap-2 px-1'>
-                      {variableRenderer('Normal', data, 'normal', 'humidity', data.proto_number, data.id)}
-                      {variableRenderer('High', data, 'high', 'humidity', data.proto_number, data.id)}
-                      {variableRenderer('Danger', data, 'danger', 'humidity', data.proto_number, data.id)}
-                    </div>
-                  </div>
-                ))}
-                <div className='w-full flex justify-end'>
-                  <div className='w-1/2 grid grid-cols-2 gap-2'>
-                    <button onClick={humidityUpdateDB} className='w-full bg-blue-600 rounded-full text-white'>Apply</button>
-                    <button onClick={humidityCancelBtn} className='w-full bg-gray-300 rounded-full text-gray-800'>Cancel</button>
-                  </div>
+                <div className='flex items-center'>
+                  <button data-name='tempvar' onClick={!tempvarClicked ? variableBoxFunc : temperatureCancelBtn}>
+                    {!tempvarClicked ? (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                    ):(
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    )}
+                  </button>
                 </div>
-              </>
-            )}
-          </div>
-          <div className={`flex flex-col justify-center gap-2 ${!smokeGasVarClicked ? 'bg-gray-300' : 'bg-gray-200'} w-full rounded-lg px-4 py-3 text-gray-700`}>
-            <div className='flex items-center justify-between w-full'>
-              <div className='flex items-center gap-1'>
-                <svg xmlns="http://www.w3.org/2000/svg" fill='#374151' width="20" height="24" viewBox="0 0 640 512"><path d="M32 144c0 79.5 64.5 144 144 144l123.3 0c22.6 19.9 52.2 32 84.7 32s62.1-12.1 84.7-32l27.3 0c61.9 0 112-50.1 112-112s-50.1-112-112-112c-10.7 0-21 1.5-30.8 4.3C443.8 27.7 401.1 0 352 0c-32.6 0-62.4 12.2-85.1 32.3C242.1 12.1 210.5 0 176 0C96.5 0 32 64.5 32 144zM616 368l-336 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l336 0c13.3 0 24-10.7 24-24s-10.7-24-24-24zm-64 96l-112 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l112 0c13.3 0 24-10.7 24-24s-10.7-24-24-24zm-192 0L24 464c-13.3 0-24 10.7-24 24s10.7 24 24 24l336 0c13.3 0 24-10.7 24-24s-10.7-24-24-24zM224 392c0-13.3-10.7-24-24-24L96 368c-13.3 0-24 10.7-24 24s10.7 24 24 24l104 0c13.3 0 24-10.7 24-24z"/></svg>
-                <h1 className='text-xl font-bold'>Smoke and Gas</h1>
               </div>
-              <div className='flex items-center'>
-                <button data-name='smokegasvar' onClick={!smokeGasVarClicked ? variableBoxFunc : smokeGasCancelBtn}>
-                  {!smokeGasVarClicked ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-                  ):(
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                  )}
-                </button>
-              </div>
+              {prototypeData && tempvarClicked && (
+                <>
+                  <h1 className='text-xs'>Set the variable (ranges) for temperature</h1>
+                  {prototypeData.map((data) => (
+                    <div className='w-full' key={data.proto_number}>
+                      <div className='w-[35%]'>
+                        <h1 className='py-1 px-3 bg-gray-900 rounded-2xl text-white text-center font-bold'>{data.proto_name}</h1>
+                      </div>
+                      <div className='grid grid-rows-3 w-full mt-2 gap-2 px-1'>
+                        {variableRenderer('Normal', data, 'normal', 'temperature', data.proto_number, data.id)}
+                        {variableRenderer('High', data, 'high', 'temperature', data.proto_number, data.id)}
+                        {variableRenderer('Danger', data, 'danger', 'temperature', data.proto_number, data.id)}
+                      </div>
+                    </div>
+                  ))}
+                  <div className='w-full flex justify-end'>
+                    <div className='w-1/2 grid grid-cols-2 gap-2'>
+                      <button onClick={temperatureUpdateDB} className='w-full bg-blue-600 rounded-full text-white'>Apply</button>
+                      <button onClick={temperatureCancelBtn} className='w-full bg-gray-300 rounded-full text-gray-800'>Cancel</button>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
-            {prototypeData && smokeGasVarClicked && (
-              <>
-                <h1 className='text-xs'>Set the threshold for smoke (default 300)</h1>
-                {prototypeData.map((data) => (
-                  <div className='w-full' key={data.proto_number}>
-                    <div className='w-[35%]'>
-                      <h1 className='py-1 px-3 bg-gray-900 rounded-2xl text-white text-center font-bold'>{data.proto_name}</h1>
-                    </div>
-                    <div className='grid grid-rows-1ww w-full mt-2 gap-2 px-1'>
-                      {variableRenderer('Threshold', data, 'threshold', 'smoke_gas', data.proto_number, data.id)}
-                    </div>
-                  </div>
-                ))}
-                <div className='w-full flex justify-end'>
-                  <div className='w-1/2 grid grid-cols-2 gap-2'>
-                    <button onClick={smokeGasUpdateDB} className='w-full bg-blue-600 rounded-full text-white'>Apply</button>
-                    <button onClick={smokeGasCancelBtn} className='w-full bg-gray-300 rounded-full text-gray-800'>Cancel</button>
-                  </div>
+            <div className={`flex flex-col justify-center gap-2 ${!humidvarClicked ? 'bg-gray-300' : 'bg-gray-200'} w-full rounded-lg px-4 py-3 text-gray-700`}>
+              <div className='flex items-center justify-between w-full'>
+                <div className='flex items-center'>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-droplet"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+                  <h1 className='text-xl font-bold'>Humidity</h1>
                 </div>
-              </>
-            )}
+                <div className='flex items-center'>
+                  <button data-name='humidvar' onClick={!humidvarClicked ? variableBoxFunc : humidityCancelBtn}>
+                    {!humidvarClicked ? (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                    ):(
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    )}
+                  </button>
+                </div>
+              </div>
+              {prototypeData && humidvarClicked && (
+                <>
+                  <h1 className='text-xs'>Set the variable (ranges) for humidity</h1>
+                  {prototypeData.map((data) => (
+                    <div className='w-full' key={data.proto_number}>
+                      <div className='w-[35%]'>
+                        <h1 className='py-1 px-3 bg-gray-900 rounded-2xl text-white text-center font-bold'>{data.proto_name}</h1>
+                      </div>
+                      <div className='grid grid-rows-3 w-full mt-2 gap-2 px-1'>
+                        {variableRenderer('Normal', data, 'normal', 'humidity', data.proto_number, data.id)}
+                        {variableRenderer('High', data, 'high', 'humidity', data.proto_number, data.id)}
+                        {variableRenderer('Danger', data, 'danger', 'humidity', data.proto_number, data.id)}
+                      </div>
+                    </div>
+                  ))}
+                  <div className='w-full flex justify-end'>
+                    <div className='w-1/2 grid grid-cols-2 gap-2'>
+                      <button onClick={humidityUpdateDB} className='w-full bg-blue-600 rounded-full text-white'>Apply</button>
+                      <button onClick={humidityCancelBtn} className='w-full bg-gray-300 rounded-full text-gray-800'>Cancel</button>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+            <div className={`flex flex-col justify-center gap-2 ${!smokeGasVarClicked ? 'bg-gray-300' : 'bg-gray-200'} w-full rounded-lg px-4 py-3 text-gray-700`}>
+              <div className='flex items-center justify-between w-full'>
+                <div className='flex items-center gap-1'>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill='#374151' width="20" height="24" viewBox="0 0 640 512"><path d="M32 144c0 79.5 64.5 144 144 144l123.3 0c22.6 19.9 52.2 32 84.7 32s62.1-12.1 84.7-32l27.3 0c61.9 0 112-50.1 112-112s-50.1-112-112-112c-10.7 0-21 1.5-30.8 4.3C443.8 27.7 401.1 0 352 0c-32.6 0-62.4 12.2-85.1 32.3C242.1 12.1 210.5 0 176 0C96.5 0 32 64.5 32 144zM616 368l-336 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l336 0c13.3 0 24-10.7 24-24s-10.7-24-24-24zm-64 96l-112 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l112 0c13.3 0 24-10.7 24-24s-10.7-24-24-24zm-192 0L24 464c-13.3 0-24 10.7-24 24s10.7 24 24 24l336 0c13.3 0 24-10.7 24-24s-10.7-24-24-24zM224 392c0-13.3-10.7-24-24-24L96 368c-13.3 0-24 10.7-24 24s10.7 24 24 24l104 0c13.3 0 24-10.7 24-24z"/></svg>
+                  <h1 className='text-xl font-bold'>Smoke and Gas</h1>
+                </div>
+                <div className='flex items-center'>
+                  <button data-name='smokegasvar' onClick={!smokeGasVarClicked ? variableBoxFunc : smokeGasCancelBtn}>
+                    {!smokeGasVarClicked ? (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                    ):(
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    )}
+                  </button>
+                </div>
+              </div>
+              {prototypeData && smokeGasVarClicked && (
+                <>
+                  <h1 className='text-xs'>Set the threshold for smoke (default 300)</h1>
+                  {prototypeData.map((data) => (
+                    <div className='w-full' key={data.proto_number}>
+                      <div className='w-[35%]'>
+                        <h1 className='py-1 px-3 bg-gray-900 rounded-2xl text-white text-center font-bold'>{data.proto_name}</h1>
+                      </div>
+                      <div className='grid grid-rows-1ww w-full mt-2 gap-2 px-1'>
+                        {variableRenderer('Threshold', data, 'threshold', 'smoke_gas', data.proto_number, data.id)}
+                      </div>
+                    </div>
+                  ))}
+                  <div className='w-full flex justify-end'>
+                    <div className='w-1/2 grid grid-cols-2 gap-2'>
+                      <button onClick={smokeGasUpdateDB} className='w-full bg-blue-600 rounded-full text-white'>Apply</button>
+                      <button onClick={smokeGasCancelBtn} className='w-full bg-gray-300 rounded-full text-gray-800'>Cancel</button>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

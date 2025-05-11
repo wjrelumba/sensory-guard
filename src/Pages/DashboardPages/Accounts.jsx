@@ -103,26 +103,43 @@ export default function Accounts() {
     const year = date.getFullYear();
 
     console.log(`${day}/${month + 1}/${year}`);
-    const {error} = await supabase.from('accounts').insert({
-      name,
+
+    const currentSessionKey = localStorage.key(0);
+    const currentSession = localStorage.getItem(currentSessionKey);
+    console.log(currentSession);
+
+    const {data, error} = await supabase.auth.signUp({
       email,
-      date_created: {
-        day,
-        month: month + 1,
-        year, 
-      },
-      role,
+      password: 'asdfasdf',
     });
+
     if(error){
       showErrorToast(error.message);
+      return;
     }
-    else{
-      setEmail(null);
-      setName(null);
-      setRole('Admin');
-      setShowCreateAccModal(false);
+    if(data){
+      const {error} = await supabase.from('accounts').insert({
+        name,
+        email,
+        date_created: {
+          day,
+          month: month + 1,
+          year, 
+        },
+        role,
+      });
+      if(error){
+        showErrorToast(error.message);
+      }
+      else{
+        localStorage.setItem(currentSessionKey, currentSession);
+        setEmail(null);
+        setName(null);
+        setRole('Admin');
+        setShowCreateAccModal(false);
+      };
     }
-  }
+  };
 
   const addAccInputRenderer = () => (
     <div className='w-full flex flex-col gap-1 mt-5'>
@@ -151,7 +168,14 @@ export default function Accounts() {
   };
 
   const navigateToIndiv = (dataValue) => {
-    navigate('/dashboard/individualAcc', {state: dataValue})
+    console.log(dataValue);
+    if(!dataValue.activated){
+      navigate('/dashboard/accountQR', {state: dataValue})
+    }
+    else{
+      navigate('/dashboard/individualAcc', {state: dataValue})
+    }
+    // navigate('/dashboard/individualAcc', {state: dataValue})
   }
 
   // Run once on component load, get the number of pages
@@ -234,10 +258,11 @@ export default function Accounts() {
             />
           ))}
         </div>
+        {/* Pagination */}
         <div className='w-full flex justify-center'>
           {currentPage != 1 && <svg onClick={prevPage} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>}
           <h1>
-            page {currentPage} of {totalPages}
+            Page <span className='border border-gray-500 rounded-md px-2'>{currentPage}</span> of <span className='border border-gray-500 rounded-md px-2'>{totalPages}</span>
           </h1>
           {currentPage < totalPages && <svg onClick={nextPage} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>}
         </div>

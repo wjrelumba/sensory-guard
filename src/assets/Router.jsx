@@ -18,6 +18,10 @@ const router = createBrowserRouter([{
   element: <Pages.Signup/>
 },
 {
+  path: '/activation',
+  element: <Pages.ActivationPage/>
+},
+{
   path: '/dashboard',
   element: <Pages.Dashboard/>,
   children: [{
@@ -44,6 +48,12 @@ const router = createBrowserRouter([{
   },{
     path: 'viewReport',
     element: <HistoryPages.ViewReport/>
+  },{
+    path: 'accountQR',
+    element: <Pages.AccountQR/>
+  },{
+    path: 'newlyActivated',
+    element: <Pages.NewlyActivatedPage/>
   }]
 },
 {

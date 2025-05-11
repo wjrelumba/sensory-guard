@@ -9,6 +9,7 @@ export default function Navbar({
   const navigate = useNavigate();
 
   const [backMode, setBackMode] = useState(false);
+  const [activationMode, setActivationMode] = useState(false);
 
   const backBtn = () => {
     navigate(-1);
@@ -21,8 +22,14 @@ export default function Navbar({
       location.pathname === '/dashboard/accounts' ||
       location.pathname == '/dashboard/settings'){
       setBackMode(false);
-    }else{
+      setActivationMode(false);
+    }else if(location.pathname == '/dashboard/newlyActivated'){
+      setBackMode(false);
+      setActivationMode(true);
+    }
+    else{
       setBackMode(true);
+      setActivationMode(false);
     };
   },[location])
   return (
@@ -30,7 +37,8 @@ export default function Navbar({
         <div className='w-full h-full flex items-center'>
             <button onClick={backMode ? backBtn : toggleSideBar } className='p-[0.1rem] text-gray-600'>
                 {/* <img src={dpLink ? dpLink: '/profileIcon.jpg'} className='w-[2.5rem] h-[2.5rem] rounded-full' alt="" /> */}
-                {backMode ? (
+                {activationMode ? null : 
+                backMode ? (
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 ):(
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>

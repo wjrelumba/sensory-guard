@@ -62,7 +62,14 @@ export default function Dashboard() {
         try {
             const { data: { session } } = await supabase.auth.getSession();
             if(session) {
-                setEmail(session.user.email)
+                setEmail(session.user.email);
+                // This checks if the user needs to change the password for the first time
+                const {data} = await supabase.from('accounts').select().eq('user_id', session.user.id);
+                if(data){
+                  if(!data[0].activated){
+                    navigate('/dashboard/newlyActivated')
+                  }
+                }
                 getImportantData();
             }else{
                 navigate('/');
