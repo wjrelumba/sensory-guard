@@ -1,0 +1,18 @@
+[
+	{
+		"pkg": "@anuradev/capacitor-background-mode",
+		"classpath": "ar.com.anura.plugins.backgroundmode.BackgroundModePlugin"
+	},
+	{
+		"pkg": "@capacitor/app",
+		"classpath": "com.capacitorjs.plugins.app.AppPlugin"
+	},
+	{
+		"pkg": "@capacitor/background-runner",
+		"classpath": "io.ionic.backgroundrunner.plugin.BackgroundRunnerPlugin"
+	},
+	{
+		"pkg": "@capacitor/local-notifications",
+		"classpath": "com.capacitorjs.plugins.localnotifications.LocalNotificationsPlugin"
+	}
+]

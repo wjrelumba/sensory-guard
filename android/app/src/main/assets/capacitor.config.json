@@ -1,0 +1,11 @@
+{
+	"appId": "com.sensoryGuard.www",
+	"appName": "sensory-guard",
+	"webDir": "dist",
+	"plugins": {
+		"LocalNotifications": {
+			"smallIcon": "splash",
+			"sound": "notification_sound.ogg"
+		}
+	}
+}
