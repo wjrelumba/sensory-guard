@@ -30,6 +30,7 @@ export default function IndividualAccountHome() {
           showErrorToast('Error deleting account:', result.error);
         } else {
           showSuccessToast('Account deleted successfully:', result.message);
+          navigate('/dashboard/accounts');
         }
       } catch (error) {
         console.error('Unexpected error:', error);

@@ -64,7 +64,8 @@ export default function NewlyActivatedPage() {
     };
 
   return (
-    <div className='w-full h-full p-4'>
+    <div className='w-full h-full p-4 mt-10'>
+        <h1 className='w-full text-gray-600 font-bold text-2xl mb-4'>Activation Page</h1>
         <div className='w-full h-full flex flex-col border border-gray-500 rounded-lg p-2'>
             <h1 className='text-blue-600 font-bold text-lg'>Change your Password</h1>
             <div className='w-full h-full flex mt-5 items-center'>

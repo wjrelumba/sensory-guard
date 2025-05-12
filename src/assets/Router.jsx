@@ -22,6 +22,10 @@ const router = createBrowserRouter([{
   element: <AccountPages.ActivationPage/>
 },
 {
+  path: '/newlyActivated',
+  element: <AccountPages.NewlyActivatedPage/>
+},
+{
   path: '/dashboard',
   element: <Pages.Dashboard/>,
   children: [{
@@ -58,9 +62,6 @@ const router = createBrowserRouter([{
   },{
     path: 'accountQR',
     element: <AccountPages.AccountQR/>
-  },{
-    path: 'newlyActivated',
-    element: <AccountPages.NewlyActivatedPage/>
   }]
 },
 {

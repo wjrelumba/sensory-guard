@@ -67,7 +67,7 @@ export default function Dashboard() {
                 const {data} = await supabase.from('accounts').select().eq('user_id', session.user.id);
                 if(data){
                   if(!data[0].activated){
-                    navigate('/dashboard/newlyActivated')
+                    navigate('/newlyActivated')
                   }
                 }
                 getImportantData();
