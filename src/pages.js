@@ -16,6 +16,8 @@ import ViewReport from "./Pages/DashboardPages/HistoryPages/ViewReport";
 import ActivationPage from "./Pages/ActivationPage";
 import AccountQR from "./Pages/AccountsPages/AccountQR";
 import NewlyActivatedPage from "./Pages/DashboardPages/NewlyActivatedPage";
+import EditAccount from "./Pages/AccountsPages/EditAccount";
+import IndividualAccountHome from "./Pages/AccountsPages/IndividualAccountHome";
 
 export const Pages = {
     Homepage,
@@ -28,10 +30,6 @@ export const Pages = {
     History,
     Accounts,
     Settings,
-    IndividualAccount,
-    ActivationPage,
-    AccountQR,
-    NewlyActivatedPage,
 }
 
 export const HistoryPages = {
@@ -40,6 +38,15 @@ export const HistoryPages = {
 
 export const DashboardPages = {
     DashboardSensors,
+}
+
+export const AccountPages = {
+    ActivationPage,
+    AccountQR,
+    NewlyActivatedPage,
+    IndividualAccount,
+    EditAccount,
+    IndividualAccountHome,
 }
 
 export const TestPages = {

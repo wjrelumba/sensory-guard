@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Pages, { DashboardPages, HistoryPages, TestPages } from "../pages";
+import Pages, { AccountPages, DashboardPages, HistoryPages, TestPages } from "../pages";
 
 const router = createBrowserRouter([{
   path: '/',
@@ -19,7 +19,7 @@ const router = createBrowserRouter([{
 },
 {
   path: '/activation',
-  element: <Pages.ActivationPage/>
+  element: <AccountPages.ActivationPage/>
 },
 {
   path: '/dashboard',
@@ -44,16 +44,23 @@ const router = createBrowserRouter([{
     element: <Pages.Settings/>
   },{
     path: 'individualAcc',
-    element: <Pages.IndividualAccount/>
+    element: <AccountPages.IndividualAccount/>,
+    children: [{
+      path: '',
+      element: <AccountPages.IndividualAccountHome/>,
+    },{
+      path: 'edit',
+      element: <AccountPages.EditAccount/>,
+    }]
   },{
     path: 'viewReport',
     element: <HistoryPages.ViewReport/>
   },{
     path: 'accountQR',
-    element: <Pages.AccountQR/>
+    element: <AccountPages.AccountQR/>
   },{
     path: 'newlyActivated',
-    element: <Pages.NewlyActivatedPage/>
+    element: <AccountPages.NewlyActivatedPage/>
   }]
 },
 {

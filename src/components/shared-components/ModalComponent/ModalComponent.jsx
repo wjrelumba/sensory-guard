@@ -25,8 +25,13 @@ export default function ModalComponent({
       <div className="fixed z-50 inset-0 flex items-center justify-center animate-in">
         <div className={`${color} rounded-lg shadow-lg w-11/12 max-w-lg`}>
           <div className="px-6 py-4">
-            <h2 className="text-xl text-gray-700 font-bold w-full border-b-[2px] border-gray-600 pb-1 font-mono">{title}</h2>
-            {message && (<p>{message}</p>)}
+            <div className="w-full flex justify-center items-center gap-1">
+              <h2 className="text-xl font-bold text-blue-600">{title.first}</h2>
+              <h2 className="text-xl font-bold text-gray-700">{title.second}</h2>
+            </div>
+            <div className="w-full flex justify-center">
+              {message && (<p className="w-[80%] text-center text-gray-700 text-sm mt-4">{message}</p>)}
+            </div>
           </div>
           <div className="flex justify-end px-6 py-4">
             <button

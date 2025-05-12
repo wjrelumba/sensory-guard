@@ -2,7 +2,9 @@ import React from 'react';
 import monthExtractor from '../../../Essentials/MonthExtractor';
 
 export default function DetailedAccountsCard({ 
-    dataObject 
+    dataObject,
+    editClick,
+    deleteClick,
 }) {
   return (
     <div className='border border-gray-300 rounded-lg w-full flex flex-col gap-1 py-2 px-4'>
@@ -35,7 +37,7 @@ export default function DetailedAccountsCard({
 
             {/* Buttons section */}
             <div className='w-full flex justify-end gap-1'>
-                <button className='rounded-full px-4 bg-blue-600 text-sm text-white'>Edit</button>
+                <button onClick={editClick} className='rounded-full px-4 bg-blue-600 text-sm text-white'>Edit</button>
                 <button className='rounded-full px-4 bg-red-600 text-sm text-white'>Delete</button>
             </div>
         </div>

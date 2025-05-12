@@ -1,17 +1,9 @@
-import React from 'react'
-import { useLocation } from 'react-router-dom'
-import DetailedAccountsCard from '../../components/shared-components/AccountsCard/DetailedAccountsCard';
+import { Outlet } from 'react-router-dom'
 
 export default function IndividualAccount() {
-    const location = useLocation();
-    const dataValues = location.state;
-
-    console.log(dataValues);
   return (
     <>
-        <DetailedAccountsCard
-        dataObject={dataValues}
-        />
+      <Outlet/>
     </>
   )
 }
