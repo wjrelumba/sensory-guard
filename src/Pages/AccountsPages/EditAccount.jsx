@@ -14,7 +14,7 @@ export default function EditAccount() {
     const [nameValue, setNameValue] = useState(null);
     const [roleValue, setRoleValue] = useState(null);
 
-    const [showSaveModal, setShowSaveModal] = useState(true);
+    const [showSaveModal, setShowSaveModal] = useState(false);
 
     const goBack = () => {
         navigate(-1);
