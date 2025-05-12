@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { supabase } from '../../Essentials/Supabase'
 import { showErrorToast } from '../../Essentials/ShowToast';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,13 @@ export default function NewlyActivatedPage() {
 
     const [passwordValue, setPasswordValue] = useState(null);
     const [confPasswordValue, setConfPasswordValue] = useState(null);
+
+    const getUserSession = async() => {
+        const {data: {session}} = await supabase.auth.getSession();
+        if(!session){
+            navigate('/');
+        };
+    };
 
     const updatePassword = async() => {
         if(passwordValue && passwordValue.length > 0 && confPasswordValue && confPasswordValue.length > 0){
@@ -62,6 +69,10 @@ export default function NewlyActivatedPage() {
                 break;
         }
     };
+
+    useEffect(() => {
+        getUserSession();
+    },[])
 
   return (
     <div className='w-full h-full p-4 mt-10'>

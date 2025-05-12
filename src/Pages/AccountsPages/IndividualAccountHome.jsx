@@ -16,6 +16,7 @@ export default function IndividualAccountHome() {
 
     const deleteAcc = async () => {
       try {
+        showSuccessToast('Deletion started');
         const res = await fetch(`https://sensory-guard.vercel.app/api/delete-user`, {
           method: 'POST',
           headers: {

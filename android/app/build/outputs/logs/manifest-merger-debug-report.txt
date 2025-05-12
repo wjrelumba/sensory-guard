@@ -11,10 +11,10 @@ INJECTED from D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\andro
 	android:name
 		ADDED from D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:24:13-62
 manifest
-ADDED from D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:2:1-57:12
-INJECTED from D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:2:1-57:12
-INJECTED from D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:2:1-57:12
-INJECTED from D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:2:1-57:12
+ADDED from D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:2:1-60:12
+INJECTED from D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:2:1-60:12
+INJECTED from D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:2:1-60:12
+INJECTED from D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:2:1-60:12
 MERGED from [:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:2:1-26:12
 MERGED from [:capacitor-app] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\app\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:2:1-7:12
 MERGED from [:capacitor-background-runner] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\background-runner\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:2:1-18:12
@@ -203,6 +203,16 @@ uses-permission#android.permission.CAMERA
 ADDED from D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:55:5-64
 	android:name
 		ADDED from D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:55:22-62
+uses-permission#android.permission.POST_NOTIFICATIONS
+ADDED from D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:58:5-77
+MERGED from [:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:5-77
+MERGED from [:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:5-77
+MERGED from [:capacitor-background-runner] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\background-runner\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:5-77
+MERGED from [:capacitor-background-runner] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\background-runner\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:5-77
+MERGED from [:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:5-77
+MERGED from [:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:5-77
+	android:name
+		ADDED from D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:58:22-74
 meta-data#android.support.FILE_PROVIDER_PATHS
 ADDED from D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:28:13-112
 	android:resource
@@ -355,14 +365,6 @@ uses-permission#android.permission.SYSTEM_ALERT_WINDOW
 ADDED from [:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:5-78
 	android:name
 		ADDED from [:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:22-75
-uses-permission#android.permission.POST_NOTIFICATIONS
-ADDED from [:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:5-77
-MERGED from [:capacitor-background-runner] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\background-runner\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:5-77
-MERGED from [:capacitor-background-runner] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\background-runner\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:5-77
-MERGED from [:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:5-77
-MERGED from [:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:5-77
-	android:name
-		ADDED from [:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:22-74
 service#ar.com.anura.plugins.backgroundmode.BackgroundModeService
 ADDED from [:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:9-23:19
 	android:enabled

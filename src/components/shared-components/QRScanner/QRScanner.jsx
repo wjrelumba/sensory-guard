@@ -11,7 +11,7 @@ const QRScanner = () => {
         const credentialValue = JSON.parse(credentials);
         const {data, error} = await supabase.auth.signInWithPassword(credentialValue);
         if(data){
-            navigate('/dashboard/newlyActivated');
+            navigate('/newlyActivated');
         };
         if(error){
             showErrorToast('Invalid Credentials');

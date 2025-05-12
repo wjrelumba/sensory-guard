@@ -3693,8 +3693,15 @@ int mipmap ic_launcher_foreground 0x7f0d0002
 int mipmap ic_launcher_round 0x7f0d0003
 int plurals mtrl_badge_content_description 0x7f0e0000
 int raw alert_33762 0x7f0f0000
-int raw notification_sound 0x7f0f0001
-int raw ringtone_calm 0x7f0f0002
+int raw error_notification_banjo_45430 0x7f0f0001
+int raw notification_alert_5_331725 0x7f0f0002
+int raw notification_alert_6_331724 0x7f0f0003
+int raw notification_alert_7_331719 0x7f0f0004
+int raw notification_sound 0x7f0f0005
+int raw ringtone_calm 0x7f0f0006
+int raw siren_alert_96052 0x7f0f0007
+int raw system_notification_4_206493 0x7f0f0008
+int raw system_notification_alert_toast_warn_274740 0x7f0f0009
 int string abc_action_bar_home_description 0x7f100000
 int string abc_action_bar_up_description 0x7f100001
 int string abc_action_menu_overflow_description 0x7f100002

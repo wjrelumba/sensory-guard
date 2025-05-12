@@ -6,7 +6,7 @@ import Navbar from '../components/shared-components/Navbar/Navbar';
 import { supabase } from '../Essentials/Supabase';
 import ModalComponent from '../components/shared-components/ModalComponent/ModalComponent';
 import { App } from '@capacitor/app';
-import { sampleNotificationTrigger, warningNotification } from '../Functions/NotificationFunctions';
+import { highWarningNotification, normalWarningNotification } from '../Functions/NotificationFunctions';
 import { BackgroundMode } from '@anuradev/capacitor-background-mode';
 
 export default function Dashboard() {
@@ -100,9 +100,19 @@ export default function Dashboard() {
 
       for(var i = 0; i < matchingData.length; i++){
         console.log(`${matchingData[i].dataValue.temperature} : ${matchingData[i].impDataValue.temperature_variables.normal.high}`)
-        if(matchingData[i].dataValue.temperature > matchingData[i].impDataValue.temperature_variables.normal.high){
+        
+        // Temperature checks
+        if(matchingData[i].dataValue.temperature > matchingData[i].impDataValue.temperature_variables.danger.high){
+          console.log('DANGER! Temperature readings ex');
+          highWarningNotification('DANGER!', 'Temperature reached Danger Levels', matchingData[i].impDataValue.id, matchingData[i].impDataValue.proto_name, 'temperature');
+        }
+        else if(matchingData[i].dataValue.temperature > matchingData[i].impDataValue.temperature_variables.high.high){
+          console.log('Warning! Temperature exceeded high threshold');
+          highWarningNotification('WARNING!', 'Temperature exceeded High threshold', matchingData[i].impDataValue.id, matchingData[i].impDataValue.proto_name, 'temperature');
+        }
+        else if(matchingData[i].dataValue.temperature > matchingData[i].impDataValue.temperature_variables.normal.high){
           console.log('Warning! Temperature exceeded normal threshold');
-          warningNotification('Warning!', 'Temperature exceeded normal threshold', matchingData[i].impDataValue.id, matchingData[i].impDataValue.proto_name);
+          normalWarningNotification('Temperature Risen', 'Temperature exceeded normal threshold', matchingData[i].impDataValue.id, matchingData[i].impDataValue.proto_name, 'temperature');
         }
       }
     }
@@ -110,10 +120,11 @@ export default function Dashboard() {
     let backgroundInterval = null; // Declare the interval globally
 
     useEffect(() => {
-      App.addListener('backButton', exitModalFunction);
-      getUserSession();
+      let supabaseChannel;
 
-      const startBackgroundMode = async() => {
+      const exitBackListener = App.addListener('backButton', exitModalFunction);
+
+      const startBackgroundMode = async () => {
         await BackgroundMode.enable();
         await BackgroundMode.setSettings({
           icon: 'splash',
@@ -121,104 +132,85 @@ export default function Dashboard() {
           title: 'Running in Background',
           text: "Monitoring while you're away",
           color: '#ffffff',
-        })
-      }
+        });
+      };
 
-      startBackgroundMode();
+      const subscribeToSupabase = () => {
+        if (supabaseChannel) supabaseChannel.unsubscribe();
 
-      // Handle the state of app whether in background or foreground
+        supabaseChannel = supabase.channel('readings')
+          .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'readings' }, (payload) => {
+            getImportantData();
+            console.log(payload);
+          })
+          .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'readings' }, (payload) => {
+            getImportantData();
+            console.log(payload);
+          })
+          .subscribe();
+      };
+
       const handleAppStateChange = async (state) => {
-        console.log(`${state} - ${new Date()}`);
+        console.log(`${state.isActive ? 'Foreground' : 'Background'} - ${new Date()}`);
         try {
           if (!state.isActive) {
-            // App is in the background
             const isEnabled = await BackgroundMode.isEnabled();
             if (isEnabled) {
               await BackgroundMode.moveToBackground();
             }
             console.log('>>> App is in background');
           } else {
-            // App is in the foreground
             const isActive = await BackgroundMode.isActive();
-            
             if (isActive) {
               await BackgroundMode.moveToForeground();
             }
-
             if (!isActive) {
-              getImportantData();  // Your custom function to handle foreground tasks
+              getImportantData();
               console.log('>>> App is active');
             }
           }
         } catch (err) {
+          console.error('Error handling app state change:', err);
         }
       };
 
-      // Add the listener
-      App.addListener('appStateChange', handleAppStateChange);
+      const appStateListener = App.addListener('appStateChange', handleAppStateChange);
 
       BackgroundMode.addListener('appInBackground', () => {
         setIsReloaded(false);
-
-        supabaseChannel.unsubscribe();
-        supabaseChannel = supabase.channel('readings')
-          .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'readings' }, (payload) => {
-            getImportantData();
-            console.log(payload);
-          })
-          .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'readings' }, (payload) => {
-            getImportantData();
-            console.log(payload);
-          })
-          .subscribe();
+        subscribeToSupabase();
       });
 
       BackgroundMode.addListener('appInForeground', () => {
         setIsReloaded(true);
-
-        supabaseChannel.unsubscribe();
-        supabaseChannel = supabase.channel('readings')
-          .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'readings' }, (payload) => {
-            getImportantData();
-            console.log(payload);
-          })
-          .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'readings' }, (payload) => {
-            getImportantData();
-            console.log(payload);
-          })
-          .subscribe();
+        subscribeToSupabase();
       });
 
-      // Initialize the real-time channel when the component mounts
-      let supabaseChannel = supabase.channel('readings')
-        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'readings' }, (payload) => {
-          getImportantData();
-          console.log(payload);
-        })
-        .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'readings' }, (payload) => {
-          getImportantData();
-          console.log(payload);
-        })
-        .subscribe();
+      const initialize = async () => {
+        getUserSession();
+        await startBackgroundMode();
+        subscribeToSupabase();
+        setInitialized(true);
+      };
 
-      setInitialized(true);
+      initialize();
 
-      // Clean up when the component unmounts
       return () => {
-        supabaseChannel.unsubscribe();
-        App.removeAllListeners();
-        BackgroundMode.removeAllListeners();
+        if (supabaseChannel) supabaseChannel.unsubscribe();
+
+        exitBackListener.remove();
+        appStateListener.remove();
+
+        BackgroundMode.removeAllListeners(); // Optional: replace with specific removal if needed
         BackgroundMode.disable();
-      }
-    }, []);  // Empty dependency array to run this effect only once
-
-
+      };
+    }, []);
 
   if(initialized) return (
   <>
     <ModalComponent
     message={'Are you sure you want to leave the app?'}
-    title={<h2 className="text-xl font-bold w-full">Leaving Sensory<span className='text-blue-600'>Guard</span>?</h2>}
+    title={{first: 'Leaving Sensory', second: 'Guard'}}
     show={showExitModal}
     onClose={exitModalFunction}
     acceptFunction={exitApp}

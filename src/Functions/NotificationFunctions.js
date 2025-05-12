@@ -5,6 +5,14 @@ const protoTypeIdsMapper = {
     '84af9f58-26c9-453a-8c16-d8358579c221': 2,
 }
 
+const modeMapper = {
+  'temperature': 1,
+  'humidity': 2,
+  'smoke_gas': 3,
+  'vibration': 4,
+  'flame': 5,
+}
+
 // Sample notification for testing
 export const sampleNotificationTrigger = async(title, body) => {
     await LocalNotifications.schedule({
@@ -21,14 +29,14 @@ export const sampleNotificationTrigger = async(title, body) => {
 }
 
 // Warning notifications
-export const warningNotification = async (title, body, id, proto_name) => {
+  export const normalWarningNotification = async (title, body, id, proto_name, mode) => {
     try {
       await LocalNotifications.schedule({
         notifications: [
           {
             title: `${title} - ${proto_name}`,
             body,
-            id: protoTypeIdsMapper[id],
+            id: protoTypeIdsMapper[id] + modeMapper[mode],
             channelId: 'default2',
             smallIcon: 'splash',
           },
@@ -40,3 +48,40 @@ export const warningNotification = async (title, body, id, proto_name) => {
     }
   };
   
+  export const highWarningNotification = async (title, body, id, proto_name, mode) => {
+    try {
+      await LocalNotifications.schedule({
+        notifications: [
+          {
+            title: `${title} - ${proto_name}`,
+            body,
+            id: protoTypeIdsMapper[id] + modeMapper[mode],
+            channelId: 'default3',
+            smallIcon: 'splash',
+          },
+        ],
+      });
+      console.log('Notification scheduled');
+    } catch (error) {
+      console.error('Error scheduling notification:', error);
+    }
+  };
+
+  export const dangerWarningNotification = async (title, body, id, proto_name, mode) => {
+    try {
+      await LocalNotifications.schedule({
+        notifications: [
+          {
+            title: `${title} - ${proto_name}`,
+            body,
+            id: protoTypeIdsMapper[id] + modeMapper[mode],
+            channelId: 'default4',
+            smallIcon: 'splash',
+          },
+        ],
+      });
+      console.log('Notification scheduled');
+    } catch (error) {
+      console.error('Error scheduling notification:', error);
+    }
+  };

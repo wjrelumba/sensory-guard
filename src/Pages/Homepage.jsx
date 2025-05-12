@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../Essentials/Supabase';
 import { showErrorToast } from '../Essentials/ShowToast';
 import { Camera } from '@capacitor/camera';
+import { LocalNotifications } from '@capacitor/local-notifications';
+import { sampleNotificationTrigger } from '../Functions/NotificationFunctions';
 
 export default function Homepage() {
   const navigate = useNavigate();
@@ -22,11 +24,49 @@ export default function Homepage() {
 
   const requestCameraPermission = async() => {
     await Camera.requestPermissions();
-  }
+  };
+
+  // Ask for notification permissions first
+  const requestNotificationPermissions = async () => {
+    await LocalNotifications.requestPermissions();
+  };
+
+  // Create a channel on app start for Android notifications
+  const createNotificationChannels = async () => {
+    const normalThresholdChannel = {
+      id: 'default2',
+      name: 'Normal Threshold Channel',
+      description: `Channel for readings`,
+      importance: 5,
+      sound: 'system_notification_4_206493.ogg',
+    };
+
+    const highThresholdChannel = {
+      id: 'default3',
+      name: 'High Threshold Channel',
+      description: `Channel for readings`,
+      importance: 5,
+      sound: 'alert_33762.ogg',
+    };
+
+    const dangerThresholdChannel = {
+      id: 'default4',
+      name: 'Danger Threshold Channel',
+      description: `Channel for readings`,
+      importance: 5,
+      sound: 'siren_alert_96052.ogg',
+    };
+
+    await LocalNotifications.createChannel(normalThresholdChannel);
+    await LocalNotifications.createChannel(highThresholdChannel);
+    await LocalNotifications.createChannel(dangerThresholdChannel);
+  };
   
   useEffect(() => {
     getUserSession();
     requestCameraPermission();
+    createNotificationChannels();
+    requestNotificationPermissions();
   },[]);
 
   return (

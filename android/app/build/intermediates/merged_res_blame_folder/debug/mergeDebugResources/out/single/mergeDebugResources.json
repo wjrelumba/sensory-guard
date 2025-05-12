@@ -12,12 +12,20 @@
         "source": "com.sensoryGuard.www.app-main-42:/mipmap-hdpi/ic_launcher_background.png"
     },
     {
+        "merged": "com.sensoryGuard.www.app-debug-40:/raw_system_notification_alert_toast_warn_274740.ogg.flat",
+        "source": "com.sensoryGuard.www.app-main-42:/raw/system_notification_alert_toast_warn_274740.ogg"
+    },
+    {
         "merged": "com.sensoryGuard.www.app-debug-40:/drawable-land-xhdpi_splash.png.flat",
         "source": "com.sensoryGuard.www.app-main-42:/drawable-land-xhdpi/splash.png"
     },
     {
         "merged": "com.sensoryGuard.www.app-debug-40:/mipmap-hdpi_ic_launcher.png.flat",
         "source": "com.sensoryGuard.www.app-main-42:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.sensoryGuard.www.app-debug-40:/raw_siren_alert_96052.ogg.flat",
+        "source": "com.sensoryGuard.www.app-main-42:/raw/siren_alert_96052.ogg"
     },
     {
         "merged": "com.sensoryGuard.www.app-debug-40:/drawable_splash.png.flat",
@@ -52,6 +60,10 @@
         "source": "com.sensoryGuard.www.app-main-42:/mipmap-xxhdpi/ic_launcher.png"
     },
     {
+        "merged": "com.sensoryGuard.www.app-debug-40:/raw_notification_alert_6_331724.ogg.flat",
+        "source": "com.sensoryGuard.www.app-main-42:/raw/notification_alert_6_331724.ogg"
+    },
+    {
         "merged": "com.sensoryGuard.www.app-debug-40:/layout_activity_main.xml.flat",
         "source": "com.sensoryGuard.www.app-main-42:/layout/activity_main.xml"
     },
@@ -66,6 +78,10 @@
     {
         "merged": "com.sensoryGuard.www.app-debug-40:/mipmap-ldpi_ic_launcher.png.flat",
         "source": "com.sensoryGuard.www.app-main-42:/mipmap-ldpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.sensoryGuard.www.app-debug-40:/raw_error_notification_banjo_45430.ogg.flat",
+        "source": "com.sensoryGuard.www.app-main-42:/raw/error_notification_banjo_45430.ogg"
     },
     {
         "merged": "com.sensoryGuard.www.app-debug-40:/mipmap-mdpi_ic_launcher.png.flat",
@@ -102,6 +118,10 @@
     {
         "merged": "com.sensoryGuard.www.app-debug-40:/mipmap-xhdpi_ic_launcher.png.flat",
         "source": "com.sensoryGuard.www.app-main-42:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.sensoryGuard.www.app-debug-40:/raw_system_notification_4_206493.ogg.flat",
+        "source": "com.sensoryGuard.www.app-main-42:/raw/system_notification_4_206493.ogg"
     },
     {
         "merged": "com.sensoryGuard.www.app-debug-40:/drawable-port-xhdpi_splash.png.flat",
@@ -158,6 +178,10 @@
     {
         "merged": "com.sensoryGuard.www.app-debug-40:/drawable-land-xxxhdpi_splash.png.flat",
         "source": "com.sensoryGuard.www.app-main-42:/drawable-land-xxxhdpi/splash.png"
+    },
+    {
+        "merged": "com.sensoryGuard.www.app-debug-40:/raw_notification_alert_5_331725.ogg.flat",
+        "source": "com.sensoryGuard.www.app-main-42:/raw/notification_alert_5_331725.ogg"
     },
     {
         "merged": "com.sensoryGuard.www.app-debug-40:/drawable-port-hdpi_splash.png.flat",
@@ -218,6 +242,10 @@
     {
         "merged": "com.sensoryGuard.www.app-debug-40:/drawable-port-night-hdpi_splash.png.flat",
         "source": "com.sensoryGuard.www.app-main-42:/drawable-port-night-hdpi/splash.png"
+    },
+    {
+        "merged": "com.sensoryGuard.www.app-debug-40:/raw_notification_alert_7_331719.ogg.flat",
+        "source": "com.sensoryGuard.www.app-main-42:/raw/notification_alert_7_331719.ogg"
     },
     {
         "merged": "com.sensoryGuard.www.app-debug-40:/drawable-port-xxxhdpi_splash.png.flat",

@@ -3694,8 +3694,15 @@ mipmap ic_launcher_foreground
 mipmap ic_launcher_round
 plurals mtrl_badge_content_description
 raw alert_33762
+raw error_notification_banjo_45430
+raw notification_alert_5_331725
+raw notification_alert_6_331724
+raw notification_alert_7_331719
 raw notification_sound
 raw ringtone_calm
+raw siren_alert_96052
+raw system_notification_4_206493
+raw system_notification_alert_toast_warn_274740
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description

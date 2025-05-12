@@ -54,4 +54,7 @@
     <!-- Permission for Camera -->
     <uses-permission android:name="android.permission.CAMERA"/>
 
+    <!-- Permission for Notifications -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
 </manifest>
