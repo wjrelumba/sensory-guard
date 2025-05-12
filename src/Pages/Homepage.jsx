@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../Essentials/Supabase';
 import { showErrorToast } from '../Essentials/ShowToast';
+import { Camera } from '@capacitor/camera';
 
 export default function Homepage() {
   const navigate = useNavigate();
@@ -18,9 +19,14 @@ export default function Homepage() {
         // Optionally handle the error, e.g., show a message or navigate to an error page
       }
   };
+
+  const requestCameraPermission = async() => {
+    await Camera.requestPermissions();
+  }
   
   useEffect(() => {
     getUserSession();
+    requestCameraPermission();
   },[]);
 
   return (
