@@ -41,6 +41,7 @@ export default function IndividualAccountHome() {
         <DetailedAccountsCard
         dataObject={dataValues}
         editClick={goToEdit}
+        deleteClick={deleteAcc}
         />
     </>
   )
