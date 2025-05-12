@@ -38,7 +38,7 @@ export default function DetailedAccountsCard({
             {/* Buttons section */}
             <div className='w-full flex justify-end gap-1'>
                 <button onClick={editClick} className='rounded-full px-4 bg-blue-600 text-sm text-white'>Edit</button>
-                <button className='rounded-full px-4 bg-red-600 text-sm text-white'>Delete</button>
+                <button onClick={deleteClick} className='rounded-full px-4 bg-red-600 text-sm text-white'>Delete</button>
             </div>
         </div>
     </div>
