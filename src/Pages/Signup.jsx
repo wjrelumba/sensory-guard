@@ -38,19 +38,15 @@ export default function Signup() {
     const {value,name} = e.target;
     switch (name){
       case 'username':
-        console.log(`Email: ${value}`);
         setUsername(value);
         break;
       case 'email':
-        console.log(`Email: ${value}`);
         setEmail(value);
         break;
       case 'password':
-        console.log(`Password: ${value}`);
         setPassword(value);
         break;
       case 'confPassword':
-        console.log(`Confirm Password: ${value}`);
         setConfPassword(value);
         break;
     };
@@ -59,7 +55,6 @@ export default function Signup() {
   const getUserSession = async() => {
     try {
         const { data: { session } } = await supabase.auth.getSession();
-        console.log(session);
         if (session) {
           navigate('/dashboard');
         }

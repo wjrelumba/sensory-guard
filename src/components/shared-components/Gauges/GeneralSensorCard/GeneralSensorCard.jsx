@@ -11,15 +11,11 @@ export default function GeneralSensorCard( {
   const [importantDataValues, setImportantDataValues] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const parentClassname = 'w-full bg-white rounded-xl p-2 border-[2px] border-gray-300 shadow-lg';
+  const parentClassname = 'sm:w-[19%] w-[49.3%] bg-white rounded-xl p-2 border-[2px] border-gray-300 shadow-2xl';
 
     const getDataValues = () => {
       const importantDataValueChild = prototypeImportantValues?.filter(value => value.id === prototypeId) // Get only important data for specific prototype
-      console.log(prototypeImportantValues);
-      console.log(readingValues);
-      console.log(importantDataValueChild);
       if(importantDataValueChild){
-          console.log(importantDataValueChild[0]);
           setImportantDataValues(importantDataValueChild[0]);
           setIsLoading(false);
       }
@@ -30,7 +26,6 @@ export default function GeneralSensorCard( {
     },[])
 
     useEffect(() => {
-      console.log(isLoading);
     },[isLoading])
   
   return (
@@ -44,7 +39,7 @@ export default function GeneralSensorCard( {
               {importantDataValues && (
               <>
                 <h1 className='border-b py-1 border-black w-full mb-4'>{importantDataValues.proto_name}</h1>
-                  <div className='grid grid-cols-2 sm:grid-cols-4 w-full justify-items-center items-center gap-1'>
+                  <div className='flex flex-wrap w-full items-center justify-center gap-1'>
                     <Gauges.TemperatureGauge
                     allowed_temperature={importantDataValues.temperature_variables} 
                     temperature={readingValues.temperature}

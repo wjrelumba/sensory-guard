@@ -15,7 +15,6 @@ export default function FlameGauge( {
     colorFill = '#d5d5d5', // Set the color of the text
     arrowColor = '#616161',
 } ) {
-    console.log(flame)
   return (
     <div className={parentClassname}>
         <div className='grid grid-cols-2 items-center'>

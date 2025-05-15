@@ -12,8 +12,6 @@ export default function Chart() {
         const averageValuesChild = await fetchMonthly(2025);
 
         setAverageValues(averageValuesChild);
-
-        console.log(averageValuesChild);
     }
 
     const createChart = () => {

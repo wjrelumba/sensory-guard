@@ -8,6 +8,7 @@ import ModalComponent from '../components/shared-components/ModalComponent/Modal
 import { App } from '@capacitor/app';
 import { highWarningNotification, normalWarningNotification } from '../Functions/NotificationFunctions';
 import { BackgroundMode } from '@anuradev/capacitor-background-mode';
+import { flameVibrationNotifierLogic, notifierLogic, smokeGasNotifierLogic } from '../Functions/ThresholLogicFunctions';
 
 export default function Dashboard() {
     const [showSidebar, setShowSidebar] = useState(false);
@@ -81,9 +82,6 @@ export default function Dashboard() {
       };
 
     const calculationLogic = (dataValue, impDataValue) => {
-      console.log(dataValue);
-      console.log(impDataValue);
-
       const matchingData = impDataValue.map((value) => {
         // Find the matching data in the dataValue array where proto_id matches value.id
         const match = dataValue.find(data => data.proto_id === value.id);
@@ -94,26 +92,59 @@ export default function Dashboard() {
         } else {
           return null;  // No match found, return null (or you can return undefined or any other value)
         }
-      }).filter(item => item !== null);  // Filter out the null values to keep only matches
-      
-      console.log(matchingData);      
+      }).filter(item => item !== null);  // Filter out the null values to keep only matches 
 
-      for(var i = 0; i < matchingData.length; i++){
-        console.log(`${matchingData[i].dataValue.temperature} : ${matchingData[i].impDataValue.temperature_variables.normal.high}`)
+      for(var i = 0; i < matchingData.length; i++){   
+        notifierLogic( // Temperature Logic
+          matchingData[i].dataValue.temperature, 
+          matchingData[i].impDataValue.temperature_variables,
+          matchingData[i].impDataValue.id,
+          matchingData[i].impDataValue.proto_name,
+          'temperature',
+        ); 
         
-        // Temperature checks
-        if(matchingData[i].dataValue.temperature > matchingData[i].impDataValue.temperature_variables.danger.high){
-          console.log('DANGER! Temperature readings ex');
-          highWarningNotification('DANGER!', 'Temperature reached Danger Levels', matchingData[i].impDataValue.id, matchingData[i].impDataValue.proto_name, 'temperature');
-        }
-        else if(matchingData[i].dataValue.temperature > matchingData[i].impDataValue.temperature_variables.high.high){
-          console.log('Warning! Temperature exceeded high threshold');
-          highWarningNotification('WARNING!', 'Temperature exceeded High threshold', matchingData[i].impDataValue.id, matchingData[i].impDataValue.proto_name, 'temperature');
-        }
-        else if(matchingData[i].dataValue.temperature > matchingData[i].impDataValue.temperature_variables.normal.high){
-          console.log('Warning! Temperature exceeded normal threshold');
-          normalWarningNotification('Temperature Risen', 'Temperature exceeded normal threshold', matchingData[i].impDataValue.id, matchingData[i].impDataValue.proto_name, 'temperature');
-        }
+        notifierLogic( // Humidity Logic
+          matchingData[i].dataValue.humidity, 
+          matchingData[i].impDataValue.humidity_variables,
+          matchingData[i].impDataValue.id,
+          matchingData[i].impDataValue.proto_name,
+          'humidity',
+        ); 
+
+        flameVibrationNotifierLogic( // Flame Logic
+          matchingData[i].dataValue.flame, 
+          matchingData[i].impDataValue.flame_variables,
+          matchingData[i].impDataValue.id,
+          matchingData[i].impDataValue.proto_name,
+          'flame',
+        );
+
+        flameVibrationNotifierLogic( // Vibration Logic
+          matchingData[i].dataValue.vibration, 
+          matchingData[i].impDataValue.vibration_variables,
+          matchingData[i].impDataValue.id,
+          matchingData[i].impDataValue.proto_name,
+          'vibration',
+        );
+
+        smokeGasNotifierLogic( // Smoke and Gas Logic
+          matchingData[i].dataValue.smoke_gas, 
+          matchingData[i].impDataValue.smoke_gas_variables,
+          matchingData[i].impDataValue.id,
+          matchingData[i].impDataValue.proto_name,
+          'smoke_gas',
+        );
+
+        // // Temperature checks
+        // if(matchingData[i].dataValue.temperature > matchingData[i].impDataValue.temperature_variables.danger.high){
+        //   highWarningNotification('DANGER!', 'Temperature reached Danger Levels', matchingData[i].impDataValue.id, matchingData[i].impDataValue.proto_name, 'temperature');
+        // }
+        // else if(matchingData[i].dataValue.temperature > matchingData[i].impDataValue.temperature_variables.high.high){
+        //   highWarningNotification('WARNING!', 'Temperature exceeded High threshold', matchingData[i].impDataValue.id, matchingData[i].impDataValue.proto_name, 'temperature');
+        // }
+        // else if(matchingData[i].dataValue.temperature > matchingData[i].impDataValue.temperature_variables.normal.high){
+        //   normalWarningNotification('Temperature Risen', 'Temperature exceeded normal threshold', matchingData[i].impDataValue.id, matchingData[i].impDataValue.proto_name, 'temperature');
+        // }
       }
     }
 
@@ -139,24 +170,20 @@ export default function Dashboard() {
         supabaseChannel = supabase.channel('readings')
           .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'readings' }, (payload) => {
             getImportantData();
-            console.log(payload);
           })
           .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'readings' }, (payload) => {
             getImportantData();
-            console.log(payload);
           })
           .subscribe();
       };
 
       const handleAppStateChange = async (state) => {
-        console.log(`${state.isActive ? 'Foreground' : 'Background'} - ${new Date()}`);
         try {
           if (!state.isActive) {
             const isEnabled = await BackgroundMode.isEnabled();
             if (isEnabled) {
               await BackgroundMode.moveToBackground();
             }
-            console.log('>>> App is in background');
           } else {
             const isActive = await BackgroundMode.isActive();
             if (isActive) {
@@ -164,7 +191,6 @@ export default function Dashboard() {
             }
             if (!isActive) {
               getImportantData();
-              console.log('>>> App is active');
             }
           }
         } catch (err) {
@@ -191,7 +217,6 @@ export default function Dashboard() {
           subscribeToSupabase();
           setInitialized(true);
         } catch (error) {
-          console.log(error);
           getUserSession();
           subscribeToSupabase();
           setInitialized(true);

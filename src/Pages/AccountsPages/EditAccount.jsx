@@ -71,8 +71,6 @@ export default function EditAccount() {
     };
 
     useEffect(() => {
-        console.log(dataValues);
-
         return () => {
             setShowSaveModal(false);
             setNameValue(null);

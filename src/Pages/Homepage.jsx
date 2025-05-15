@@ -12,7 +12,6 @@ export default function Homepage() {
   const getUserSession = async() => {
     try {
         const { data: { session } } = await supabase.auth.getSession();
-        console.log(session);
         if (session) {
           navigate('/dashboard');
         }

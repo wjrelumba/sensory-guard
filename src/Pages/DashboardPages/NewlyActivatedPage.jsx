@@ -61,11 +61,9 @@ export default function NewlyActivatedPage() {
         switch(name){
             case 'password':
                 setPasswordValue(value);
-                console.log(value);
                 break;
             case 'confPass':
                 setConfPasswordValue(value);
-                console.log(value);
                 break;
         }
     };

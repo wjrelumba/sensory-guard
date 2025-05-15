@@ -30,8 +30,6 @@ export default function Settings() {
                 }
             }
             tempArray.sort((a,b) => a.proto_number - b.proto_number);
-            console.log(tempArray);
-            console.log(data);
             setWifiData(tempArray);
         };
     };

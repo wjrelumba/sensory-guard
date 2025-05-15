@@ -21,7 +21,6 @@ const QRScanner = () => {
     useEffect(() => {
         function onScanSuccess(decodedText, decodedResult) {
         // Handle the scanned QR code
-        console.log(`Code matched = ${decodedText}`, decodedResult);
         logIn(decodedText);
         // alert(`Scanned Code: ${decodedText}`);
         }

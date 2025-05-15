@@ -13,16 +13,13 @@ export default function IndividualPrototype() {
     const [impDataValues, setImpDataValues] = useState(null); // Important Values such as Prototype ID, allowable temps and humidity, etc.
 
     const getImportantData = async() => {
-      console.log('run');
       const {data:readings} = await supabase.from('readings').select().order('created_at', {ascending: false}).eq('proto_id', protoId).limit(1);
       if(readings){
-        console.log(readings[0]);
         setDataValues(readings[0]);
       }
       if(!impDataValues){
         const {data:importantValues} = await supabase.from('prototypes').select();
         if(importantValues){
-          console.log(importantValues);
           setImpDataValues(importantValues);
         }
       }
@@ -53,14 +50,12 @@ export default function IndividualPrototype() {
           table: 'readings'
         }, (payload) => {
           getImportantData();
-          console.log(payload);
         }).on('postgres_changes', {
           event: 'UPDATE',
           schema: 'public',
           table: 'readings',
         }, (payload) => {
           getImportantData();
-          console.log(payload);
         }).subscribe();
 
         return () => {

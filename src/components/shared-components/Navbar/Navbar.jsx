@@ -46,9 +46,9 @@ export default function Navbar({
             </button>
         </div>
         <div className='w-full h-full flex justify-center items-center'>
-          <div className='w-full flex justify-center items-center'>
-            <h1 className='text-gray-700 text-2xl'>Sensory</h1>
-            <h1 className='text-blue-600 text-2xl'>Guard</h1>
+          <div className='w-full flex justify-center items-center gap-1'>
+            <img className='w-[1.5rem] h-[1.5rem]' src="channels4_profile_removedBG.png" alt="" />
+            <h1 className='text-gray-700 text-2xl'>Sensory<span className='text-blue-600 text-2xl'>Guard</span></h1>
           </div>
             {/* <img src="/BookKeep-img-noBg.png" className='w-[3.5rem] h-[3.5rem]' alt="" /> */}
         </div>

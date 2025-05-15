@@ -27,7 +27,6 @@ export default function Accounts() {
     const {data} = await supabase.from('accounts').select().order('created_at', {ascending: false});
     if(data){
       // data.sort((a, b) => a.date_created.month - b.date_created.month).sort((a, b) => a.date_created.day - b.date_created.day);
-      console.log(data);
       setSampleUser(data);
     }
   }
@@ -41,9 +40,7 @@ export default function Accounts() {
       .filter((_, index) => index >= startIndex && index < endIndex)
       .map((data) => data);
   
-    console.log(shownUserChild);
     setShownUser(shownUserChild);
-    console.log(shownUserChild);
   };
 
   const nextPage = () => {
@@ -73,7 +70,6 @@ export default function Accounts() {
     const {value, name} = e.target;
     switch(name){
       case 'length':
-        console.log('Length: ', value);
         setCurrentPage(1);
         setLengthOfDisplay(value);
         break;
@@ -93,7 +89,6 @@ export default function Accounts() {
         setRole(value);
         break;
     };
-    console.log(value);
   };
 
   const createAccount = async() => {
@@ -102,11 +97,8 @@ export default function Accounts() {
     const day = date.getDate();
     const year = date.getFullYear();
 
-    console.log(`${day}/${month + 1}/${year}`);
-
     const currentSessionKey = localStorage.key(0);
     const currentSession = localStorage.getItem(currentSessionKey);
-    console.log(currentSession);
 
     const {data, error} = await supabase.auth.signUp({
       email,
@@ -163,12 +155,10 @@ export default function Accounts() {
 
   const totalPageFunc = () => {
     const totalPageValue = Math.ceil(sampleUser.length / lengthOfDisplay)
-    console.log(totalPageValue);
     setTotalPages(totalPageValue);
   };
 
   const navigateToIndiv = (dataValue) => {
-    console.log(dataValue);
     if(!dataValue.activated){
       navigate('/dashboard/accountQR', {state: dataValue})
     }
@@ -187,14 +177,12 @@ export default function Accounts() {
         table: 'accounts'
       }, (payload) => {
         getAccounts();
-        console.log(payload);
       }).on('postgres_changes', {
         event: 'UPDATE',
         schema: 'public',
         table: 'accounts',
       }, (payload) => {
         getAccounts();
-        console.log(payload);
       }).subscribe();
 
       return () => {

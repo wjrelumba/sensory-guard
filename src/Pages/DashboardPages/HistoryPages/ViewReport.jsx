@@ -16,7 +16,6 @@ export default function ViewReport() {
     const getData = async() => {
         const {data} = await supabase.from('history_notes').select().eq('month', dataValue.data.month).eq('date', dataValue.data.date).eq('chosenYear', dataValue.chosenYear);
         if(data && data.length > 0){
-            console.log(data[0]);
             setHistoryData(data[0]);
         }
     };
@@ -28,7 +27,6 @@ export default function ViewReport() {
         if(reportData && reportData.length > 0){
             const {data} = await supabase.from('history_notes').update({...historyData, note: noteValue}).select().eq('month', dataValue.data.month).eq('date', dataValue.data.date).eq('chosenYear', dataValue.chosenYear);
             if(data){
-                console.log(data[0]);
                 setHistoryData(data[0]);
             }
             setEditNoteMode(false);
@@ -36,7 +34,6 @@ export default function ViewReport() {
         else{
             const {data} = await supabase.from('history_notes').insert({...historyData, note: noteValue, chosenYear: dataValue.chosenYear}).select();
             if(data){
-                console.log(data[0]);
                 setHistoryData(data[0]);
             }
             setEditNoteMode(false);
@@ -54,7 +51,6 @@ export default function ViewReport() {
     }
 
     useEffect(() => {
-        console.log(dataValue);
         getData();
     },[]);
 

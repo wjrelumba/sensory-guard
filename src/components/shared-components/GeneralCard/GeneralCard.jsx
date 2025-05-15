@@ -16,7 +16,6 @@ export default function GeneralCard( {
     const {data} = await supabase.from('readings').select().order('created_at', {ascending: false}).eq('proto_id', prototypeId).limit(1);
     if(data){
       setDataValues(data[0]);
-      console.log(data);
     };
   }
 
@@ -24,7 +23,6 @@ export default function GeneralCard( {
     const importantDataValueChild = prototypeImportantValues?.filter(value => value.id === prototypeId) // Get only important data for specific prototype
 
     if(importantDataValueChild){
-        console.log(importantDataValueChild[0]);
         setImportantDataValues(importantDataValueChild[0]);
     }
   };
@@ -131,7 +129,7 @@ export default function GeneralCard( {
     getValueFromDB();
   },[readingValues])
 
-  useEffect(() => {console.log(dataValues)},[dataValues]);
+  useEffect(() => {},[dataValues]);
   
   return (
     <div onClick={() => onClick(importantDataValues.id)} className='w-full p-2 bg-white border-[2px] border-gray-300 shadow-xl text-gray-900 rounded-md'>

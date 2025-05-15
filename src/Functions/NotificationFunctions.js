@@ -1,8 +1,8 @@
 import { LocalNotifications } from "@capacitor/local-notifications";
 
 const protoTypeIdsMapper = {
-    '4718a148-0f82-401a-af9e-79bb66b9fe4f' : 1,
-    '84af9f58-26c9-453a-8c16-d8358579c221': 2,
+    '4718a148-0f82-401a-af9e-79bb66b9fe4f' : 10,
+    '84af9f58-26c9-453a-8c16-d8358579c221': 20,
 }
 
 const modeMapper = {
@@ -42,7 +42,6 @@ export const sampleNotificationTrigger = async(title, body) => {
           },
         ],
       });
-      console.log('Notification scheduled');
     } catch (error) {
       console.error('Error scheduling notification:', error);
     }
@@ -61,7 +60,6 @@ export const sampleNotificationTrigger = async(title, body) => {
           },
         ],
       });
-      console.log('Notification scheduled');
     } catch (error) {
       console.error('Error scheduling notification:', error);
     }
@@ -80,7 +78,6 @@ export const sampleNotificationTrigger = async(title, body) => {
           },
         ],
       });
-      console.log('Notification scheduled');
     } catch (error) {
       console.error('Error scheduling notification:', error);
     }

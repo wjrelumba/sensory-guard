@@ -13,19 +13,20 @@ export default function DashboardSensors() {
     const [impDataValues, setImpDataValues] = useState(null); // Important Values such as Prototype ID, allowable temps and humidity, etc.
 
     const getImportantData = async() => {
-        const {data:readings} = await supabase.from('readings').select();
-        if(readings){
-          setDataValues(readings);
-        }
-        if(impDataValues === null){
-          const {data:importantValues} = await supabase.from('prototypes').select();
-          if(importantValues){
-            importantValues.sort((a,b) => a.proto_number - b.proto_number);
-            setImpDataValues(importantValues);
-          }
-        }
-        setIsLoading(false);
+      const {data:readings} = await supabase.from('readings').select();
+      if(readings){
+        setDataValues(readings);
       }
+      setIsLoading(false);
+    }
+
+      const getProtoData = async() => {
+        const {data:importantValues} = await supabase.from('prototypes').select();
+        if(importantValues){
+          importantValues.sort((a,b) => a.proto_number - b.proto_number);
+          setImpDataValues(importantValues);
+        };
+      };
   
       const getUserSession = async() => {
           try {
@@ -46,25 +47,32 @@ export default function DashboardSensors() {
     };
 
     useEffect(() => {
-        getUserSession();
-        const subscription = supabase.channel('readings').on('postgres_changes', {
-          event: 'INSERT',
-          schema: 'public',
-          table: 'readings'
-        }, (payload) => {
-          getImportantData();
-        }).on('postgres_changes', {
-          event: 'UPDATE',
-          schema: 'public',
-          table: 'readings',
-        }, (payload) => {
-          getImportantData();
-        }).subscribe();
+      getUserSession();
+      getProtoData();
 
-        return () => {
-          subscription.unsubscribe();
-        }
-    },[]);
+      let supabaseChannel;
+
+      const subscribeToSupabase = () => {
+        if (supabaseChannel) supabaseChannel.unsubscribe();
+
+        supabaseChannel = supabase.channel('sensor-readings')
+          .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'readings' }, (payload) => {
+            getImportantData();
+          })
+          .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'readings' }, (payload) => {
+            getImportantData();
+          })
+          .subscribe();
+      };
+
+      subscribeToSupabase();
+
+      return () => {
+        if(supabaseChannel) supabaseChannel.unsubscribe();
+      };
+    }, []);
+
+
   return (
     <div className='grid grid-rows-2 gap-2 w-full'>
         {isLoading ? (

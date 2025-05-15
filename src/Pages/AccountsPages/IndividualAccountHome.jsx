@@ -8,8 +8,6 @@ export default function IndividualAccountHome() {
     const location = useLocation();
     const dataValues = location.state;
 
-    console.log(dataValues);
-
     const goToEdit = () => {
         navigate('/dashboard/individualAcc/edit', {state: dataValues})
     };

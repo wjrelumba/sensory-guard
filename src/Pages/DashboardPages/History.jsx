@@ -35,7 +35,6 @@ export default function History() {
   }
 
   const showToast = () => {
-    console.log('clicked');
     showSuccessToast('Clicked');
   }
 
@@ -59,8 +58,6 @@ export default function History() {
     const dataRetrieved = await (monthlyMode ? fetchMonthly(chosenYear) : weeklyMode ? fetchWeekly(chosenYear, chosenMonth) : dailyMode ? fetchDaily(chosenYear, chosenMonth) : null);
     const historyDataRetrieved = await fetchMonthlyHistory(historyChosenYear);
 
-    console.log(dataRetrieved);
-
     setHistoryToShow(historyDataRetrieved);
     setReportsToShow(dataRetrieved);
     setIsReportsLoading(false);
@@ -81,12 +78,10 @@ export default function History() {
     switch(name){
       case 'reports':
         setIsReportsLoading(true);
-        console.log(value);
         setChosenYear(value);
         break;
       case 'history':
         setIsHistoryLoading(true);
-        console.log(value);
         setHistoryChosenYear(value);
         break;
     }
@@ -95,7 +90,6 @@ export default function History() {
   const setMonthFunction = (e) => {
     setIsReportsLoading(true);
     const {value} = e.target;
-    console.log(value);
     setChosenMonth(value);
   }
 

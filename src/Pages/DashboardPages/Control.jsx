@@ -114,9 +114,7 @@ export default function Control() {
   const getVariables = async() => {
     const {data} = await supabase.from('prototypes').select();
     if(data){
-      console.log(data);
       data.sort((a,b) => a.proto_number - b.proto_number);
-      console.log(data);
       setPrototypeData(data);
       
       const inputObjectSetterHolder = inputObjectFunction(data);
@@ -155,7 +153,6 @@ export default function Control() {
     const protoIds = data.map(a => a.id);
 
     const temperature_variables = {};
-    console.log(temperature_variables);
 
     for(var i=0; i < protoIds.length; i++){
       temperature_variables[protoIds[i]] = {}; // Create the object for specific proto ID
@@ -230,9 +227,6 @@ export default function Control() {
           showSuccessToast(`${data[0].proto_name}: Temperature Variables successfully updated`);
         };
       };
-
-      console.log(tempNormalLow[protoIds[i]]);
-      console.log(temperature_variables);
     }
   };
 
@@ -254,7 +248,6 @@ export default function Control() {
     const protoIds = data.map(a => a.id);
 
     const humidity_variables = {};
-    console.log(humidity_variables);
 
     for(var i=0; i < protoIds.length; i++){
       humidity_variables[protoIds[i]] = {}; // Create the object for specific proto ID
@@ -329,9 +322,6 @@ export default function Control() {
           showSuccessToast(`${data[0].proto_name}: Humidity Variables successfully updated`);
         };
       };
-
-      console.log(humidNormalLow[protoIds[i]]);
-      console.log(humidity_variables);
     }
   };
 
@@ -347,7 +337,6 @@ export default function Control() {
     const protoIds = data.map(a => a.id);
 
     const smoke_gas_variables = {};
-    console.log(smoke_gas_variables);
 
     for(var i=0; i < protoIds.length; i++){
       smoke_gas_variables[protoIds[i]] = {}; // Create the object for specific proto ID
@@ -363,8 +352,6 @@ export default function Control() {
         smoke_gas_variables[protoIds[i]].threshold = data[0].smoke_gas_variables.threshold; // If the user did not input anything, it will take its existing value
       }
 
-      console.log(smoke_gas_variables[protoIds[i]]);
-
       const {error} = await supabase.from('prototypes').update({
         smoke_gas_variables: smoke_gas_variables[protoIds[i]]
       }).eq('id', protoIds[i]);
@@ -379,10 +366,7 @@ export default function Control() {
     const {id} = e.target.dataset;
     
     let tempObjectHolder = {...inputObjectSetter[name].state};
-    console.log(tempObjectHolder);
     tempObjectHolder[id] = parseInt(value);
-
-    console.log(tempObjectHolder);
 
     inputObjectSetter[name].updater(tempObjectHolder);
 

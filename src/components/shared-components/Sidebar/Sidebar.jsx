@@ -71,7 +71,6 @@ export default function Sidebar({shown,toggleSideBar,email}) {
 
     useEffect(() => {
         if(shown){
-            console.log(shown);
             setHasLoaded(true);
             getRole();
         };

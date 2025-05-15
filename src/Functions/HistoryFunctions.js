@@ -45,8 +45,6 @@ export const fetchMonthly = async (yearValue) => {
 
                 from += 1000;
                 to += 1000;
-
-                console.log(`Total Entries for Month ${value.month}:`, allData.length);
             }
 
             let totalTempValue = 0;
@@ -87,9 +85,6 @@ export const fetchMonthly = async (yearValue) => {
             };
         })
     );
-
-    console.log('Final Data:', dataRetrieved);
-
     return dataRetrieved;
 };
 
@@ -160,8 +155,6 @@ export const fetchWeekly = async (yearValue, monthValue) => {
             highHumidity: allData.length > 0 ? parseFloat(Math.max(...allData.map(d => d.humidity))).toFixed(2) : 0,
         });
     }
-
-    console.log("Weekly Data:", weeklyData);
     return weeklyData;
 };
 
@@ -222,8 +215,6 @@ export const fetchDaily = async (yearValue, monthValue) => {
             highHumidity: allData.length > 0 ? parseFloat(Math.max(...allData.map(d => d.humidity)).toFixed(2)) : 0,
         });
     }
-
-    console.log("Daily Data:", dailyData);
     return dailyData;
 };
 
@@ -273,8 +264,6 @@ export const fetchMonthlyHistory = async (yearValue) => {
 
                 from += 1000;
                 to += 1000;
-
-                console.log(`Total Entries for Month ${value.month}:`, allData.length);
             }
 
             let totalTempValue = 0;
@@ -315,8 +304,6 @@ export const fetchMonthlyHistory = async (yearValue) => {
             };
         })
     );
-
-    console.log('Final Data:', dataRetrieved);
 
     return dataRetrieved;
 };

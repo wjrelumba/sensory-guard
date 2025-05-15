@@ -11,8 +11,6 @@ export default function AccountQR() {
     }
     
     useEffect(() => {
-        console.log(location);
-        console.log(location.state.activated);
     },[]);
 
   return (

@@ -28,11 +28,9 @@ export default function Login() {
     const {value,name} = e.target;
     switch (name){
       case 'email':
-        console.log(`Email: ${value}`);
         setEmail(value);
         break;
       case 'password':
-        console.log(`Password: ${value}`);
         setPassword(value);
         break;
     };
@@ -41,7 +39,6 @@ export default function Login() {
   const getUserSession = async() => {
     try {
         const { data: { session } } = await supabase.auth.getSession();
-        console.log(session);
         if (session) {
           navigate('/dashboard');
         }
