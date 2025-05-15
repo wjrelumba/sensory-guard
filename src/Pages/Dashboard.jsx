@@ -117,8 +117,6 @@ export default function Dashboard() {
       }
     }
 
-    let backgroundInterval = null; // Declare the interval globally
-
     useEffect(() => {
       let supabaseChannel;
 
@@ -187,10 +185,17 @@ export default function Dashboard() {
       });
 
       const initialize = async () => {
-        getUserSession();
-        await startBackgroundMode();
-        subscribeToSupabase();
-        setInitialized(true);
+        try {
+          getUserSession();
+          await startBackgroundMode();
+          subscribeToSupabase();
+          setInitialized(true);
+        } catch (error) {
+          console.log(error);
+          getUserSession();
+          subscribeToSupabase();
+          setInitialized(true);
+        }
       };
 
       initialize();
