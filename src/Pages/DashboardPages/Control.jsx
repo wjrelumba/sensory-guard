@@ -547,11 +547,11 @@ export default function Control() {
             </h1>
           </div>
         </div>
-        <div className='flex gap-1'>
+        <div className='grid grid-cols-2 gap-1 sm:flex'>
           {buzzers && (
             <>
               {buzzers.map((data, index) => (
-                <div key={index} className='grid grid-cols-2 px-3 py-2 justify-items-center items-center rounded-lg border-[2px] h-[3rem] shadow-lg w-1/2 border-gray-300'>
+                <div key={index} className='grid grid-cols-2 px-3 py-2 justify-items-center items-center rounded-lg border-[2px] h-[3rem] shadow-lg w-full sm:w-1/2 border-gray-300'>
                     <h1 className='font-bold text-gray-600'>BZ {data.proto_number}</h1>
                     <div onClick={() => buzzerClick(data.id, data.buzzer_state)} className={`bg-gray-400 flex w-full p-1 justify-center items-center h-full rounded`}>
                       <div className={`${data.buzzer_state == 1 ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-500'} w-full h-full rounded flex justify-center items-center`}>

@@ -80,7 +80,7 @@ export default function Homepage() {
              <h1 className='text-gray-800 text-3xl font-bold'>:</h1>
           </div>
           <div className='w-full flex flex-col items-center mb-5'>
-            <h1 className='text-gray-600 font-bold'>Server Room</h1>
+            <h1 className='text-gray-600 font-bold'>Data Center</h1>
             <h1 className='text-gray-600 font-bold'>Monitoring System</h1>
           </div>
             <div className='flex flex-col items-center justify-center w-full'>
