@@ -459,7 +459,7 @@ export default function Control() {
       modeValue = '°C';
     }
     else if(mode == 'humidity'){
-      modeValue = 'g/kg';
+      modeValue = '%';
     }
     else if(mode == 'smoke_gas'){
       modeValue = 'ppm';
