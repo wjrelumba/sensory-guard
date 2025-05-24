@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { showErrorToast } from '../Essentials/ShowToast';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Sidebar from '../components/shared-components/Sidebar/Sidebar';
@@ -6,9 +6,8 @@ import Navbar from '../components/shared-components/Navbar/Navbar';
 import { supabase } from '../Essentials/Supabase';
 import ModalComponent from '../components/shared-components/ModalComponent/ModalComponent';
 import { App } from '@capacitor/app';
-import { highWarningNotification, normalWarningNotification } from '../Functions/NotificationFunctions';
 import { BackgroundMode } from '@anuradev/capacitor-background-mode';
-import { flameVibrationNotifierLogic, notifierLogic, smokeGasNotifierLogic } from '../Functions/ThresholLogicFunctions';
+import { flameVibrationNotifierLogic, notifierLogic, smokeGasNotifierLogic } from '../Functions/ThresholdLogicFunctions';
 
 export default function Dashboard() {
     const [showSidebar, setShowSidebar] = useState(false);
@@ -17,6 +16,8 @@ export default function Dashboard() {
 
     const [showExitModal, setShowExitModal] = useState(false);
 
+    const [backgroundActive, setBackgroundActive] = useState(false);
+
     const [dataValues, setDataValues] = useState(null); // Values for readings
     const [impDataValues, setImpDataValues] = useState(null); // Important Values such as Prototype ID, allowable temps and humidity, etc.
 
@@ -24,6 +25,8 @@ export default function Dashboard() {
 
     const [isReloaded, setIsReloaded] = useState(true);
     const [initialized, setInitialized] = useState(false);
+
+    const backgroundActiveRef = useRef(backgroundActive);
 
     // To control modal
     const exitModalFunction = () => {
@@ -82,6 +85,8 @@ export default function Dashboard() {
       };
 
     const calculationLogic = (dataValue, impDataValue) => {
+      const background = backgroundActiveRef.current;
+
       const matchingData = impDataValue.map((value) => {
         // Find the matching data in the dataValue array where proto_id matches value.id
         const match = dataValue.find(data => data.proto_id === value.id);
@@ -93,6 +98,9 @@ export default function Dashboard() {
           return null;  // No match found, return null (or you can return undefined or any other value)
         }
       }).filter(item => item !== null);  // Filter out the null values to keep only matches 
+
+      console.log("Is the app in Background: " + background);
+      if(!background) return; // End the code when background mode is not active
 
       for(var i = 0; i < matchingData.length; i++){   
         notifierLogic( // Temperature Logic
@@ -201,12 +209,16 @@ export default function Dashboard() {
       const appStateListener = App.addListener('appStateChange', handleAppStateChange);
 
       BackgroundMode.addListener('appInBackground', () => {
+        console.log('App is running in background');
         setIsReloaded(false);
+        setBackgroundActive(true);
         subscribeToSupabase();
       });
 
       BackgroundMode.addListener('appInForeground', () => {
+        console.log('App is running in Foreground');
         setIsReloaded(true);
+        setBackgroundActive(false);
         subscribeToSupabase();
       });
 
@@ -235,6 +247,10 @@ export default function Dashboard() {
         BackgroundMode.disable();
       };
     }, []);
+
+    useEffect(() => {
+      backgroundActiveRef.current = backgroundActive;
+    }, [backgroundActive]);
 
   if(initialized) return (
   <>
