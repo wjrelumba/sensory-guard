@@ -146,6 +146,9 @@ export default function Settings() {
                     </div>
                 )}
             </div>
+            <div>
+                
+            </div>
             {/* <div className='w-full flex gap-1'>
                 <h1>Connected to</h1>
                 <h1 className='text-blue-600 font-bold'>{wifiData && (wifiData?.length > 0 ? wifiData[0].ssid : '')}</h1>
