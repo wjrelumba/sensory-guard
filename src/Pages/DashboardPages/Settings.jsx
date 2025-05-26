@@ -34,6 +34,25 @@ export default function Settings() {
         };
     };
 
+    const getDBUsage = async() => {
+        try {
+            const res = await fetch(`https://sensory-guard.vercel.app/api/get-db-usage`, {method: 'GET'});
+
+            const result = await res.json();
+
+            console.log(result);
+
+            if (!res.ok) {
+            showErrorToast('Error deleting account:', result.error);
+            } else {
+            showSuccessToast('Account deleted successfully:', result.message);
+            navigate('/dashboard/accounts');
+            }
+        } catch (error) {
+            
+        }
+    };
+
     const sendToDB = async() => {
         const {data} = await supabase.from('wifi_settings').select();
         const {data:protoData} = await supabase.from('prototypes').select('id');
@@ -147,7 +166,7 @@ export default function Settings() {
                 )}
             </div>
             <div>
-                
+                <button onClick={getDBUsage}>Get Usage</button>
             </div>
             {/* <div className='w-full flex gap-1'>
                 <h1>Connected to</h1>

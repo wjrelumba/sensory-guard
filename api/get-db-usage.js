@@ -2,7 +2,7 @@
 
 export default async function handler(req, res) {
   const PROJECT_ID = process.env.SUPABASE_PROJECT_ID;
-  const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE;
+  const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   // ✅ CORS Headers
   res.setHeader('Access-Control-Allow-Origin', '*');
