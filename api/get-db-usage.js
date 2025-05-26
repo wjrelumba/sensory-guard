@@ -1,10 +1,12 @@
-// File: /api/get-db-usage.js
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
 
 export default async function handler(req, res) {
-  const PROJECT_ID = process.env.SUPABASE_PROJECT_ID;
-  const PAT = process.env.SUPABASE_PAT;
-
-  // ✅ CORS Headers
+    // ✅ CORS Headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -12,42 +14,28 @@ export default async function handler(req, res) {
   // ✅ Handle preflight request
   if (req.method === 'OPTIONS') {
     return res.status(200).end(); // Must respond OK
-  };
+  }
 
-  // ✅ Only allow GET
+  // Only Allow GET
   if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  };
-
-  if (!PROJECT_ID || !PAT) {
-    return res.status(500).json({ error: 'Missing environment variables' });
-  };
-
-  const apiUrl = `https://api.supabase.io/v1/projects/${PROJECT_ID}/analytics`;
+    res.setHeader('Allow', 'GET');
+    return res.status(405).json({ error: 'Method Not Allowed' });
+  }
 
   try {
-    const response = await fetch(apiUrl, {
-      headers: {
-        Authorization: `Bearer ${PAT}`,
-        'Content-Type': 'application/json'
-      }
-    });
+    const { data, error } = await supabase.rpc('get_total_tables_size');
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      return res.status(response.status).json({ error: errorData });
-    }
+    if (error) throw error;
 
-    const data = await response.json();
-    const dbSizeBytes = data.db_size;
-    const freeTierLimit = 524288000; // 500 MB
-    const remaining = freeTierLimit - dbSizeBytes;
+    const totalSizeBytes = data;
+    const freeTierLimit = 524288000; // 500MB
+    const remaining = freeTierLimit - totalSizeBytes;
 
     return res.status(200).json({
-      used: dbSizeBytes,
+      used: totalSizeBytes,
       remaining,
-      usedMB: (dbSizeBytes / 1024 / 1024).toFixed(2),
-      remainingMB: (remaining / 1024 / 1024).toFixed(2)
+      usedMB: (totalSizeBytes / 1024 / 1024).toFixed(2),
+      remainingMB: (remaining / 1024 / 1024).toFixed(2),
     });
   } catch (error) {
     return res.status(500).json({ error: error.message });
