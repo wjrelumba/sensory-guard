@@ -2,7 +2,7 @@
 
 export default async function handler(req, res) {
   const PROJECT_ID = process.env.SUPABASE_PROJECT_ID;
-  const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const PAT = process.env.SUPABASE_PAT;
 
   // ✅ CORS Headers
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   };
 
-  if (!PROJECT_ID || !SERVICE_ROLE_KEY) {
+  if (!PROJECT_ID || !PAT) {
     return res.status(500).json({ error: 'Missing environment variables' });
   };
 
@@ -28,7 +28,7 @@ export default async function handler(req, res) {
   try {
     const response = await fetch(apiUrl, {
       headers: {
-        Authorization: `Bearer ${SERVICE_ROLE_KEY}`,
+        Authorization: `Bearer ${PAT}`,
         'Content-Type': 'application/json'
       }
     });
