@@ -34,6 +34,7 @@ export default async function handler(req, res) {
     return res.status(200).json({
       used: totalSizeBytes,
       remaining,
+      limit: freeTierLimit,
       usedMB: (totalSizeBytes / 1024 / 1024).toFixed(2),
       remainingMB: (remaining / 1024 / 1024).toFixed(2),
     });
