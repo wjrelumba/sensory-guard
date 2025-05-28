@@ -1,3 +1,4 @@
+com.sensoryGuard.www:xml/opener_paths = 0x7f130002
 com.sensoryGuard.www:styleable/View = 0x7f12008e
 com.sensoryGuard.www:styleable/Transition = 0x7f12008c
 com.sensoryGuard.www:styleable/TabLayout = 0x7f120084

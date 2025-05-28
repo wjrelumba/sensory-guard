@@ -6823,3 +6823,4 @@ int styleable ViewStubCompat_android_layout 1
 int styleable ViewStubCompat_android_inflatedId 2
 int xml config 0x7f130000
 int xml file_paths 0x7f130001
+int xml opener_paths 0x7f130002

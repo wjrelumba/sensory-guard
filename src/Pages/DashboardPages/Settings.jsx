@@ -1,10 +1,43 @@
 import React, { useEffect, useState } from 'react'
 import { supabase } from '../../Essentials/Supabase';
+import { Line } from 'rc-progress';
+import Loader from '../../components/shared-components/Loader/Loader';
+import { Capacitor } from '@capacitor/core';
+import { Directory, Filesystem } from '@capacitor/filesystem';
+
+function requestStoragePermission() {
+  return new Promise((resolve, reject) => {
+    AndroidPermissions.checkPermission(
+      AndroidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE,
+      (result) => {
+        if (result.hasPermission) {
+          resolve(true);
+        } else {
+          AndroidPermissions.requestPermission(
+            AndroidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE,
+            (result) => {
+              if (result.hasPermission) {
+                resolve(true);
+              } else {
+                resolve(false);
+              }
+            },
+            () => reject('Permission request failed')
+          );
+        }
+      },
+      () => reject('Permission check failed')
+    );
+  });
+}
+
 
 export default function Settings() {
     const [wifiData, setWifiData] = useState(null);
     const [ssidInput, setSsidInput] = useState(null);
     const [passInput, setPassInput] = useState(null);
+
+    const [storageData, setStorageData] = useState(null);
 
     const [showInst, setShowInst] = useState(false);
 
@@ -41,6 +74,10 @@ export default function Settings() {
             const result = await res.json();
 
             console.log(result);
+
+            if(result){
+                setStorageData(result);
+            }
 
             if (!res.ok) {
             showErrorToast('Error deleting account:', result.error);
@@ -97,9 +134,123 @@ export default function Settings() {
         }
     }
 
+    // const savePublicFileToDownloads = async(fileName) => {
+    //     const fileUrl = `capacitor://localhost/${fileName}`;
+    //     const cordovaFile = (window).cordova?.file;
+    //     const FileTransfer = (window).FileTransfer;
+
+    //     if (!cordovaFile || !FileTransfer) {
+    //         alert('Cordova plugins are not available.');
+    //         return;
+    //     }
+
+    //     const downloadPath = cordovaFile.externalRootDirectory + 'Download/' + fileName;
+
+    //     const fileTransfer = new FileTransfer();
+    //     fileTransfer.download(
+    //         fileUrl,
+    //         downloadPath,
+    //         (entry) => {
+    //         console.log('Download complete:', entry.toURL());
+    //         alert(`File saved to Downloads: ${fileName}`);
+    //         },
+    //         (error) => {
+    //         console.error('Download error:', JSON.stringify(error));
+    //         alert('Download failed.');
+    //         },
+    //         false
+    //     );
+    //     }
+
+
+    const requestStoragePermission = () => {
+        const permissions = (window).cordova?.plugins?.permissions;
+
+        if (!permissions) {
+            console.warn('Android permissions plugin not available.');
+            return false;
+        };
+
+        return new Promise((resolve, reject) => {
+            permissions.checkPermission(
+            permissions.PERMISSION.WRITE_EXTERNAL_STORAGE,
+            (result) => {
+                if (result.hasPermission) {
+                resolve(true);
+                } else {
+                permissions.requestPermission(
+                    permissions.PERMISSION.WRITE_EXTERNAL_STORAGE,
+                    (result) => {
+                    if (result.hasPermission) {
+                        resolve(true);
+                    } else {
+                        resolve(false);
+                    }
+                    },
+                    () => reject('Permission request failed')
+                );
+                }
+            },
+            () => reject('Permission check failed')
+            );
+        });
+        }
+
+    const downloadAndOpenPDF = async() => {
+        const pdfUrl = `${window.location.origin}/SensoryGuard-Manual.pdf`;
+
+        if (Capacitor.isNativePlatform()) {
+            // 1. Fetch the file as Blob
+            const response = await fetch(pdfUrl);
+            const blob = await response.blob();
+            const base64Data = await convertBlobToBase64(blob);
+
+            // 2. Write the file to the device
+            const fileName = 'SensoryGuard-Manual.pdf';
+            const result = await Filesystem.writeFile({
+                path: fileName,
+                data: base64Data,
+                directory: Directory.Documents,
+            });
+
+            // 3. Use cordova-plugin-file-opener2 to open the file
+            const path = result.uri;
+
+            // Cordova plugin needs native path
+            window.cordova.plugins.fileOpener2.open(
+                path,
+                'application/pdf',
+                {
+                error: function (e) {
+                    console.error('Error opening file', e);
+                },
+                success: function () {
+                    console.log('File opened successfully');
+                },
+                }
+            );
+        } else {
+            window.open('/SensoryGuard-Manual.pdf', '_blank');
+        }
+    };
+
+        // Helper: convert Blob to base64
+        const convertBlobToBase64 = (blob) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onerror = reject;
+            reader.onload = () => {
+            resolve(reader.result.split(',')[1]); // Only base64 part
+            };
+            reader.readAsDataURL(blob);
+        });
+        };
+
     useEffect(() => {
         getDataFromDB();
-    },[])
+        getDBUsage();
+        requestStoragePermission();
+    },[]);
 
   return (
     <div className='w-full h-full p-2'>
@@ -165,8 +316,37 @@ export default function Settings() {
                     </div>
                 )}
             </div>
-            <div>
-                <button onClick={getDBUsage}>Get Usage</button>
+            {storageData ? (
+                <div className='mt-10'>
+                    <div className='w-full flex flex-col border-[2px] border-gray-300 px-3 py-2 rounded-lg'>
+                        <h1 className='text-gray-600 font-bold mb-5'>Database utilization:</h1>
+                        <div className='w-full flex flex-col items-end'>
+                            <Line percent={(((storageData.used/storageData.limit) * 100).toFixed(2))} strokeWidth={3} strokeColor={'#2563eb'}/>
+                            <h1 className='text-gray-600 text-sm'>{(((storageData.used/storageData.limit) * 100).toFixed(2))}%</h1>
+                        </div>
+                        <div className='w-full flex'>
+                            <h1 className='text-gray-600 text-xs w-[4rem]'>Limit:</h1>
+                            <h1 className='text-gray-600 text-xs'>{(storageData.limit / 1024 / 1024).toFixed(2)} mb</h1>
+                        </div>
+                        <div className='w-full flex'>
+                            <h1 className='text-gray-600 text-xs w-[4rem]'>Used:</h1>
+                            <h1 className='text-gray-600 text-xs'>{parseFloat(storageData.usedMB).toFixed(2)} mb</h1>
+                        </div>
+                        <div className='w-full flex'>
+                            <h1 className='text-gray-600 text-xs w-[4rem]'>Remaining:</h1>
+                            <h1 className='text-gray-600 text-xs'>{parseFloat(storageData.remainingMB).toFixed(2)} mb</h1>
+                        </div>
+                    </div>
+                </div>
+            ) : (
+                <div className='mt-10'>
+                    <Loader/>
+                </div>
+            )}
+            <div className='mt-5 flex gap-1 justify-end'>
+                <button onClick={downloadAndOpenPDF} className='bg-blue-600 px-2 py-1 text-white rounded-lg'>
+                    User Manual
+                </button>
             </div>
             {/* <div className='w-full flex gap-1'>
                 <h1>Connected to</h1>
