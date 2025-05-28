@@ -140,9 +140,9 @@ export default function GeneralCard( {
               <h1 className='border-b py-1 border-black w-full mb-4'>{importantDataValues.proto_name}</h1>
               <div className='grid grid-flow-col w-full justify-items-center items-center'>
                 <div className='col-span-1'>
-                  <h1>Icon</h1>
+                  <img className='w-[5rem] h-[7rem]' src="/SG-icon-cropped.png" alt="" />
                 </div>
-                <div className='col-span-2 grid grid-row-4 sm:grid-cols-4 w-full justify-items-center items-center gap-1'>
+                <div className='col-span-6 grid grid-row-4 sm:grid-cols-4 w-full justify-items-center items-center gap-1'>
                   {renderer('Temperature', 'temperature', 'temperature_variables', 'bg-blue-600 text-white', 'bg-orange-600 text-white', 'bg-red-600 text-white')}
                   {renderer('Humidity', 'humidity', 'humidity_variables', 'bg-blue-600 text-white', 'bg-orange-600 text-white', 'bg-red-600 text-white')}
                   {renderer('Smoke/Gas', 'smoke_gas', 'smoke_gas_variables', 'bg-blue-600 text-white', 'bg-red-600 text-white')}
