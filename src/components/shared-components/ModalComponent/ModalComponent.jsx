@@ -12,6 +12,7 @@ export default function ModalComponent({
   color='bg-white',
   mode = 'confirmation', // Modes: confirmation, input, notfication
   inputElement = null, // This takes in a jsx function
+  deleteMode = false,
 })
 {
   if (!show) return null;
@@ -26,8 +27,8 @@ export default function ModalComponent({
         <div className={`${color} rounded-lg shadow-lg w-11/12 max-w-lg`}>
           <div className="px-6 py-4">
             <div className="w-full flex justify-center items-center gap-1">
-              <h2 className="text-xl font-bold text-blue-600">{title.first}</h2>
-              <h2 className="text-xl font-bold text-gray-700">{title.second}</h2>
+              <h2 className={`text-xl font-bold ${deleteMode ? 'text-red-600' : 'text-blue-600'}`}>{title?.first}</h2>
+              <h2 className="text-xl font-bold text-gray-700">{title?.second}</h2>
             </div>
             <div className="w-full flex justify-center">
               {message && (<p className="w-[80%] text-center text-gray-700 text-sm mt-4">{message}</p>)}

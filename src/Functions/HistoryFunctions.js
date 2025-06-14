@@ -1,306 +1,183 @@
 import { supabase } from "../Essentials/Supabase";
 
-const sampleSmokeThreshold = 600;
-const sampleTempThreshold = 17;
+// Use the RPC function you created on Supabase
+async function fetchAggregatedData(fromDate, toDate) {
+    const { data, error } = await supabase
+        .rpc("fetch_aggregated_readings", { from_date: fromDate, to_date: toDate });
 
+    if (error) {
+        console.error("Error calling RPC:", error);
+        return null;
+    }
+    return data[0];
+}
+
+// Helper: Get days in a month safely
+function getDaysInMonth(year, month) {
+    return new Date(year, month, 0).getDate();
+}
+
+// Helper: Get next date string safely
+function getNextDay(year, month, day) {
+    const currentDate = new Date(year, month - 1, day);
+    const nextDate = new Date(currentDate);
+    nextDate.setDate(currentDate.getDate() + 1);
+    return nextDate.toISOString().split('T')[0];
+}
+
+// Fully refactored fetchMonthly
 export const fetchMonthly = async (yearValue) => {
-    const monthRanges = [ // Month ranges for fetching data by month
-        { month: 1, startDay: 1, endDay: 31 },
-        { month: 2, startDay: 1, endDay: 28 },
-        { month: 3, startDay: 1, endDay: 31 },
-        { month: 4, startDay: 1, endDay: 30 },
-        { month: 5, startDay: 1, endDay: 31 },
-        { month: 6, startDay: 1, endDay: 30 },
-        { month: 7, startDay: 1, endDay: 31 },
-        { month: 8, startDay: 1, endDay: 31 },
-        { month: 9, startDay: 1, endDay: 30 },
-        { month: 10, startDay: 1, endDay: 31 },
-        { month: 11, startDay: 1, endDay: 30 },
-        { month: 12, startDay: 1, endDay: 31 },
-    ];
+    const monthlyData = await Promise.all(
+        Array.from({ length: 12 }, async (_, i) => {
+            const month = i + 1;
+            const startDate = `${yearValue}-${String(month).padStart(2, '0')}-01`;
+            const daysInMonth = getDaysInMonth(yearValue, month);
+            const endDate = getNextDay(yearValue, month, daysInMonth);
 
-    const dataRetrieved = await Promise.all(
-        monthRanges.map(async (value) => {
-            let allData = [];
-            let from = 0;
-            let to = 999;
-            let hasMore = true;
-
-            while (hasMore) {
-                const { data, error } = await supabase
-                    .from('readings')
-                    .select('*', { count: 'exact' })
-                    .gte('created_at', `${yearValue}-${value.month}-${value.startDay}`)
-                    .lt('created_at', `${yearValue}-${value.month}-${value.endDay}`)
-                    .range(from, to);
-
-                if (error) {
-                    console.error(`Error fetching data for month ${value.month}:`, error);
-                    break;
-                }
-
-                allData = [...allData, ...data];
-
-                if (data.length < 1000) hasMore = false;
-
-                from += 1000;
-                to += 1000;
-            }
-
-            let totalTempValue = 0;
-            let totalHumidValue = 0;
-            let lowTemp = Infinity;
-            let highTemp = -Infinity;
-            let lowHumidity = Infinity;
-            let highHumidity = -Infinity;
-
-            for (let i = 0; i < allData.length; i++) {
-                const { temperature, humidity } = allData[i];
-
-                totalTempValue += temperature;
-                totalHumidValue += humidity;
-
-                if (temperature < lowTemp) lowTemp = temperature;
-                if (temperature > highTemp) highTemp = temperature;
-
-                if (humidity < lowHumidity) lowHumidity = humidity;
-                if (humidity > highHumidity) highHumidity = humidity;
-            }
-
-            const hasData = allData.length > 0;
+            const data = await fetchAggregatedData(startDate, endDate);
 
             return {
-                month: value.month,
-                dataExists: hasData,
-                temperature: hasData && allData.some((val) => val.temperature > sampleTempThreshold),
-                vibrationDetected: hasData && allData.some((val) => val.vibration > 0),
-                smokeDetected: hasData && allData.some((val) => val.smoke_gas > sampleSmokeThreshold),
-                flameDetected: hasData && allData.some((val) => val.flame > 0),
-                averageTemp: hasData ? parseFloat((totalTempValue / allData.length).toFixed(2)) : null,
-                averageHumidity: hasData ? parseFloat((totalHumidValue / allData.length).toFixed(2)) : null,
-                lowTemp: hasData ? lowTemp : null,
-                highTemp: hasData ? highTemp : null,
-                lowHumidity: hasData ? lowHumidity : null,
-                highHumidity: hasData ? highHumidity : null,
+                month,
+                dataExists: data.count > 0,
+                temperature: data.temperature_exceeded,
+                vibrationDetected: data.vibration_detected,
+                smokeDetected: data.smoke_detected,
+                flameDetected: data.flame_detected,
+                averageTemp: parseFloat(data.average_temp || 0),
+                averageHumidity: parseFloat(data.average_humidity || 0),
+                lowTemp: parseFloat(data.low_temp || 0),
+                highTemp: parseFloat(data.high_temp || 0),
+                lowHumidity: parseFloat(data.low_humidity || 0),
+                highHumidity: parseFloat(data.high_humidity || 0),
             };
         })
     );
-    return dataRetrieved;
+
+    return monthlyData;
 };
 
+// Fully refactored fetchWeekly
 export const fetchWeekly = async (yearValue, monthValue) => {
+    const daysInMonth = getDaysInMonth(yearValue, monthValue);
     const weekRanges = [
-        { month: 1, weeks: [[1, 7], [8, 14], [15, 21], [22, 31]] },
-        { month: 2, weeks: [[1, 7], [8, 14], [15, 21], [22, 28]] },
-        { month: 3, weeks: [[1, 7], [8, 14], [15, 21], [22, 31]] },
-        { month: 4, weeks: [[1, 7], [8, 14], [15, 21], [22, 30]] },
-        { month: 5, weeks: [[1, 7], [8, 14], [15, 21], [22, 31]] },
-        { month: 6, weeks: [[1, 7], [8, 14], [15, 21], [22, 30]] },
-        { month: 7, weeks: [[1, 7], [8, 14], [15, 21], [22, 31]] },
-        { month: 8, weeks: [[1, 7], [8, 14], [15, 21], [22, 31]] },
-        { month: 9, weeks: [[1, 7], [8, 14], [15, 21], [22, 30]] },
-        { month: 10, weeks: [[1, 7], [8, 14], [15, 21], [22, 31]] },
-        { month: 11, weeks: [[1, 7], [8, 14], [15, 21], [22, 30]] },
-        { month: 12, weeks: [[1, 7], [8, 14], [15, 21], [22, 31]] },
+        [1, 7],
+        [8, 14],
+        [15, 21],
+        [22, daysInMonth]
     ];
 
-    const weeklyData = [];
+    const weeklyData = await Promise.all(
+        weekRanges.map(async ([startDay, endDay], i) => {
+            const startDate = `${yearValue}-${String(monthValue).padStart(2, '0')}-${String(startDay).padStart(2, '0')}`;
+            const nextEndDate = getNextDay(yearValue, monthValue, endDay);
 
-    for (let i = 0; i < weekRanges[monthValue - 1].weeks.length; i++) { // Traverse the weeks key array
-        const [startDay, endDay] = weekRanges[monthValue - 1].weeks[i]; // Extract the start day and end day from the given values in the array
-        let allData = [];
-        let from = 0;
-        let to = 999;
-        let hasMore = true;
+            const data = await fetchAggregatedData(startDate, nextEndDate);
 
-        while (hasMore) {
-            const { data, error } = await supabase
-                .from('readings')
-                .select('*', { count: 'exact' })
-                .gte('created_at', `${yearValue}-${weekRanges[monthValue - 1].month}-${String(startDay).padStart(2, '0')}`)
-                .lte('created_at', `${yearValue}-${weekRanges[monthValue - 1].month}-${String(endDay).padStart(2, '0')}`)
-                .range(from, to);
+            console.log(startDate, + ' - ', + nextEndDate);
+            console.log(`Weekly`);
+            console.log(data);
 
-            if (error) {
-                console.error(`Error fetching data for week ${i + 1} of month ${weekRanges[monthValue - 1].month}:`, error);
-                break;
-            }
+            return {
+                month: monthValue,
+                week: i + 1,
+                dataExists: data.count > 0,
+                temperature: data.temperature_exceeded,
+                vibrationDetected: data.vibration_detected,
+                smokeDetected: data.smoke_detected,
+                flameDetected: data.flame_detected,
+                averageTemp: parseFloat(data.average_temp || 0),
+                averageHumidity: parseFloat(data.average_humidity || 0),
+                lowTemp: parseFloat(data.low_temp || 0),
+                highTemp: parseFloat(data.high_temp || 0),
+                lowHumidity: parseFloat(data.low_humidity || 0),
+                highHumidity: parseFloat(data.high_humidity || 0),
+            };
+        })
+    );
 
-            allData = [...allData, ...data];
-
-            if (data.length < 1000) hasMore = false;
-            from += 1000;
-            to += 1000;
-        }
-
-        let totalTempValue = 0, totalHumidValue = 0;
-        allData.forEach((item) => {
-            totalTempValue += item.temperature;
-            totalHumidValue += item.humidity;
-        });
-
-        weeklyData.push({
-            month: weekRanges[monthValue - 1].month, // Get the month value using indexing month value = 1 - 1 = 0 {Meaning first item or object in the array}
-            week: i + 1,
-            dataExists: allData.length > 0,
-            temperature: allData.some((d) => d.temperature > sampleTempThreshold),
-            vibrationDetected: allData.some((d) => d.vibration > 0),
-            smokeDetected: allData.some((d) => d.smoke_gas > sampleSmokeThreshold),
-            flameDetected: allData.some((d) => d.flame > 0),
-            averageTemp: parseFloat((totalTempValue / allData.length).toFixed(2)) || 0,
-            averageHumidity: parseFloat((totalHumidValue / allData.length).toFixed(2)) || 0,
-            lowTemp: allData.length > 0 ? parseFloat(Math.min(...allData.map(d => d.temperature))).toFixed(2) : 0,
-            highTemp: allData.length > 0 ? parseFloat(Math.max(...allData.map(d => d.temperature))).toFixed(2) : 0,
-            lowHumidity: allData.length > 0 ? parseFloat(Math.min(...allData.map(d => d.humidity))).toFixed(2) : 0,
-            highHumidity: allData.length > 0 ? parseFloat(Math.max(...allData.map(d => d.humidity))).toFixed(2) : 0,
-        });
-    }
     return weeklyData;
 };
 
+// Fully refactored fetchDaily
 export const fetchDaily = async (yearValue, monthValue) => {
-    const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    const daysInMonth = getDaysInMonth(yearValue, monthValue);
 
-    const dailyData = [];
-    const totalDays = daysInMonth[monthValue - 1]; // Assign totalDays from the daysInMonth array using what month is the loop on
+    const dailyData = await Promise.all(
+        Array.from({ length: daysInMonth }, async (_, i) => {
+            const day = i + 1;
+            const startDateObj = new Date(`${yearValue}-${String(monthValue).padStart(2, '0')}-${String(day).padStart(2, '0')}T00:00:00Z`);
+            const endDateObj = new Date(startDateObj);
+            endDateObj.setDate(endDateObj.getDate() + 1);
 
-    for (let day = 1; day <= totalDays; day++) { // Loop through each day of the month
-        let allData = [];
-        let from = 0;
-        let to = 999;
-        let hasMore = true;
+            const startDate = startDateObj.toISOString();
+            const endDate = endDateObj.toISOString();
 
-        const startDate = `${yearValue}-${String(monthValue).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-        const endDate = `${yearValue}-${String(monthValue).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            const data = await fetchAggregatedData(startDate, endDate);
 
-        while (hasMore) {
-            const { data, error } = await supabase
-                .from('readings')
-                .select('*', { count: 'exact' })
-                .gte('created_at', startDate)
-                .lt('created_at', `${yearValue}-${String(monthValue).padStart(2, '0')}-${String(day + 1).padStart(2, '0')}`)
-                .range(from, to);
+            console.log(`${startDate} - ${endDate}`);
+            console.log(`Daily:`);
+            console.log(data);
 
-            if (error) {
-                console.error(`Error fetching data for ${startDate}:`, error);
-                break;
-            }
+            return {
+                date: day,
+                month: monthValue,
+                dataExists: data?.count > 0,
+                temperature: data?.temperature_exceeded,
+                vibrationDetected: data?.vibration_detected,
+                smokeDetected: data?.smoke_detected,
+                flameDetected: data?.flame_detected,
+                averageTemp: parseFloat(data?.average_temp || 0),
+                averageHumidity: parseFloat(data?.average_humidity || 0),
+                lowTemp: parseFloat(data?.low_temp || 0),
+                highTemp: parseFloat(data?.high_temp || 0),
+                lowHumidity: parseFloat(data?.low_humidity || 0),
+                highHumidity: parseFloat(data?.high_humidity || 0),
+            };
+        })
+    );
 
-            allData = [...allData, ...data];
-
-            if (data.length < 1000) hasMore = false;
-            from += 1000;
-            to += 1000;
-        }
-
-        let totalTempValue = 0, totalHumidValue = 0;
-        allData.forEach((item) => {
-            totalTempValue += item.temperature;
-            totalHumidValue += item.humidity;
-        });
-
-        dailyData.push({
-            date: day,
-            month: monthValue,
-            dataExists: allData.length > 0,
-            temperature: allData.some((d) => d.temperature > sampleTempThreshold),
-            vibrationDetected: allData.some((d) => d.vibration > 0),
-            smokeDetected: allData.some((d) => d.smoke_gas > sampleSmokeThreshold),
-            flameDetected: allData.some((d) => d.flame > 0),
-            averageTemp: parseFloat((totalTempValue / allData.length).toFixed(2)) || 0,
-            averageHumidity: parseFloat((totalHumidValue / allData.length).toFixed(2))|| 0,
-            lowTemp: allData.length > 0 ? parseFloat(Math.min(...allData.map(d => d.temperature)).toFixed(2)) : 0,
-            highTemp: allData.length > 0 ? parseFloat(Math.max(...allData.map(d => d.temperature)).toFixed(2)) : 0,
-            lowHumidity: allData.length > 0 ? parseFloat(Math.min(...allData.map(d => d.humidity)).toFixed(2)) : 0,
-            highHumidity: allData.length > 0 ? parseFloat(Math.max(...allData.map(d => d.humidity)).toFixed(2)) : 0,
-        });
-    }
     return dailyData;
 };
 
+// Fully refactored fetchMonthlyHistory
 export const fetchMonthlyHistory = async (yearValue) => {
     const monthRanges = [];
-    const thirtyOneDayMonth = [
-        1,3,5,7,8,10,12
-    ]
-    const thirtyDayMonth = [
-        4,6,9,11
-    ]
-    const newDate = new Date();
+    const currentDate = new Date();
 
-    for(var i = 0; i < 3; i++){
-        const objToAdd = {
-            month: newDate.getMonth() - i,
-            startDay: 1,
-            endDay: thirtyOneDayMonth.includes(newDate.getMonth() - i) ? 31 : thirtyDayMonth.includes(newDate.getMonth() - i) ? 30 : 28, 
+    for (let i = 0; i < 3; i++) {
+        let currentMonth = currentDate.getMonth() + 1 - i;
+        let currentYear = yearValue;
+
+        if (currentMonth <= 0) {
+            currentMonth += 12;
+            currentYear -= 1;
         }
 
-        monthRanges.push(objToAdd);
+        const daysInMonth = getDaysInMonth(currentYear, currentMonth);
+        const startDate = `${currentYear}-${String(currentMonth).padStart(2, '0')}-01`;
+        const endDate = getNextDay(currentYear, currentMonth, daysInMonth);
+
+        monthRanges.push({ year: currentYear, month: currentMonth, startDate, endDate });
     }
 
     const dataRetrieved = await Promise.all(
-        monthRanges.map(async (value) => {
-            let allData = [];
-            let from = 0;
-            let to = 999;
-            let hasMore = true;
-
-            while (hasMore) {
-                const { data, error } = await supabase
-                    .from('readings')
-                    .select('*', { count: 'exact' })
-                    .gte('created_at', `${yearValue}-${value.month}-${value.startDay}`)
-                    .lt('created_at', `${yearValue}-${value.month}-${value.endDay}`)
-                    .range(from, to);
-
-                if (error) {
-                    console.error(`Error fetching data for month ${value.month}:`, error);
-                    break;
-                }
-
-                allData = [...allData, ...data];
-
-                if (data.length < 1000) hasMore = false;
-
-                from += 1000;
-                to += 1000;
-            }
-
-            let totalTempValue = 0;
-            let totalHumidValue = 0;
-            let lowTemp = Infinity;
-            let highTemp = -Infinity;
-            let lowHumidity = Infinity;
-            let highHumidity = -Infinity;
-
-            for (let i = 0; i < allData.length; i++) {
-                const { temperature, humidity } = allData[i];
-
-                totalTempValue += temperature;
-                totalHumidValue += humidity;
-
-                if (temperature < lowTemp) lowTemp = temperature;
-                if (temperature > highTemp) highTemp = temperature;
-
-                if (humidity < lowHumidity) lowHumidity = humidity;
-                if (humidity > highHumidity) highHumidity = humidity;
-            }
-
-            const hasData = allData.length > 0;
+        monthRanges.map(async (range) => {
+            const data = await fetchAggregatedData(range.startDate, range.endDate);
 
             return {
-                month: value.month,
-                dataExists: hasData,
-                temperature: hasData && allData.some((val) => val.temperature > sampleTempThreshold),
-                vibrationDetected: hasData && allData.some((val) => val.vibration > 0),
-                smokeDetected: hasData && allData.some((val) => val.smoke_gas > sampleSmokeThreshold),
-                flameDetected: hasData && allData.some((val) => val.flame > 0),
-                averageTemp: hasData ? parseFloat((totalTempValue / allData.length).toFixed(2)) : null,
-                averageHumidity: hasData ? parseFloat((totalHumidValue / allData.length).toFixed(2)) : null,
-                lowTemp: hasData ? lowTemp : null,
-                highTemp: hasData ? highTemp : null,
-                lowHumidity: hasData ? lowHumidity : null,
-                highHumidity: hasData ? highHumidity : null,
+                month: range.month,
+                year: range.year,
+                dataExists: data.count > 0,
+                temperature: data.temperature_exceeded,
+                vibrationDetected: data.vibration_detected,
+                smokeDetected: data.smoke_detected,
+                flameDetected: data.flame_detected,
+                averageTemp: parseFloat(data.average_temp || 0),
+                averageHumidity: parseFloat(data.average_humidity || 0),
+                lowTemp: parseFloat(data.low_temp || 0),
+                highTemp: parseFloat(data.high_temp || 0),
+                lowHumidity: parseFloat(data.low_humidity || 0),
+                highHumidity: parseFloat(data.high_humidity || 0),
             };
         })
     );

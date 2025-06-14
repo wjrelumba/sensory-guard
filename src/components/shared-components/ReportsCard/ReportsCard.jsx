@@ -15,8 +15,8 @@ export default function ReportsCard({
         {dataObject.dataExists ? (
           <>
             <h1 className='text-blue-600 font-bold text-xs'>Status:</h1>
-            <h1 className='text-gray-600 text-xs'>Average Temperature: {dataObject.averageTemp}</h1>
-            <h1 className='text-gray-600 text-xs'>Average Humidity: {dataObject.averageHumidity}</h1>
+            <h1 className='text-gray-600 text-xs'>Average Temperature: {dataObject.averageTemp.toFixed(2, 0)}</h1>
+            <h1 className='text-gray-600 text-xs'>Average Humidity: {dataObject.averageHumidity.toFixed(2, 0)}</h1>
             <h1 className='text-gray-600 text-xs'>{dataObject.smokeDetected ? 'Smoke was detected' : 'No Smoke Detected'}</h1>
             <h1 className='text-gray-600 text-xs'>{dataObject.vibrationDetected ? 'Vibrations were detected' : 'No Vibration Detected'}</h1>
           </>
@@ -37,8 +37,8 @@ export default function ReportsCard({
         {dataObject.dataExists ? (
           <>
             <h1 className='text-blue-600 font-bold text-xs'>Status:</h1>
-            <h1 className='text-gray-600 text-xs'>Average Temperature: {dataObject.averageTemp}</h1>
-            <h1 className='text-gray-600 text-xs'>Average Humidity: {dataObject.averageHumidity}</h1>
+            <h1 className='text-gray-600 text-xs'>Average Temperature: {dataObject.averageTemp.toFixed(2, 0)}</h1>
+            <h1 className='text-gray-600 text-xs'>Average Humidity: {dataObject.averageHumidity.toFixed(2, 0)}</h1>
             <h1 className='text-gray-600 text-xs'>{dataObject.smokeDetected ? 'Smoke was detected' : 'No Smoke Detected'}</h1>
             <h1 className='text-gray-600 text-xs'>{dataObject.vibrationDetected ? 'Vibrations were detected' : 'No Vibration Detected'}</h1>
           </>
@@ -59,8 +59,8 @@ export default function ReportsCard({
         {dataObject.dataExists ? (
           <>
             <h1 className='text-blue-600 font-bold text-xs'>Status:</h1>
-            <h1 className='text-gray-600 text-xs'>Average Temperature: {dataObject.averageTemp}</h1>
-            <h1 className='text-gray-600 text-xs'>Average Humidity: {dataObject.averageHumidity}</h1>
+            <h1 className='text-gray-600 text-xs'>Average Temperature: {dataObject.averageTemp.toFixed(2, 0)}</h1>
+            <h1 className='text-gray-600 text-xs'>Average Humidity: {dataObject.averageHumidity.toFixed(2, 0)}</h1>
             <h1 className='text-gray-600 text-xs'>{dataObject.smokeDetected ? 'Smoke was detected' : 'No Smoke Detected'}</h1>
             <h1 className='text-gray-600 text-xs'>{dataObject.vibrationDetected ? 'Vibrations were detected' : 'No Vibration Detected'}</h1>
           </>
