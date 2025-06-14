@@ -64,12 +64,13 @@ const router = createBrowserRouter([{
     element: <AccountPages.AccountQR/>
   }]
 },
-{
-  path: '/test',
-  children: [{
-    path: 'dashboard',
-    element: <TestPages.TestDashboard/>
-  }]
-}]);
+// {
+//   path: '/test',
+//   children: [{
+//     path: 'dashboard',
+//     element: <TestPages.TestDashboard/>
+//   }]
+// }
+]);
 
 export default router;

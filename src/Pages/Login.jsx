@@ -81,7 +81,6 @@ export default function Login() {
             <Link className='text-xs text-blue-600 font-bold' to={'/activation'}>Activate Now</Link>
           </div>
         </form>
-        <Link className='mt-10 border border-gray-500 px-3 py-1 rounded-md' to={'/test/dashboard'}>Testing Dashboard</Link>
       </div>
     </div>
   )
