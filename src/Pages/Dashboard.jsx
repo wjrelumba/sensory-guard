@@ -99,7 +99,6 @@ export default function Dashboard() {
         }
       }).filter(item => item !== null);  // Filter out the null values to keep only matches 
 
-      console.log("Is the app in Background: " + background);
       if(!background) return; // End the code when background mode is not active
 
       for(var i = 0; i < matchingData.length; i++){   
@@ -209,14 +208,12 @@ export default function Dashboard() {
       const appStateListener = App.addListener('appStateChange', handleAppStateChange);
 
       BackgroundMode.addListener('appInBackground', () => {
-        console.log('App is running in background');
         setIsReloaded(false);
         setBackgroundActive(true);
         subscribeToSupabase();
       });
 
       BackgroundMode.addListener('appInForeground', () => {
-        console.log('App is running in Foreground');
         setIsReloaded(true);
         setBackgroundActive(false);
         subscribeToSupabase();

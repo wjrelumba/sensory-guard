@@ -73,10 +73,6 @@ export const fetchWeekly = async (yearValue, monthValue) => {
 
             const data = await fetchAggregatedData(startDate, nextEndDate);
 
-            console.log(startDate, + ' - ', + nextEndDate);
-            console.log(`Weekly`);
-            console.log(data);
-
             return {
                 month: monthValue,
                 week: i + 1,
@@ -113,10 +109,6 @@ export const fetchDaily = async (yearValue, monthValue) => {
             const endDate = endDateObj.toISOString();
 
             const data = await fetchAggregatedData(startDate, endDate);
-
-            console.log(`${startDate} - ${endDate}`);
-            console.log(`Daily:`);
-            console.log(data);
 
             return {
                 date: day,

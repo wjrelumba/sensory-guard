@@ -59,8 +59,6 @@ export default function Settings() {
 
             const result = await res.json();
 
-            console.log(result);
-
             if(result){
                 setStorageData(result);
             }
@@ -130,7 +128,6 @@ export default function Settings() {
     //         fileUrl,
     //         downloadPath,
     //         (entry) => {
-    //         console.log('Download complete:', entry.toURL());
     //         alert(`File saved to Downloads: ${fileName}`);
     //         },
     //         (error) => {
@@ -260,7 +257,6 @@ export default function Settings() {
                     console.error('Error opening file', e);
                 },
                 success: function () {
-                    console.log('File opened successfully');
                 },
                 }
             );
