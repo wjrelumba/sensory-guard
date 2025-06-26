@@ -1,6 +1,0 @@
-com.sensoryGuard.www.test.app-core-1.6.1-0 C:\Users\Billy\.gradle\caches\8.11.1\transforms\1a250246694029ae0fd0840b83019b23\transformed\core-1.6.1\res
-com.sensoryGuard.www.test.app-tracing-1.2.0-1 C:\Users\Billy\.gradle\caches\8.11.1\transforms\8aa32e396a26a3ffd09147bfba0a1b4b\transformed\tracing-1.2.0\res
-com.sensoryGuard.www.test.app-androidTest-2 D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\build\generated\res\resValues\androidTest\debug
-com.sensoryGuard.www.test.app-mergeDebugAndroidTestResources-3 D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
-com.sensoryGuard.www.test.app-mergeDebugAndroidTestResources-4 D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
-com.sensoryGuard.www.test.app-debugAndroidTest-5 D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources

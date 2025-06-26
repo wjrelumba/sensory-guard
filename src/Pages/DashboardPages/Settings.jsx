@@ -19,6 +19,9 @@ export default function Settings() {
 
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+    // Role variable
+    const [role, setRole] = useState(null);
+
     const date = new Date();
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -195,6 +198,22 @@ export default function Settings() {
         setShowDeleteModal(!showDeleteModal);
     };
 
+    const getRole = async() => {
+          const {data: {session}} = await supabase.auth.getSession();
+          if(session){
+              const {data, error} = await supabase.from('accounts').select('role').eq('user_id', session.user.id);
+              console.log(data);
+              if(error){
+                  showErrorToast(error.message);
+              }
+              if(data){
+                  if(data[0]){
+                      setRole(data[0].role);
+                  }
+              }
+          }
+      }
+
     const requestStoragePermission = () => {
         const permissions = (window).cordova?.plugins?.permissions;
 
@@ -280,6 +299,7 @@ export default function Settings() {
     useEffect(() => {
         getDataFromDB();
         getDBUsage();
+        getRole();
         requestStoragePermission();
     },[]);
 
@@ -382,24 +402,26 @@ export default function Settings() {
                                 <h1 className='text-gray-600 text-xs'>{parseFloat(storageData.remainingMB).toFixed(2)} mb</h1>
                             </div>
                         </div>
-                        <div className='mt-2'>
-                            <div className='w-full flex flex-col border-[2px] border-gray-300 px-3 py-2 rounded-lg'>
-                                <h1 className='text-gray-600 font-bold mb-2'>Data deletion</h1>
-                                <div className='w-full grid grid-cols-2 sm:flex gap-1'>
-                                    <DatePicker
-                                    onChange={startDateInputHandler}
-                                    labelValue='From:'
-                                    selectedDate={startDate}
-                                    />
-                                    <DatePicker
-                                    onChange={endDateInputHandler}
-                                    labelValue='To:'
-                                    selectedDate={endDate}
-                                    />
+                        {role == 'Admin' && (
+                            <div className='mt-2'>
+                                <div className='w-full flex flex-col border-[2px] border-gray-300 px-3 py-2 rounded-lg'>
+                                    <h1 className='text-gray-600 font-bold mb-2'>Data deletion</h1>
+                                    <div className='w-full flex gap-1'>
+                                        <DatePicker
+                                        onChange={startDateInputHandler}
+                                        labelValue='From:'
+                                        selectedDate={startDate}
+                                        />
+                                        <DatePicker
+                                        onChange={endDateInputHandler}
+                                        labelValue='To:'
+                                        selectedDate={endDate}
+                                        />
+                                    </div>
+                                    <button onClick={activateDeleteModal} className='w-1/2 sm:w-1/4 mt-2 rounded-md bg-red-600 text-white py-1'>Delete data</button>
                                 </div>
-                                <button onClick={activateDeleteModal} className='w-1/2 sm:w-1/4 mt-2 rounded-md bg-red-600 text-white py-1'>Delete data</button>
                             </div>
-                        </div>
+                        )}
                     </div>
                 ) : (
                     <div className='mt-10'>
