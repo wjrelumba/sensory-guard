@@ -13,11 +13,25 @@ export default function DashboardSensors() {
     const [impDataValues, setImpDataValues] = useState(null); // Important Values such as Prototype ID, allowable temps and humidity, etc.
 
     const getImportantData = async() => {
-      const {data:readings} = await supabase.from('readings').select();
-      if(readings){
-        setDataValues(readings);
+      const {data:importantValues} = await supabase.from('prototypes').select();
+      console.log(importantValues);
+      if(importantValues){
+        // Just get the latest reading for both prototypes
+        const tempArray = [];
+
+        // Traverse through the proto ids to get readings for each prototype exclusively
+        for(var i = 0; i < importantValues.length; i++){
+          console.log(importantValues[i].id);
+          const {data:readings} = await supabase.from('readings').select().order('created_at', {ascending: false}).eq('proto_id', importantValues[i].id).limit(1);
+          console.log(readings);
+          tempArray.push(readings[0]);
+        };
+
+        console.log(tempArray);
+
+        setDataValues(tempArray);
+        setIsLoading(false);
       }
-      setIsLoading(false);
     }
 
       const getProtoData = async() => {

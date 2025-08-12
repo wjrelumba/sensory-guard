@@ -27,152 +27,165 @@ function getNextDay(year, month, day) {
 
 // Fully refactored fetchMonthly
 export const fetchMonthly = async (yearValue) => {
-    const monthlyData = await Promise.all(
-        Array.from({ length: 12 }, async (_, i) => {
-            const month = i + 1;
-            const startDate = `${yearValue}-${String(month).padStart(2, '0')}-01`;
-            const daysInMonth = getDaysInMonth(yearValue, month);
-            const endDate = getNextDay(yearValue, month, daysInMonth);
+    // Define the date range for the entire year
+    const startDate = `${yearValue}-01-01`;
+    const endDate = `${yearValue}-12-31`;
 
-            const data = await fetchAggregatedData(startDate, endDate);
+    const { data, error } = await supabase
+        .from("monthly_readings_summary")
+        .select("*")
+        .gte("month_start_date", startDate)
+        .lte("month_start_date", endDate);
 
-            return {
-                month,
-                dataExists: data.count > 0,
-                temperature: data.temperature_exceeded,
-                vibrationDetected: data.vibration_detected,
-                smokeDetected: data.smoke_detected,
-                flameDetected: data.flame_detected,
-                averageTemp: parseFloat(data.average_temp || 0),
-                averageHumidity: parseFloat(data.average_humidity || 0),
-                lowTemp: parseFloat(data.low_temp || 0),
-                highTemp: parseFloat(data.high_temp || 0),
-                lowHumidity: parseFloat(data.low_humidity || 0),
-                highHumidity: parseFloat(data.high_humidity || 0),
-            };
-        })
-    );
+    if (error) {
+        console.error("Error fetching monthly aggregated data:", error);
+        return null;
+    }
+
+    // Process the fetched data to match your desired output format
+    const monthlyData = data.map((item) => {
+        const month = new Date(item.month_start_date).getMonth() + 1; // getMonth() is 0-indexed
+        return {
+            month,
+            dataExists: !!item.average_temp, // Check if any data exists
+            temperature: item.temperature_exceeded,
+            vibrationDetected: item.vibration_detected,
+            smokeDetected: item.smoke_detected,
+            flameDetected: item.flame_detected,
+            averageTemp: parseFloat(item.average_temp || 0),
+            averageHumidity: parseFloat(item.average_humidity || 0),
+            lowTemp: parseFloat(item.low_temp || 0),
+            highTemp: parseFloat(item.high_temp || 0),
+            lowHumidity: parseFloat(item.low_humidity || 0),
+            highHumidity: parseFloat(item.high_humidity || 0),
+        };
+    });
 
     return monthlyData;
 };
 
 // Fully refactored fetchWeekly
 export const fetchWeekly = async (yearValue, monthValue) => {
+    // Determine the date range for the specified month
+    const startOfMonth = `${yearValue}-${String(monthValue).padStart(2, '0')}-01`;
     const daysInMonth = getDaysInMonth(yearValue, monthValue);
-    const weekRanges = [
-        [1, 7],
-        [8, 14],
-        [15, 21],
-        [22, daysInMonth]
-    ];
+    const endOfMonth = `${yearValue}-${String(monthValue).padStart(2, '0')}-${String(daysInMonth).padStart(2, '0')}`;
 
-    const weeklyData = await Promise.all(
-        weekRanges.map(async ([startDay, endDay], i) => {
-            const startDate = `${yearValue}-${String(monthValue).padStart(2, '0')}-${String(startDay).padStart(2, '0')}`;
-            const nextEndDate = getNextDay(yearValue, monthValue, endDay);
+    const { data, error } = await supabase
+        .from("weekly_readings_summary")
+        .select("*")
+        .gte("week_start_date", startOfMonth)
+        .lte("week_start_date", endOfMonth);
 
-            const data = await fetchAggregatedData(startDate, nextEndDate);
+    if (error) {
+        console.error("Error fetching weekly aggregated data:", error);
+        return null;
+    }
 
-            return {
-                month: monthValue,
-                week: i + 1,
-                dataExists: data.count > 0,
-                temperature: data.temperature_exceeded,
-                vibrationDetected: data.vibration_detected,
-                smokeDetected: data.smoke_detected,
-                flameDetected: data.flame_detected,
-                averageTemp: parseFloat(data.average_temp || 0),
-                averageHumidity: parseFloat(data.average_humidity || 0),
-                lowTemp: parseFloat(data.low_temp || 0),
-                highTemp: parseFloat(data.high_temp || 0),
-                lowHumidity: parseFloat(data.low_humidity || 0),
-                highHumidity: parseFloat(data.high_humidity || 0),
-            };
-        })
-    );
+    // Process the fetched data to match your desired output format
+    const weeklyData = data.map((item, i) => {
+        return {
+            month: monthValue,
+            week: i + 1,
+            dataExists: !!item.average_temp,
+            temperature: item.temperature_exceeded,
+            vibrationDetected: item.vibration_detected,
+            smokeDetected: item.smoke_detected,
+            flameDetected: item.flame_detected,
+            averageTemp: parseFloat(item.average_temp || 0),
+            averageHumidity: parseFloat(item.average_humidity || 0),
+            lowTemp: parseFloat(item.low_temp || 0),
+            highTemp: parseFloat(item.high_temp || 0),
+            lowHumidity: parseFloat(item.low_humidity || 0),
+            highHumidity: parseFloat(item.high_humidity || 0),
+        };
+    });
 
     return weeklyData;
 };
 
 // Fully refactored fetchDaily
 export const fetchDaily = async (yearValue, monthValue) => {
+    // Determine the date range for the specified month
+    const startOfMonth = `${yearValue}-${String(monthValue).padStart(2, '0')}-01`;
     const daysInMonth = getDaysInMonth(yearValue, monthValue);
+    const endOfMonth = `${yearValue}-${String(monthValue).padStart(2, '0')}-${String(daysInMonth).padStart(2, '0')}`;
 
-    const dailyData = await Promise.all(
-        Array.from({ length: daysInMonth }, async (_, i) => {
-            const day = i + 1;
-            const startDateObj = new Date(`${yearValue}-${String(monthValue).padStart(2, '0')}-${String(day).padStart(2, '0')}T00:00:00Z`);
-            const endDateObj = new Date(startDateObj);
-            endDateObj.setDate(endDateObj.getDate() + 1);
+    const { data, error } = await supabase
+        .from("daily_readings_summary")
+        .select("*")
+        .gte("date", startOfMonth)
+        .lte("date", endOfMonth);
 
-            const startDate = startDateObj.toISOString();
-            const endDate = endDateObj.toISOString();
+    if (error) {
+        console.error("Error fetching daily aggregated data:", error);
+        return null;
+    }
 
-            const data = await fetchAggregatedData(startDate, endDate);
-
-            return {
-                date: day,
-                month: monthValue,
-                dataExists: data?.count > 0,
-                temperature: data?.temperature_exceeded,
-                vibrationDetected: data?.vibration_detected,
-                smokeDetected: data?.smoke_detected,
-                flameDetected: data?.flame_detected,
-                averageTemp: parseFloat(data?.average_temp || 0),
-                averageHumidity: parseFloat(data?.average_humidity || 0),
-                lowTemp: parseFloat(data?.low_temp || 0),
-                highTemp: parseFloat(data?.high_temp || 0),
-                lowHumidity: parseFloat(data?.low_humidity || 0),
-                highHumidity: parseFloat(data?.high_humidity || 0),
-            };
-        })
-    );
+    // Process the fetched data to match your desired output format
+    const dailyData = data.map((item) => {
+        const date = new Date(item.date).getDate();
+        return {
+            date,
+            month: monthValue,
+            dataExists: !!item.average_temp,
+            temperature: item.temperature_exceeded,
+            vibrationDetected: item.vibration_detected,
+            smokeDetected: item.smoke_detected,
+            flameDetected: item.flame_detected,
+            averageTemp: parseFloat(item.average_temp || 0),
+            averageHumidity: parseFloat(item.average_humidity || 0),
+            lowTemp: parseFloat(item.low_temp || 0),
+            highTemp: parseFloat(item.high_temp || 0),
+            lowHumidity: parseFloat(item.low_humidity || 0),
+            highHumidity: parseFloat(item.high_humidity || 0),
+        };
+    });
 
     return dailyData;
 };
 
 // Fully refactored fetchMonthlyHistory
 export const fetchMonthlyHistory = async (yearValue) => {
-    const monthRanges = [];
+    // Determine the date for 3 months ago from the current date.
+    // This creates a single, efficient date range for the query.
     const currentDate = new Date();
+    const threeMonthsAgo = new Date();
+    threeMonthsAgo.setMonth(currentDate.getMonth() - 2); // get data for the last 3 months
 
-    for (let i = 0; i < 3; i++) {
-        let currentMonth = currentDate.getMonth() + 1 - i;
-        let currentYear = yearValue;
+    const startDate = `${threeMonthsAgo.getFullYear()}-${String(threeMonthsAgo.getMonth() + 1).padStart(2, '0')}-01`;
+    const endDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
 
-        if (currentMonth <= 0) {
-            currentMonth += 12;
-            currentYear -= 1;
-        }
+    const { data, error } = await supabase
+        .from("monthly_readings_summary")
+        .select("*")
+        .gte("month_start_date", startDate)
+        .lte("month_start_date", endDate);
 
-        const daysInMonth = getDaysInMonth(currentYear, currentMonth);
-        const startDate = `${currentYear}-${String(currentMonth).padStart(2, '0')}-01`;
-        const endDate = getNextDay(currentYear, currentMonth, daysInMonth);
-
-        monthRanges.push({ year: currentYear, month: currentMonth, startDate, endDate });
+    if (error) {
+        console.error("Error fetching monthly history data:", error);
+        return null;
     }
 
-    const dataRetrieved = await Promise.all(
-        monthRanges.map(async (range) => {
-            const data = await fetchAggregatedData(range.startDate, range.endDate);
-
-            return {
-                month: range.month,
-                year: range.year,
-                dataExists: data.count > 0,
-                temperature: data.temperature_exceeded,
-                vibrationDetected: data.vibration_detected,
-                smokeDetected: data.smoke_detected,
-                flameDetected: data.flame_detected,
-                averageTemp: parseFloat(data.average_temp || 0),
-                averageHumidity: parseFloat(data.average_humidity || 0),
-                lowTemp: parseFloat(data.low_temp || 0),
-                highTemp: parseFloat(data.high_temp || 0),
-                lowHumidity: parseFloat(data.low_humidity || 0),
-                highHumidity: parseFloat(data.high_humidity || 0),
-            };
-        })
-    );
+    // Process the fetched data to match your desired output format
+    const dataRetrieved = data.map((item) => {
+        const date = new Date(item.month_start_date);
+        return {
+            month: date.getMonth() + 1,
+            year: date.getFullYear(),
+            dataExists: !!item.average_temp,
+            temperature: item.temperature_exceeded,
+            vibrationDetected: item.vibration_detected,
+            smokeDetected: item.smoke_detected,
+            flameDetected: item.flame_detected,
+            averageTemp: parseFloat(item.average_temp || 0),
+            averageHumidity: parseFloat(item.average_humidity || 0),
+            lowTemp: parseFloat(item.low_temp || 0),
+            highTemp: parseFloat(item.high_temp || 0),
+            lowHumidity: parseFloat(item.low_humidity || 0),
+            highHumidity: parseFloat(item.high_humidity || 0),
+        };
+    });
 
     return dataRetrieved;
 };
