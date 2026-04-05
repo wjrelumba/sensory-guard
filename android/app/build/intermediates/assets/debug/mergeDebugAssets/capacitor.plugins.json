@@ -8,10 +8,6 @@
 		"classpath": "com.capacitorjs.plugins.app.AppPlugin"
 	},
 	{
-		"pkg": "@capacitor/background-runner",
-		"classpath": "io.ionic.backgroundrunner.plugin.BackgroundRunnerPlugin"
-	},
-	{
 		"pkg": "@capacitor/camera",
 		"classpath": "com.capacitorjs.plugins.camera.CameraPlugin"
 	},

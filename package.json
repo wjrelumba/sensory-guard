@@ -14,7 +14,6 @@
     "@anuradev/capacitor-background-mode": "^7.0.4",
     "@capacitor/android": "^7.0.0",
     "@capacitor/app": "^7.0.0",
-    "@capacitor/background-runner": "^2.1.0",
     "@capacitor/camera": "^7.0.1",
     "@capacitor/cli": "^7.0.0",
     "@capacitor/core": "^7.0.0",

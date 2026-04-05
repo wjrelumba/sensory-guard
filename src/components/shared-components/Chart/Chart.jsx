@@ -6,10 +6,12 @@ export default function Chart() {
     const chartRef = useRef(null);
     const chartInstanceRef = useRef(null); // Ref to store chart instance
 
+    const [yearChosen, setYearChosen] = useState(2025);
     const [averageValues, setAverageValues] = useState(null);
+    const [yearList, setYearList] = useState([]);
 
     const getAverage = async() => {
-        const averageValuesChild = await fetchMonthly(2025);
+        const averageValuesChild = await fetchMonthly(yearChosen);
 
         setAverageValues(averageValuesChild);
     }
@@ -77,11 +79,29 @@ export default function Chart() {
                 });
             }
         }
-    }
+    };
+
+    // Create 5 recent years from year right now
+    const createFiveYearInterval = () => {
+        const yearArray = [];
+        const currentYear = new Date().getFullYear();
+
+        for(var i = 0; i < 5; i++){
+            yearArray.push(currentYear - i)
+        };
+
+        setYearList(yearArray);
+    };
+
+    // Set the chosen year
+    const yearHandler = (e) => {
+        const dataValue = e.target.value;
+        setYearChosen(dataValue);
+    };
 
 
     useEffect(() => {
-        getAverage();
+        createFiveYearInterval();
         // Cleanup function to destroy the chart on unmount
         return () => {
             if (chartInstanceRef.current) {
@@ -91,12 +111,21 @@ export default function Chart() {
     }, []);
 
     useEffect(() => {
+        getAverage()
+    },[yearChosen])
+
+    useEffect(() => {
         createChart();
     },[averageValues])
 
     return (
         <div className="w-full">
             <div className="w-full p-2 rounded-md from-white border-[2px] border-gray-300 shadow-xl to-blue-600 bg-gradient-to-b text-gray-900">
+                <select onChange={yearHandler}>
+                    {yearList.map((data, index) => (
+                        <option value={data} key={index}>{data}</option>
+                    ))}
+                </select>
                 <canvas ref={chartRef} />
             </div>
         </div>

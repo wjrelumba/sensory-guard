@@ -35,7 +35,8 @@ export const fetchMonthly = async (yearValue) => {
         .from("monthly_readings_summary")
         .select("*")
         .gte("month_start_date", startDate)
-        .lte("month_start_date", endDate);
+        .lte("month_start_date", endDate)
+        .order("month_start_date", { ascending: true });
 
     if (error) {
         console.error("Error fetching monthly aggregated data:", error);
@@ -75,7 +76,8 @@ export const fetchWeekly = async (yearValue, monthValue) => {
         .from("weekly_readings_summary")
         .select("*")
         .gte("week_start_date", startOfMonth)
-        .lte("week_start_date", endOfMonth);
+        .lte("week_start_date", endOfMonth)
+        .order("week_start_date", {ascending: true});
 
     if (error) {
         console.error("Error fetching weekly aggregated data:", error);
@@ -115,7 +117,8 @@ export const fetchDaily = async (yearValue, monthValue) => {
         .from("daily_readings_summary")
         .select("*")
         .gte("date", startOfMonth)
-        .lte("date", endOfMonth);
+        .lte("date", endOfMonth)
+        .order("date", {ascending: true});
 
     if (error) {
         console.error("Error fetching daily aggregated data:", error);
@@ -160,7 +163,8 @@ export const fetchMonthlyHistory = async (yearValue) => {
         .from("monthly_readings_summary")
         .select("*")
         .gte("month_start_date", startDate)
-        .lte("month_start_date", endDate);
+        .lte("month_start_date", endDate)
+        .order("month_start_date", { ascending: true });
 
     if (error) {
         console.error("Error fetching monthly history data:", error);

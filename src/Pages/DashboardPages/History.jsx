@@ -7,33 +7,15 @@ import monthExtractor from '../../Essentials/MonthExtractor';
 import Loader from '../../components/shared-components/Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 
-const sampleHistory = [{
-    date: 'December 3, 2024',
-    status: 'Normal Levels',
-    detection: 'No unusual detection.'
-  },{
-    date: 'December 2, 2024',
-    status: 'Normal Levels',
-    detection: 'No unusual detection.'
-  },{
-    date: 'December 1, 2024',
-    status: 'Normal Levels',
-    detection: 'Vibration detected.'
-  },
-  {
-    date: 'November 1, 2024',
-    status: 'Normal Levels',
-    detection: 'Vibration detected.'
-  },
-];
-
 export default function History() {
   const navigate = useNavigate();
 
+  // Click to go to detailed report
   const navigateToShow = (data) => {
     navigate('/dashboard/viewReport', {state: {data, chosenYear, monthlyMode, dailyMode, weeklyMode}})
   }
 
+  // Show toast function
   const showToast = () => {
     showSuccessToast('Clicked');
   }

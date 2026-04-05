@@ -2,7 +2,7 @@
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
 3    package="com.sensoryGuard.www"
 4    android:versionCode="1"
-5    android:versionName="1.0" >
+5    android:versionName="8.0" >
 6
 7    <uses-sdk
 8        android:minSdkVersion="23"
@@ -11,50 +11,50 @@
 11    <!-- Permissions -->
 12
 13    <uses-permission android:name="android.permission.INTERNET" />
-13-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:46:5-67
-13-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:46:22-64
+13-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:42:5-67
+13-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:42:22-64
 14
 15    <!-- Geolocation API -->
 16    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-16-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:49:5-81
-16-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:49:22-78
+16-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:45:5-81
+16-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:45:22-78
 17    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-17-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:50:5-79
-17-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:50:22-76
+17-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:46:5-79
+17-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:46:22-76
 18
 19    <!-- Needed for Android 12 and Above -->
 20    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-20-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:53:5-79
-20-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:53:22-76
+20-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:49:5-79
+20-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:49:22-76
 21
 22    <!-- Needed for Foreground Services -->
 23    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-23-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:56:5-76
-23-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:56:22-74
+23-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:52:5-77
+23-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:52:22-74
 24    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-24-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:57:5-81
-24-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:57:22-78
+24-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:53:5-81
+24-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:53:22-78
 25
 26    <!-- Permission for Camera -->
 27    <uses-permission android:name="android.permission.CAMERA" />
-27-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:60:5-64
-27-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:60:22-62
+27-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:56:5-65
+27-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:56:22-62
 28
 29    <!-- Permission for Notifications -->
 30    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-30-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:63:5-77
-30-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:63:22-74
+30-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:59:5-77
+30-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:59:22-74
 31
 32    <!-- Permission for Storage -->
 33    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-33-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:66:5-81
-33-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:66:22-78
+33-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:62:5-81
+33-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:62:22-78
 34    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-34-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:67:5-80
-34-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:67:22-77
+34-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:63:5-80
+34-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:63:22-77
 35    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-35-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:68:5-111
-35-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:68:22-79
+35-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:64:5-111
+35-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:64:22-79
 36    <uses-permission android:name="android.permission.WAKE_LOCK" />
 36-->[:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:5-68
 36-->[:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:22-65
@@ -67,431 +67,228 @@
 39    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 39-->[:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:5-78
 39-->[:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:22-75
-40    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-40-->[:capacitor-background-runner] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\background-runner\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:5-79
-40-->[:capacitor-background-runner] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\background-runner\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:22-76
-41    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-41-->[:capacitor-background-runner] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\background-runner\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:5-85
-41-->[:capacitor-background-runner] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\background-runner\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:22-82
-42
-43    <queries>
-43-->[:capacitor-camera] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\camera\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:5-11:15
-44        <intent>
-44-->[:capacitor-camera] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\camera\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-10:18
-45            <action android:name="android.media.action.IMAGE_CAPTURE" />
-45-->[:capacitor-camera] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\camera\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:13-73
-45-->[:capacitor-camera] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\camera\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:21-70
-46        </intent>
-47    </queries>
-48
-49    <permission
-49-->[androidx.core:core:1.15.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\753898171cb372054ae9e8b2d927a7b4\transformed\core-1.15.0\AndroidManifest.xml:22:5-24:47
-50        android:name="com.sensoryGuard.www.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-50-->[androidx.core:core:1.15.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\753898171cb372054ae9e8b2d927a7b4\transformed\core-1.15.0\AndroidManifest.xml:23:9-81
-51        android:protectionLevel="signature" />
-51-->[androidx.core:core:1.15.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\753898171cb372054ae9e8b2d927a7b4\transformed\core-1.15.0\AndroidManifest.xml:24:9-44
+40
+41    <queries>
+41-->[:capacitor-camera] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\camera\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:5-11:15
+42        <intent>
+42-->[:capacitor-camera] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\camera\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-10:18
+43            <action android:name="android.media.action.IMAGE_CAPTURE" />
+43-->[:capacitor-camera] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\camera\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:13-73
+43-->[:capacitor-camera] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\camera\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:21-70
+44        </intent>
+45    </queries>
+46
+47    <permission
+47-->[androidx.core:core:1.15.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\5f51ed623ec66baebfa6a053fe8a8b2a\transformed\core-1.15.0\AndroidManifest.xml:22:5-24:47
+48        android:name="com.sensoryGuard.www.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+48-->[androidx.core:core:1.15.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\5f51ed623ec66baebfa6a053fe8a8b2a\transformed\core-1.15.0\AndroidManifest.xml:23:9-81
+49        android:protectionLevel="signature" />
+49-->[androidx.core:core:1.15.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\5f51ed623ec66baebfa6a053fe8a8b2a\transformed\core-1.15.0\AndroidManifest.xml:24:9-44
+50
+51    <uses-permission android:name="com.sensoryGuard.www.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+51-->[androidx.core:core:1.15.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\5f51ed623ec66baebfa6a053fe8a8b2a\transformed\core-1.15.0\AndroidManifest.xml:26:5-97
+51-->[androidx.core:core:1.15.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\5f51ed623ec66baebfa6a053fe8a8b2a\transformed\core-1.15.0\AndroidManifest.xml:26:22-94
 52
-53    <uses-permission android:name="com.sensoryGuard.www.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-53-->[androidx.core:core:1.15.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\753898171cb372054ae9e8b2d927a7b4\transformed\core-1.15.0\AndroidManifest.xml:26:5-97
-53-->[androidx.core:core:1.15.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\753898171cb372054ae9e8b2d927a7b4\transformed\core-1.15.0\AndroidManifest.xml:26:22-94
-54
-55    <application
-55-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:6:5-42:19
-56        android:allowBackup="true"
-56-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:7:9-35
-57        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-57-->[androidx.core:core:1.15.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\753898171cb372054ae9e8b2d927a7b4\transformed\core-1.15.0\AndroidManifest.xml:28:18-86
-58        android:debuggable="true"
-59        android:extractNativeLibs="false"
-60        android:icon="@mipmap/ic_launcher"
-60-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:8:9-43
-61        android:label="@string/app_name"
-61-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:9:9-41
-62        android:requestLegacyExternalStorage="true"
-62-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:13:9-52
-63        android:roundIcon="@mipmap/ic_launcher_round"
-63-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:10:9-54
-64        android:supportsRtl="true"
-64-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:11:9-35
-65        android:theme="@style/AppTheme" >
-65-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:12:9-40
-66        <activity
-66-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:15:9-26:20
-67            android:name="com.sensoryGuard.www.MainActivity"
-67-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:17:13-41
-68            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode|navigation"
-68-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:16:13-140
-69            android:exported="true"
-69-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:21:13-36
-70            android:label="@string/title_activity_main"
-70-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:18:13-56
-71            android:launchMode="singleTask"
-71-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:20:13-44
-72            android:theme="@style/AppTheme.NoActionBarLaunch" >
-72-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:19:13-62
-73            <intent-filter>
-73-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:22:13-25:29
-74                <action android:name="android.intent.action.MAIN" />
-74-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:23:17-69
-74-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:23:25-66
-75
-76                <category android:name="android.intent.category.LAUNCHER" />
-76-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:24:17-77
-76-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:24:27-74
-77            </intent-filter>
-78        </activity>
-79
-80        <provider
-81            android:name="androidx.core.content.FileProvider"
-81-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:29:13-62
-82            android:authorities="com.sensoryGuard.www.fileprovider"
-82-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:30:13-64
-83            android:exported="false"
-83-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:31:13-37
-84            android:grantUriPermissions="true" >
-84-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:32:13-47
-85            <meta-data
-85-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:33:13-112
-86                android:name="android.support.FILE_PROVIDER_PATHS"
-86-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:33:24-74
-87                android:resource="@xml/file_paths" />
-87-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:33:75-109
-88        </provider>
-89
-90        <!-- Foreground Service Declaration -->
-91        <service
-91-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:37:9-40:39
-92            android:name="com.sensoryGuard.www.BackgroundRunnerService"
-92-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:38:13-52
-93            android:exported="true"
-93-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:40:13-36
-94            android:foregroundServiceType="location|dataSync" />
-94-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:39:13-62
-95        <service
-95-->[:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:9-23:19
-96            android:name="ar.com.anura.plugins.backgroundmode.BackgroundModeService"
-96-->[:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:13-85
-97            android:enabled="true"
-97-->[:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:17:13-35
-98            android:exported="false"
-98-->[:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:18:13-37
-99            android:foregroundServiceType="specialUse" >
-99-->[:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:19:13-55
-100            <property
-100-->[:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:20:13-22:181
-101                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
-101-->[:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:21:17-76
-102                android:value="Needed to keep app alive to be able to receive messages and calls from third party SIP servers for which push notifications aren&apos;t available" />
-102-->[:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:22:17-178
-103        </service>
-104
-105        <receiver android:name="io.ionic.backgroundrunner.plugin.api.TimedNotificationPublisher" />
-105-->[:capacitor-background-runner] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\background-runner\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:9-100
-105-->[:capacitor-background-runner] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\background-runner\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:19-97
-106        <receiver android:name="com.capacitorjs.plugins.localnotifications.TimedNotificationPublisher" />
-106-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:9-106
-106-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:19-103
-107        <receiver android:name="com.capacitorjs.plugins.localnotifications.NotificationDismissReceiver" />
-107-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:9-107
-107-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:19-104
-108        <receiver
-108-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:9-23:20
-109            android:name="com.capacitorjs.plugins.localnotifications.LocalNotificationRestoreReceiver"
-109-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:13-103
-110            android:directBootAware="true"
-110-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:13-43
-111            android:exported="false" >
-111-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:17:13-37
-112            <intent-filter>
-112-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:18:13-22:29
-113                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
-113-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:19:17-86
-113-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:19:25-83
-114                <action android:name="android.intent.action.BOOT_COMPLETED" />
-114-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:20:17-79
-114-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:20:25-76
-115                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-115-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:21:17-82
-115-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:21:25-79
-116            </intent-filter>
-117        </receiver>
-118
-119        <provider
-119-->[:capacitor-cordova-android-plugins] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\capacitor-cordova-android-plugins\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:9-19:20
-120            android:name="io.github.pwlin.cordova.plugins.fileopener2.FileProvider"
-120-->[:capacitor-cordova-android-plugins] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\capacitor-cordova-android-plugins\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:13-84
-121            android:authorities="com.sensoryGuard.www.fileOpener2.provider"
-121-->[:capacitor-cordova-android-plugins] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\capacitor-cordova-android-plugins\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:13-72
-122            android:exported="false"
-122-->[:capacitor-cordova-android-plugins] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\capacitor-cordova-android-plugins\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:13-37
-123            android:grantUriPermissions="true" >
-123-->[:capacitor-cordova-android-plugins] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\capacitor-cordova-android-plugins\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:13-47
-124            <meta-data
-124-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:33:13-112
-125                android:name="android.support.FILE_PROVIDER_PATHS"
-125-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:33:24-74
-126                android:resource="@xml/opener_paths" />
-126-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:33:75-109
-127        </provider>
-128        <provider
-128-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\8a1519a6f4c98129e3b0abf2961a23a9\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
-129            android:name="androidx.startup.InitializationProvider"
-129-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\8a1519a6f4c98129e3b0abf2961a23a9\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
-130            android:authorities="com.sensoryGuard.www.androidx-startup"
-130-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\8a1519a6f4c98129e3b0abf2961a23a9\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
-131            android:exported="false" >
-131-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\8a1519a6f4c98129e3b0abf2961a23a9\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
+53    <application
+53-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:3:5-38:19
+54        android:allowBackup="true"
+54-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:4:9-35
+55        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+55-->[androidx.core:core:1.15.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\5f51ed623ec66baebfa6a053fe8a8b2a\transformed\core-1.15.0\AndroidManifest.xml:28:18-86
+56        android:debuggable="true"
+57        android:extractNativeLibs="false"
+58        android:icon="@mipmap/ic_launcher"
+58-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:5:9-43
+59        android:label="@string/app_name"
+59-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:6:9-41
+60        android:requestLegacyExternalStorage="true"
+60-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:10:9-52
+61        android:roundIcon="@mipmap/ic_launcher_round"
+61-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:7:9-54
+62        android:supportsRtl="true"
+62-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:8:9-35
+63        android:theme="@style/AppTheme" >
+63-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:9:9-40
+64        <activity
+64-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:11:9-22:20
+65            android:name="com.sensoryGuard.www.MainActivity"
+65-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:13:13-41
+66            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode|navigation"
+66-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:12:13-140
+67            android:exported="true"
+67-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:17:13-36
+68            android:label="@string/title_activity_main"
+68-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:14:13-56
+69            android:launchMode="singleTask"
+69-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:16:13-44
+70            android:theme="@style/AppTheme.NoActionBarLaunch" >
+70-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:15:13-62
+71            <intent-filter>
+71-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:18:13-21:29
+72                <action android:name="android.intent.action.MAIN" />
+72-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:19:17-69
+72-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:19:25-66
+73
+74                <category android:name="android.intent.category.LAUNCHER" />
+74-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:20:17-77
+74-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:20:27-74
+75            </intent-filter>
+76        </activity>
+77
+78        <provider
+79            android:name="androidx.core.content.FileProvider"
+79-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:25:13-62
+80            android:authorities="com.sensoryGuard.www.fileprovider"
+80-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:26:13-64
+81            android:exported="false"
+81-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:27:13-37
+82            android:grantUriPermissions="true" >
+82-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:28:13-47
+83            <meta-data
+83-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:29:13-112
+84                android:name="android.support.FILE_PROVIDER_PATHS"
+84-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:29:24-74
+85                android:resource="@xml/file_paths" />
+85-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:29:75-109
+86        </provider>
+87
+88        <!-- Foreground Service Declaration -->
+89        <service
+89-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:33:9-37:11
+90            android:name="com.sensoryGuard.www.BackgroundRunnerService"
+90-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:34:13-52
+91            android:exported="true"
+91-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:36:13-36
+92            android:foregroundServiceType="location|dataSync" />
+92-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:35:13-62
+93        <service
+93-->[:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:9-23:19
+94            android:name="ar.com.anura.plugins.backgroundmode.BackgroundModeService"
+94-->[:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:13-85
+95            android:enabled="true"
+95-->[:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:17:13-35
+96            android:exported="false"
+96-->[:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:18:13-37
+97            android:foregroundServiceType="specialUse" >
+97-->[:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:19:13-55
+98            <property
+98-->[:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:20:13-22:181
+99                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+99-->[:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:21:17-76
+100                android:value="Needed to keep app alive to be able to receive messages and calls from third party SIP servers for which push notifications aren&apos;t available" />
+100-->[:anuradev-capacitor-background-mode] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@anuradev\capacitor-background-mode\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:22:17-178
+101        </service>
+102
+103        <receiver android:name="com.capacitorjs.plugins.localnotifications.TimedNotificationPublisher" />
+103-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:9-106
+103-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:19-103
+104        <receiver android:name="com.capacitorjs.plugins.localnotifications.NotificationDismissReceiver" />
+104-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:9-107
+104-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:19-104
+105        <receiver
+105-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:9-23:20
+106            android:name="com.capacitorjs.plugins.localnotifications.LocalNotificationRestoreReceiver"
+106-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:13-103
+107            android:directBootAware="true"
+107-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:13-43
+108            android:exported="false" >
+108-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:17:13-37
+109            <intent-filter>
+109-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:18:13-22:29
+110                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+110-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:19:17-86
+110-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:19:25-83
+111                <action android:name="android.intent.action.BOOT_COMPLETED" />
+111-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:20:17-79
+111-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:20:25-76
+112                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+112-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:21:17-82
+112-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:21:25-79
+113            </intent-filter>
+114        </receiver>
+115
+116        <provider
+116-->[:capacitor-cordova-android-plugins] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\capacitor-cordova-android-plugins\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:9-19:20
+117            android:name="io.github.pwlin.cordova.plugins.fileopener2.FileProvider"
+117-->[:capacitor-cordova-android-plugins] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\capacitor-cordova-android-plugins\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:13-84
+118            android:authorities="com.sensoryGuard.www.fileOpener2.provider"
+118-->[:capacitor-cordova-android-plugins] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\capacitor-cordova-android-plugins\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:13-72
+119            android:exported="false"
+119-->[:capacitor-cordova-android-plugins] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\capacitor-cordova-android-plugins\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:13-37
+120            android:grantUriPermissions="true" >
+120-->[:capacitor-cordova-android-plugins] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\capacitor-cordova-android-plugins\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:13-47
+121            <meta-data
+121-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:29:13-112
+122                android:name="android.support.FILE_PROVIDER_PATHS"
+122-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:29:24-74
+123                android:resource="@xml/opener_paths" />
+123-->D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\android\app\src\main\AndroidManifest.xml:29:75-109
+124        </provider>
+125        <provider
+125-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\455628e39230ce08b70f281b4ac99c3c\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+126            android:name="androidx.startup.InitializationProvider"
+126-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\455628e39230ce08b70f281b4ac99c3c\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
+127            android:authorities="com.sensoryGuard.www.androidx-startup"
+127-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\455628e39230ce08b70f281b4ac99c3c\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
+128            android:exported="false" >
+128-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\455628e39230ce08b70f281b4ac99c3c\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
+129            <meta-data
+129-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\455628e39230ce08b70f281b4ac99c3c\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+130                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+130-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\455628e39230ce08b70f281b4ac99c3c\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
+131                android:value="androidx.startup" />
+131-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\455628e39230ce08b70f281b4ac99c3c\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
 132            <meta-data
-132-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\8a1519a6f4c98129e3b0abf2961a23a9\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
-133                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-133-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\8a1519a6f4c98129e3b0abf2961a23a9\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
+132-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Billy\.gradle\caches\8.11.1\transforms\2086035d7e747a32c2be40e6ed7f404e\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
+133                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+133-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Billy\.gradle\caches\8.11.1\transforms\2086035d7e747a32c2be40e6ed7f404e\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
 134                android:value="androidx.startup" />
-134-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\8a1519a6f4c98129e3b0abf2961a23a9\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
+134-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Billy\.gradle\caches\8.11.1\transforms\2086035d7e747a32c2be40e6ed7f404e\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
 135            <meta-data
-135-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:34:13-36:52
-136                android:name="androidx.work.WorkManagerInitializer"
-136-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:35:17-68
+135-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+136                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+136-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
 137                android:value="androidx.startup" />
-137-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:36:17-49
-138            <meta-data
-138-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Billy\.gradle\caches\8.11.1\transforms\bf94272846b855d49acff05af8744d1b\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
-139                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-139-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Billy\.gradle\caches\8.11.1\transforms\bf94272846b855d49acff05af8744d1b\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
-140                android:value="androidx.startup" />
-140-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Billy\.gradle\caches\8.11.1\transforms\bf94272846b855d49acff05af8744d1b\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
-141            <meta-data
-141-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
-142                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-142-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
-143                android:value="androidx.startup" />
-143-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
-144        </provider>
-145
-146        <service
-146-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:39:9-45:35
-147            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
-147-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:40:13-88
-148            android:directBootAware="false"
-148-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:41:13-44
-149            android:enabled="@bool/enable_system_alarm_service_default"
-149-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:42:13-72
-150            android:exported="false" />
-150-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:43:13-37
-151        <service
-151-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:46:9-52:35
-152            android:name="androidx.work.impl.background.systemjob.SystemJobService"
-152-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:47:13-84
-153            android:directBootAware="false"
-153-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:48:13-44
-154            android:enabled="@bool/enable_system_job_service_default"
-154-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:49:13-70
-155            android:exported="true"
-155-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:50:13-36
-156            android:permission="android.permission.BIND_JOB_SERVICE" />
-156-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:51:13-69
-157        <service
-157-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:53:9-59:35
-158            android:name="androidx.work.impl.foreground.SystemForegroundService"
-158-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:54:13-81
-159            android:directBootAware="false"
-159-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:55:13-44
-160            android:enabled="@bool/enable_system_foreground_service_default"
-160-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:56:13-77
-161            android:exported="false" />
-161-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:57:13-37
-162
-163        <receiver
-163-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:61:9-66:35
-164            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
-164-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:62:13-88
-165            android:directBootAware="false"
-165-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:63:13-44
-166            android:enabled="true"
-166-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:64:13-35
-167            android:exported="false" />
-167-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:65:13-37
-168        <receiver
-168-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:67:9-77:20
-169            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
-169-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:68:13-106
-170            android:directBootAware="false"
-170-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:69:13-44
-171            android:enabled="false"
-171-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:70:13-36
-172            android:exported="false" >
-172-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:71:13-37
-173            <intent-filter>
-173-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:73:13-76:29
-174                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-174-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:74:17-87
-174-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:74:25-84
-175                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
-175-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:75:17-90
-175-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:75:25-87
-176            </intent-filter>
-177        </receiver>
-178        <receiver
-178-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:78:9-88:20
-179            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
-179-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:79:13-104
-180            android:directBootAware="false"
-180-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:80:13-44
-181            android:enabled="false"
-181-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:81:13-36
-182            android:exported="false" >
-182-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:82:13-37
-183            <intent-filter>
-183-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:84:13-87:29
-184                <action android:name="android.intent.action.BATTERY_OKAY" />
-184-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:85:17-77
-184-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:85:25-74
-185                <action android:name="android.intent.action.BATTERY_LOW" />
-185-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:86:17-76
-185-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:86:25-73
-186            </intent-filter>
-187        </receiver>
-188        <receiver
-188-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:89:9-99:20
-189            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
-189-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:90:13-104
-190            android:directBootAware="false"
-190-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:91:13-44
-191            android:enabled="false"
-191-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:92:13-36
-192            android:exported="false" >
-192-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:93:13-37
-193            <intent-filter>
-193-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:95:13-98:29
-194                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
-194-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:96:17-83
-194-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:96:25-80
-195                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
-195-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:97:17-82
-195-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:97:25-79
-196            </intent-filter>
-197        </receiver>
-198        <receiver
-198-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:100:9-109:20
-199            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
-199-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:101:13-103
-200            android:directBootAware="false"
-200-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:102:13-44
-201            android:enabled="false"
-201-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:103:13-36
-202            android:exported="false" >
-202-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:104:13-37
-203            <intent-filter>
-203-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:106:13-108:29
-204                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-204-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:107:17-79
-204-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:107:25-76
-205            </intent-filter>
-206        </receiver>
-207        <receiver
-207-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:110:9-121:20
-208            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
-208-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:111:13-88
-209            android:directBootAware="false"
-209-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:112:13-44
-210            android:enabled="false"
-210-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:113:13-36
-211            android:exported="false" >
-211-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:114:13-37
-212            <intent-filter>
-212-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:116:13-120:29
-213                <action android:name="android.intent.action.BOOT_COMPLETED" />
-213-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:20:17-79
-213-->[:capacitor-local-notifications] D:\Documents\4th Year PUP Files\1st_sem\Thesis\sensory-guard\node_modules\@capacitor\local-notifications\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:20:25-76
-214                <action android:name="android.intent.action.TIME_SET" />
-214-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:118:17-73
-214-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:118:25-70
-215                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-215-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:119:17-81
-215-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:119:25-78
-216            </intent-filter>
-217        </receiver>
-218        <receiver
-218-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:122:9-131:20
-219            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
-219-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:123:13-99
-220            android:directBootAware="false"
-220-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:124:13-44
-221            android:enabled="@bool/enable_system_alarm_service_default"
-221-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:125:13-72
-222            android:exported="false" >
-222-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:126:13-37
-223            <intent-filter>
-223-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:128:13-130:29
-224                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
-224-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:129:17-98
-224-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:129:25-95
-225            </intent-filter>
-226        </receiver>
-227        <receiver
-227-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:132:9-142:20
-228            android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver"
-228-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:133:13-78
-229            android:directBootAware="false"
-229-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:134:13-44
-230            android:enabled="true"
-230-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:135:13-35
-231            android:exported="true"
-231-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:136:13-36
-232            android:permission="android.permission.DUMP" >
-232-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:137:13-57
-233            <intent-filter>
-233-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:139:13-141:29
-234                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
-234-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:140:17-88
-234-->[androidx.work:work-runtime:2.8.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\70a01260687d17bb4d0dcc08619b9ee9\transformed\work-runtime-2.8.1\AndroidManifest.xml:140:25-85
-235            </intent-filter>
-236        </receiver>
-237        <receiver
-237-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
-238            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-238-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
-239            android:directBootAware="false"
-239-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
-240            android:enabled="true"
-240-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
-241            android:exported="true"
-241-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
-242            android:permission="android.permission.DUMP" >
-242-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
-243            <intent-filter>
-243-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
-244                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-244-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
-244-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
-245            </intent-filter>
-246            <intent-filter>
-246-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
-247                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-247-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
-247-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
-248            </intent-filter>
-249            <intent-filter>
-249-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
-250                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-250-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
-250-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
-251            </intent-filter>
-252            <intent-filter>
-252-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
-253                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-253-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
-253-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\9d640bde1d2772eefcb02fb29183b466\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
-254            </intent-filter>
-255        </receiver>
-256
-257        <service
-257-->[androidx.room:room-runtime:2.5.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\e96222b74172b295cab56f25c6b83b50\transformed\room-runtime-2.5.0\AndroidManifest.xml:24:9-28:63
-258            android:name="androidx.room.MultiInstanceInvalidationService"
-258-->[androidx.room:room-runtime:2.5.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\e96222b74172b295cab56f25c6b83b50\transformed\room-runtime-2.5.0\AndroidManifest.xml:25:13-74
-259            android:directBootAware="true"
-259-->[androidx.room:room-runtime:2.5.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\e96222b74172b295cab56f25c6b83b50\transformed\room-runtime-2.5.0\AndroidManifest.xml:26:13-43
-260            android:exported="false" />
-260-->[androidx.room:room-runtime:2.5.0] C:\Users\Billy\.gradle\caches\8.11.1\transforms\e96222b74172b295cab56f25c6b83b50\transformed\room-runtime-2.5.0\AndroidManifest.xml:27:13-37
-261    </application>
-262
-263</manifest>
+137-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+138        </provider>
+139
+140        <receiver
+140-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+141            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+141-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+142            android:directBootAware="false"
+142-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+143            android:enabled="true"
+143-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+144            android:exported="true"
+144-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+145            android:permission="android.permission.DUMP" >
+145-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+146            <intent-filter>
+146-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+147                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+147-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+147-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+148            </intent-filter>
+149            <intent-filter>
+149-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+150                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+150-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+150-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+151            </intent-filter>
+152            <intent-filter>
+152-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+153                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+153-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+153-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+154            </intent-filter>
+155            <intent-filter>
+155-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+156                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+156-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+156-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Billy\.gradle\caches\8.11.1\transforms\0f3d68271fd414f74f11a6a9c308b287\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+157            </intent-filter>
+158        </receiver>
+159    </application>
+160
+161</manifest>
