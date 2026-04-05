@@ -6,7 +6,7 @@ export default function Chart() {
     const chartRef = useRef(null);
     const chartInstanceRef = useRef(null); // Ref to store chart instance
 
-    const [yearChosen, setYearChosen] = useState(2025);
+    const [yearChosen, setYearChosen] = useState(new Date().getFullYear());
     const [averageValues, setAverageValues] = useState(null);
     const [yearList, setYearList] = useState([]);
 
@@ -121,11 +121,14 @@ export default function Chart() {
     return (
         <div className="w-full">
             <div className="w-full p-2 rounded-md from-white border-[2px] border-gray-300 shadow-xl to-blue-600 bg-gradient-to-b text-gray-900">
-                <select onChange={yearHandler}>
-                    {yearList.map((data, index) => (
-                        <option value={data} key={index}>{data}</option>
-                    ))}
-                </select>
+                <div className="w-full mb-2 flex gap-1 items-center">
+                    <h1>Year</h1>
+                    <select className="border-2 bg-white rounded-xl px-2 py-1" onChange={yearHandler}>
+                        {yearList.map((data, index) => (
+                            <option value={data} key={index}>{data}</option>
+                        ))}
+                    </select>
+                </div>
                 <canvas ref={chartRef} />
             </div>
         </div>
